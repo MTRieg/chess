@@ -1,7 +1,15 @@
+#include <string>
+
+
+class Board;
+struct Position;
+struct Colour;
 
 class Piece {
+
+    
     public:
-        enum class Type {
+        enum class PieceType {
             Pawn,
             Knight,
             Bishop,
@@ -10,14 +18,32 @@ class Piece {
             King
         };
 
-        enum class Color {
+        enum class Colour {
             White,
             Black
         };
 
-        Piece(Type type, Color color);
+        struct Position{
+            int Rank, File;
+            std::string Algebraic(Position p);
+        };
 
-        Type getType() const;
-        Color getColor() const;
-}
+        Piece(PieceType type, Colour colour, Board *b);
+
+        virtual PieceType getType() const;
+        Colour getColour() const;
+        Position getPosition() const;
+
+        virtual Position *validMoves();
+        bool verifyMoves(Position p);
+        bool move(Position p, PieceType promotion_type = PieceType::Queen);
+
+
+    protected:
+        Position pos;
+        Colour c;
+        const Board *v;
+
+
+};
 
