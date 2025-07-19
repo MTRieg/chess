@@ -1,7 +1,15 @@
 #include <vector>
 #include "piece.h"
-#include "gamedata.h"
 #include "boardobserver.h"
+
+#ifndef INVISIBLE_BOARD_INFO
+#define INVISIBLE_BOARD_INFO
+struct InvisibleBoardInfo {
+    bool wkc, wqc, bkc, bqc; // castling ability
+    int enPassantFile;
+};
+#endif
+
 
 class Board {
 
@@ -9,7 +17,9 @@ class Board {
     Piece*** board;
 
     BoardObserver** observers;
-    GameData *gameData;
+    bool check;
+    bool checkmate;
+    InvisibleBoardInfo ibi;
 
     void notifyObservers();
 
@@ -19,15 +29,18 @@ class Board {
     ~Board();
 
     void init();
-    vector<MoveInfo> getValidMoves(Piece::Colour colour) const;
-    bool isValidMove(const MoveInfo& move) const;
+    const vector<MoveInfo> getValidMoves(Piece::Colour colour) const;
+    const bool isValidMove(const MoveInfo& move) const;
     void movePiece(const MoveInfo& move);
     void addObserver(BoardObserver* observer);
     void removeObserver(BoardObserver* observer);
+    const Piece &pieceAtSquare(int file, int rank);
+    const bool check();
+    const bool checkmate();
+    const InvisibleBoardInfo BoardInfo();
+
+
 
 };
 
-struct InvisibleBoardInfo {
-    bool wkc, wqc, bkc, bqc; // castling ability
-    int enPassantFile;
-};
+
