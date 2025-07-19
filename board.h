@@ -25,12 +25,9 @@ class Board {
     void addObserver(BoardObserver* observer);
     void removeObserver(BoardObserver* observer);
 
-    private:
-
-
-
 };
 
 struct InvisibleBoardInfo {
     bool wkc, wqc, bkc, bqc; // castling ability
+    int enPassantFile;
 };

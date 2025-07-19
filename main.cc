@@ -16,6 +16,7 @@ int main() {
         if (cmd == "game") {
             string player1, player2;
             cin >> player1 >> player2;
+            inGame = true;
         }
 
 

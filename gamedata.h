@@ -7,6 +7,7 @@ class GameData : public BoardObserver{
 
     public:
     void update(MoveInfo latest) override;
+    vector<MoveInfo> lastestMoves(int n = 16);
 
 };
 
