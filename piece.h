@@ -28,13 +28,13 @@ class Piece {
             std::string Algebraic(Position p);
         };
 
-        Piece(PieceType type, Colour colour, Board *b);
+        
 
         virtual PieceType getType() const;
         Colour getColour() const;
         Position getPosition() const;
 
-        virtual Position *validMoves();
+        virtual Position *validMoves() = 0;
         bool verifyMoves(Position p);
         bool move(Position p, PieceType promotion_type = PieceType::Queen);
 
@@ -43,6 +43,8 @@ class Piece {
         Position pos;
         Colour c;
         const Board *b;
+
+        Piece(Colour colour, Board *b);
 
 
 };
