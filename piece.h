@@ -42,7 +42,7 @@ class Piece {
     protected:
         Position pos;
         Colour c;
-        const Board *v;
+        const Board *b;
 
 
 };
