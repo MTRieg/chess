@@ -5,7 +5,7 @@
 
 class Board {
 
-    int SIZE = 8;
+    int size;
     Piece*** board;
 
     BoardObserver** observers;

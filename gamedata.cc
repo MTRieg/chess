@@ -16,3 +16,4 @@ vector<MoveInfo> GameData::latestMoves(int n) {
     }
     return latestMoves;
 }
+
