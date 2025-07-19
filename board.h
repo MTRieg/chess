@@ -2,7 +2,14 @@
 
 class Board {
 
-    const int SIZE = 8;
+    int SIZE = 8;
 
+    Piece*** board;
+
+    public:
+
+    Board() : size{size = 8} {
+        
+    }
 
 };
