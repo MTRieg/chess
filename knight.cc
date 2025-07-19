@@ -1,0 +1,15 @@
+
+class Knight: public piece{
+
+
+
+
+
+    
+}
+
+
+
+
+
+
