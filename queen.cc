@@ -9,7 +9,7 @@
 
 class Queen: public Piece{
     public:
-        Queen(Colour colour, Board *b) : Piece(colour, b) {}
+        Queen(Colour colour, Position pos, Board *b) : Piece(colour, pos, b) {}
 
         PieceType getType() const override {
             return PieceType::Queen;

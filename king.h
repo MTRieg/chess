@@ -3,7 +3,7 @@
 
 class King : public Piece {
     public:
-        King(Colour colour, Board *b);
+        King(Colour colour, Position pos, Board *b);
 
         Piece::PieceType getType() const override;
 

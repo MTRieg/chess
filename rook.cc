@@ -9,7 +9,7 @@
 
 class Rook: public Piece{
     public:
-        Rook(Colour colour, Board *b) : Piece(colour, b) {}
+        Rook(Colour colour, Position pos, Board *b) : Piece(colour, pos, b) {}
 
         PieceType getType() const override {
             return PieceType::Rook;

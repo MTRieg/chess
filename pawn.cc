@@ -9,7 +9,7 @@
 
 class Pawn: public Piece{
     public:
-        Pawn(Colour colour, Board *b) : Piece(colour, b) {}
+        Pawn(Colour colour, Position pos, Board *b) : Piece(colour, pos, b) {}
 
         PieceType getType() const override {
             return PieceType::Pawn;
