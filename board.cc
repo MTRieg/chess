@@ -58,11 +58,11 @@ const Piece *Board::pieceAtPosition(const Piece::Position &pos) const {
 }
 
 const bool Board::check() {
-    return isCheck;
+    return checkCache;
 }
 
 const bool Board::checkmate() {
-    return isCheckmate;
+    return checkmateCache;
 }
 
 const InvisibleBoardInfo Board::BoardInfo() {
