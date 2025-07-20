@@ -1,7 +1,15 @@
 #include "piece.h"
 #include "board.h"
 
-Piece::Piece(Colour colour, Board *b) : c(colour), b(b) {}
+Colour &operator++(Colour &c) {
+    switch (c) {
+        case Colour::White: c = Colour::Black; break;
+        case Colour::Black: c = Colour::White; break;
+    }
+    return c;
+}
+
+Piece::Piece(Colour colour, Board *b) : c{colour}, b{b} {}
 
 Piece::PieceType Piece::getType() const { return type; }
 Colour Piece::getColour() const { return c; }

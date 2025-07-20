@@ -11,11 +11,9 @@ Game::Game() {
     board = new Board();
     gameData = new GameData();
     mode = Mode::Home;
-
-    // default setup
-    turnColour = Piece::Colour::White;
-    players = { Player::Human, Player::Computer1 };
-    scores = {0, 0};
+    for (int i = 0; i < NUM_PLAYERS; ++i) {
+        scores.push_back(0);
+    }
 }
 
 void Game::run()  {
@@ -29,24 +27,25 @@ void Game::run()  {
             continue;
         }
 
-        if (cmd == "game") {
-            string player1, player2;
-            cin >> player1 >> player2;
-            switch (player1) {
-                case "human": player1 = Player::Human; break;
-                case "computer[1]": player1 = Player::Computer1; break;
-                case "computer[2]": player1 = Player::Computer2; break;
-                case "computer[3]": player1 = Player::Computer3; break;
-                case "computer[4]": player1 = Player::Computer4; break;
-                default: cout << "Invalid player type" << endl; continue;
-            }
-            switch (player2) {
-                case "human": player2 = Player::Human; break;
-                case "computer[1]": player2 = Player::Computer1; break;
-                case "computer[2]": player2 = Player::Computer2; break;
-                case "computer[3]": player2 = Player::Computer3; break;
-                case "computer[4]": player2 = Player::Computer4; break;
-                default: cout << "Invalid player type" << endl; continue;
+        if (cmd == "game") {\
+            Colour turnColour = Piece::Colour::White;
+            for (int i = 0; i < NUM_PLAYERS; ++i) {
+                string playerType;
+                cin >> playerType;
+                if (playerType == "human") {
+                    players[i] = new Human(board, turnColour++);
+                } else if (playerType == "computer[1]") {
+                    player = Player::Computer1;
+                } else if (playerType == "computer[2]") {
+                    player = Player::Computer2;
+                } else if (playerType == "computer[3]") {
+                    player = Player::Computer3;
+                } else if (playerType == "computer[4]") {
+                    player = Player::Computer4;
+                } else {
+                    cout << "Invalid player type: " << playerType << endl;
+                    continue;
+                }
             }
             mode = Mode::Game;
 
@@ -80,7 +79,7 @@ void Game::play() {
 
     // resignation
     if (cmd == "resign") {
-        cout << players[playerTurn] << " resigns." << endl;
+        cout << "Player " << playerTurn << " resigned." << endl;
         mode = Mode::Home;
         nextTurn();
         ++scores[playerTurn];
@@ -99,7 +98,10 @@ void Game::play() {
             cout << "The computer has already played." << endl;
             return;
         }
-        cout << "Computer is thinking..." << endl;
+        if (players[playerTurn] == Player::Computer1) {
+
+            cout << "Computer 1 is making a move..." << endl;
+        }
 
     }
 
@@ -126,13 +128,12 @@ void Game::play() {
 }
 
 void Game::setup() {
-    
+
 }
 
 void Game::nextTurn() {
     turnColour = (turnColour == Piece::Colour::White) ? Piece::Colour::Black : Piece::Colour::White;
     playerTurn = (playerTurn + 1) % players.size();
 }
-
 
 

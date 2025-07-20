@@ -1,14 +1,16 @@
 #include <string>
 #include "board.h"
+#include "gamedata.h"
+#include "player.h"
 
 enum class Mode { Home, Game, Setup };
-enum class Player { Human, Computer1, Computer2, Computer3, Computer4 };
 
 class Game {
 
+    const int NUM_PLAYERS = 2;
+    
     Board board;
     GameData gameData;
-    Piece::Colour turnColour;
     int playerTurn = 0;
     vector<Player> players;
     vector<int> scores;
@@ -24,3 +26,5 @@ class Game {
     void nextTurn();
 
 };
+
+
