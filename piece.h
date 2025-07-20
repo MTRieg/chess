@@ -54,5 +54,5 @@ class Piece {
 };
 
 // printing
-ostream &operator<<(ostream &out, const Colour &c) const;
+std::ostream &operator<<(std::ostream &out, const Colour &c) const;
 

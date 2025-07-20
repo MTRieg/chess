@@ -1,6 +1,7 @@
 #include <vector>
 #include "piece.h"
 #include "boardobserver.h"
+using namespace std;
 
 #ifndef INVISIBLE_BOARD_INFO
 #define INVISIBLE_BOARD_INFO

@@ -1,7 +1,7 @@
 CXX = g++-14
 CXXFLAGS = -std=c++20 -Wall -MMD -Werror=vla
 EXEC = chess
-SRC = $(filter-out gui.cc, wildcard *.cc)
+SRC = $(filter-out gui.cc, $(wildcard *.cc))
 OBJECTS = ${SRC:.cc=.o}
 DEPENDS = ${OBJ:.o=.d}
 
@@ -14,4 +14,4 @@ ${EXEC}: ${OBJECTS}
 .PHONY: clean
 
 clean:
-	rm ${OBJECTS} ${EXEC} ${DEPENDS}
+	- rm ${OBJECTS} ${EXEC} ${DEPENDS}
