@@ -1,16 +1,13 @@
+#pragma once
 #include <vector>
 #include "piece.h"
 #include "boardobserver.h"
 using namespace std;
 
-#ifndef INVISIBLE_BOARD_INFO
-#define INVISIBLE_BOARD_INFO
 struct InvisibleBoardInfo {
     bool wkc = true, wqc = true, bkc = true, bqc = true; // castling ability
     int enPassantFile = -1;
 };
-#endif
-
 
 class Board {
 
@@ -23,7 +20,6 @@ class Board {
 
     void notifyObservers(MoveInfo latest);
     void InitHomeRow(Colour c, int row);
-
 
     //the four of these could be made boolean, but the public functions are 
     //required to use these private functions responsibly.
@@ -65,7 +61,6 @@ class Board {
     const bool check();
     const bool checkmate();
     const InvisibleBoardInfo BoardInfo();
-
 
 };
 

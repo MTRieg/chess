@@ -1,5 +1,7 @@
+#pragma once
 #include "piece.h"
 #include <vector>
+using namespace std;
 
 class Rook : public Piece {
     public:
@@ -8,5 +10,5 @@ class Rook : public Piece {
         Piece::PieceType getType() const override;
 
         bool verifyMove(Piece::Position p) const override;
-        std::vector<Position> validMoves() const override;
+        vector<Position> validMoves() const override;
 };

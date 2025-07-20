@@ -1,3 +1,4 @@
+#pragma once
 #include "bot.h"
 
 class Bot1 : public Bot {

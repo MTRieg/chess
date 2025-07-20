@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include "piece.h"
 #include "boardobserver.h"

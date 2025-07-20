@@ -1,5 +1,7 @@
+#pragma once
 #include <string>
 #include "piece.h"
+using namespace std;
 
 #ifndef INVISIBLE_BOARD_INFO
 #define INVISIBLE_BOARD_INFO
@@ -11,7 +13,7 @@ struct InvisibleBoardInfo {
 
 struct MoveInfo {
     Piece::Position oldPos;
-    Piece *piece; //the piece after it has been moved
+    Piece *piece; // the piece after it has been moved
     Piece *capturedPiece;
     bool isEnPassant = false;
     bool isPromotion = false;
@@ -21,7 +23,7 @@ struct MoveInfo {
              Piece *capturedPiece = nullptr,
              bool isEnPassant = false, bool isPromotion = false);
 
-    std::string algebraic() const;
+    string algebraic() const;
 
 };
 

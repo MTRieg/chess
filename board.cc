@@ -12,7 +12,7 @@
 #include <vector>
 
 
-Board::Board(int size_in = 8) : size{size_in}, checkCache{false}, checkmateCache{false} {
+Board::Board(int size_in) : size{size_in}{
     board = new Piece**[size];
     for (int i = 0; i < size; ++i) {
         board[i] = new Piece*[size];
@@ -58,11 +58,11 @@ const Piece *Board::pieceAtPosition(const Piece::Position &pos) const {
 }
 
 const bool Board::check() {
-    return check;
+    return isCheck;
 }
 
 const bool Board::checkmate() {
-    return checkmate;
+    return isCheckmate;
 }
 
 const InvisibleBoardInfo Board::BoardInfo() {
@@ -92,7 +92,6 @@ const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
                 std::vector<Piece::Position> moves = piece->validMoves();
                 for (const auto& move : moves) {
 
-
                     if (isValidMove(MoveInfo(piece->getPosition(), piece, pieceAtPosition(move)))) {
                         validMoves.push_back(MoveInfo(piece->getPosition(), piece, pieceAtPosition(move)));
                     }
@@ -107,7 +106,7 @@ int Board::getSize() const {
     return size;
 }
 
-bool Board::isValidMove(const MoveInfo& move) const {
+const bool Board::isValidMove(const MoveInfo& move) const {
     const Piece* piece = move.piece;
     if (!piece) return false;
 
