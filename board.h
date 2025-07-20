@@ -1,16 +1,13 @@
+#pragma once
 #include <vector>
 #include "piece.h"
 #include "boardobserver.h"
 using namespace std;
 
-#ifndef INVISIBLE_BOARD_INFO
-#define INVISIBLE_BOARD_INFO
 struct InvisibleBoardInfo {
     bool wkc = true, wqc = true, bkc = true, bqc = true; // castling ability
     int enPassantFile = -1;
 };
-#endif
-
 
 class Board {
 
@@ -18,7 +15,7 @@ class Board {
     Piece*** board;
 
     vector<BoardObserver*> observers;
-    bool check = false, checkmate = false;
+    bool isCheck = false, isCheckmate = false;
     InvisibleBoardInfo ibi;
 
     void notifyObservers(MoveInfo latest);

@@ -1,4 +1,5 @@
 #include <string>
+#include "game.h"
 #include "board.h"
 
 using namespace std;

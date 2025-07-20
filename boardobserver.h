@@ -1,10 +1,12 @@
+#pragma once
 #include <string>
 #include "piece.h"
+using namespace std;
 
 struct MoveInfo {
-    Piece::Position oldPos;
-    Piece *piece; //the piece after it has been moved
-    Piece *capturedPiece;
+    const Piece::Position oldPos;
+    const Piece *piece; // the piece after it has been moved
+    const Piece *capturedPiece;
     bool isEnPassant = false;
     bool isPromotion = false;
 
@@ -12,7 +14,7 @@ struct MoveInfo {
              Piece *capturedPiece = nullptr,
              bool isEnPassant = false, bool isPromotion = false);
 
-    std::string algebraic() const;
+    string algebraic() const;
 
 };
 

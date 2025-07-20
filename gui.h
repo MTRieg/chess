@@ -1,4 +1,6 @@
+#pragma once
+#include "abstractui.h"
 
-class GUI {
+class GUI : public AbstractUI {
 
 };

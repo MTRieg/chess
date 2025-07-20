@@ -1,11 +1,9 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
-
-#ifndef BOARD_H
-#define BOARD_H
-class Board;
-#endif 
+#include "board.h"
+using namespace std;
 
 enum class Colour {
     White,
@@ -32,6 +30,7 @@ class Piece {
         std::string Algebraic(Position p);
     };
 
+    Piece(Colour colour, Position pos, Board *b);
     
     Colour getColour() const;
     virtual PieceType getType() const;
@@ -48,11 +47,9 @@ class Piece {
     Colour c;
     const Board *b;
 
-    Piece(Colour colour, Board *b);
-
 
 };
 
 // printing
-std::ostream &operator<<(std::ostream &out, const Colour &c) const;
+ostream &operator<<(ostream &out, const Colour &c);
 

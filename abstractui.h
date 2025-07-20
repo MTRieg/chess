@@ -1,3 +1,4 @@
+#pragma once
 #include "boardobserver.h"
 #include "board.h"
 #include "gamedata.h"
