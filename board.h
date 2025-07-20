@@ -34,7 +34,8 @@ class Board {
     void movePiece(const MoveInfo& move);
     void addObserver(BoardObserver* observer);
     void removeObserver(BoardObserver* observer);
-    const Piece &pieceAtSquare(int file, int rank);
+    const Piece *pieceAtSquare(int file, int rank) const;
+    const Piece *pieceAtPosition(const Piece::Position &pos) const;
     const bool check();
     const bool checkmate();
     const InvisibleBoardInfo BoardInfo();
