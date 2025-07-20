@@ -6,7 +6,6 @@
 #define BOARD_H
 class Board;
 #endif 
-using namespace std;
 
 enum class Colour {
     White,
@@ -44,13 +43,16 @@ class Piece {
 
     protected:
 
+    PieceType type;
     Position pos;
     Colour c;
     const Board *b;
 
-    Piece(Colour colour, Position pos, Board *b);
+    Piece(Colour colour, Board *b);
 
 
 };
 
-ostream &operator<<(ostream &out, const Colour &c);
+// printing
+ostream &operator<<(ostream &out, const Colour &c) const;
+

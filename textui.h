@@ -9,7 +9,7 @@ class TextUI : public AbstractUI {
 
     vector<vector<char>> boardDisplay;
     vector<string> historyDisplay;
-    int historyWidth;
+    int historyWidth = 2; // default width of history ui
 
     public:
     TextUI(Board* board, GameData* gameData) : AbstractUI(board, gameData) {}
