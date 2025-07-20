@@ -1,6 +1,7 @@
 #include <vector>
 #include "piece.h"
 #include "boardobserver.h"
+using namespace std;
 
 class GameData : public BoardObserver{
     static const int DEFAULT_HISTORY_SIZE = 16;
