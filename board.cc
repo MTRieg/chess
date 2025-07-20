@@ -22,6 +22,16 @@ Board::Board(int size_in) : size{size_in}{
     }
 }
 
+Board::~Board() {
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            delete board[i][j]; // Delete each piece
+        }
+        delete[] board[i]; // Delete each row
+    }
+    delete[] board; // Delete the board array
+}
+
 
 Board::Board(const Board& other) {
     if(this == &other) {
