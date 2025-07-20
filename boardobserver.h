@@ -4,9 +4,9 @@
 using namespace std;
 
 struct MoveInfo {
-    const Piece::Position oldPos;
-    const Piece *piece; // the piece after it has been moved
-    const Piece *capturedPiece;
+    Piece::Position oldPos;
+    Piece *piece; // the piece after it has been moved
+    Piece *capturedPiece;
     bool isEnPassant = false;
     bool isPromotion = false;
 

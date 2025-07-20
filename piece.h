@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "board.h"
+class Board;
 using namespace std;
 
 enum class Colour {

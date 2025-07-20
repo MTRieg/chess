@@ -12,7 +12,7 @@
 #include <vector>
 
 
-Board::Board(int size_in = 8) : size{size_in}{
+Board::Board(int size_in) : size{size_in}{
     board = new Piece**[size];
     for (int i = 0; i < size; ++i) {
         board[i] = new Piece*[size];

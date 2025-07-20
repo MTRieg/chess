@@ -21,7 +21,6 @@ class Board {
     void notifyObservers(MoveInfo latest);
     void InitHomeRow(Colour c, int row);
 
-
     //the four of these could be made boolean, but the public functions are 
     //required to use these private functions responsibly.
     
@@ -35,10 +34,6 @@ class Board {
     void undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr);
     //properly undoes a move, restoring the previous state of the board (still no board notifications)
     void undoMove(MoveInfo& move);
-
-
-
-    
 
 
     public:
@@ -58,7 +53,6 @@ class Board {
     const bool check();
     const bool checkmate();
     const InvisibleBoardInfo BoardInfo();
-
 
 };
 

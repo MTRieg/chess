@@ -56,7 +56,7 @@ void TextUI::update(MoveInfo latest) {
 
     // update history display
     historyDisplay.clear();
-    int turn = gameData->gameLength() % historyWidth;
+    
     vector<MoveInfo> moves = gameData->latestMoves();
 
     for(int i = turn; i < moves.size(); ++i) {
@@ -72,6 +72,7 @@ void TextUI::output() {
     system("clear"); // clear the console
     int step = 0;
 
+    // print from white's perspective
     for (int rank = 0; rank < board->getSize(); ++rank) {
         cout << 8 - rank << " "; // numbers
         for (int file = 0; file < board->getSize(); ++file) {
