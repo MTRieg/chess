@@ -12,9 +12,8 @@ Colour &operator++(Colour &c) {
 
 Piece::Piece(Colour colour, Board *b) : c{colour}, b{b} {}
 
-// accessors
 Colour Piece::getColour() const { return c; }
-Piece::PieceType Piece::getType() const { return type; }
+
 Piece::Position Piece::getPosition() const { return pos; }
 
 bool Piece::verifyMove(Position p) {
@@ -48,8 +47,8 @@ std::string Piece::Position::Algebraic(Position p) {
 
 
 
-// printing
-ostream &operator<<(ostream &out, const Colour &c) const {
+
+ostream &operator<<(ostream &out, const Colour &c) {
     switch (c) {
         case Colour::White: out << "White"; break;
         case Colour::Black: out << "Black"; break;
