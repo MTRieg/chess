@@ -1,5 +1,6 @@
+#include <iostream>
 #include <string>
-
+using namespace std;
 
 class Board;
 struct Position;
@@ -48,4 +49,7 @@ class Piece {
 
 
 };
+
+// printing
+// ostream &operator<<(ostream &out, const Colour &c) const;
 

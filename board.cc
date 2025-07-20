@@ -11,3 +11,9 @@ Board::Board() : size{size} {
     gameData = new GameData();
     
 }
+
+
+
+
+
+
