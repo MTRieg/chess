@@ -15,10 +15,10 @@ class Pawn: public Piece{
             return PieceType::Pawn;
         }
 
-        bool verifyMove(Position p) override{
+        bool verifyMove(Position p) const override{
         }
 
-        std::vector<Position> validMoves() override {
+        std::vector<Position> validMoves() const override {
             std::vector<Position> moves;
             int direction = (c == Colour::White) ? 1 : -1;
             Position oneSquareForward{pos.Rank + direction, pos.File};

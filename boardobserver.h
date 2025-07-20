@@ -3,7 +3,7 @@
 
 struct MoveInfo {
     Piece::Position oldPos;
-    Piece *piece;
+    Piece *piece; //the piece after it has been moved
     Piece *capturedPiece;
     bool isEnPassant = false;
     bool isPromotion = false;

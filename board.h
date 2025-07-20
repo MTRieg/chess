@@ -23,8 +23,17 @@ class Board {
     void notifyObservers(MoveInfo latest);
     void InitHomeRow(Colour c, int row);
 
-    public:
+    //directly applies the move to the pieces, without checking validity or notifying observers
+    void applyMove(const MoveInfo& move); 
+    void undoMove(const MoveInfo& move);
 
+
+
+    
+
+
+    public:
+    
     Board(int size = 8);
     ~Board();
 
