@@ -1,3 +1,4 @@
+#include <string>
 #include "piece.h"
 
 struct MoveInfo {
@@ -9,9 +10,10 @@ struct MoveInfo {
 
     MoveInfo(Piece::Position oldPos, Piece *piece, 
              Piece *capturedPiece = nullptr,
-             bool isEnPassant = false, bool isPromotion = false)
-        : oldPos{oldPos}, piece{piece}, capturedPiece{capturedPiece},
-          isEnPassant{isEnPassant}, isPromotion(isPromotion) {}
+             bool isEnPassant = false, bool isPromotion = false);
+
+    std::string algebraic() const;
+
 };
 
 class BoardObserver {

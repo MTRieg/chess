@@ -19,5 +19,6 @@ class AbstractUI : public BoardObserver {
     virtual ~AbstractUI() = default;
 
     virtual void update(MoveInfo latest) override = 0;
+    virtual void output() = 0;
 
 };

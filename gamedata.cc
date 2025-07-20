@@ -1,3 +1,4 @@
+#include <vector>
 #include "gamedata.h"
 
 // add latest move update from board
@@ -15,5 +16,10 @@ vector<MoveInfo> GameData::latestMoves(int n) {
         latestMoves.push_back(history[i]);
     }
     return latestMoves;
+}
+
+// total steps in game so far
+int GameData::gameLength() const {
+    return history.size();
 }
 

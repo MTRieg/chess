@@ -4,3 +4,5 @@ AbstractUI::AbstractUI(Board* board, GameData* gameData) : board{board}, gameDat
     board->addObserver(this);
 }
 
+
+
