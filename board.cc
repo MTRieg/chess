@@ -9,6 +9,7 @@
 #include "queen.h"
 #include "king.h"
 #include <algorithm>
+#include <vector>
 
 
 Board::Board(int size_in = 8) : size{size_in}{
@@ -19,18 +20,6 @@ Board::Board(int size_in = 8) : size{size_in}{
             board[i][j] = nullptr;
         }
     }
-    
-};
-
-//reminder to 
-Board::~Board() {
-    for (int i = 0; i < size; ++i) {
-        for (int j = 0; j < size; ++j) {
-            delete board[i][j];
-        }
-        delete[] board[i];
-    }
-    delete[] board;
 }
 
 
@@ -56,14 +45,14 @@ void Board::InitHomeRow(Colour c, int row) {
     board[7][row] = new Rook(c, Piece::Position{7, row}, this);
 }
 
-const Piece* Board::pieceAtSquare(int file, int rank) const {
+const Piece *Board::pieceAtSquare(int file, int rank) const {
     if (file < 0 || file >= size || rank < 0 || rank >= size) {
         return nullptr; // Out of bounds
     }
     return board[file][rank];
 }
 
-const Piece* Board::pieceAtPosition(const Piece::Position &pos) const {
+const Piece *Board::pieceAtPosition(const Piece::Position &pos) const {
     return pieceAtSquare(pos.File, pos.Rank);
 }
 
@@ -101,6 +90,8 @@ const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
             if (piece && piece->getColour() == colour) {
                 std::vector<Piece::Position> moves = piece->validMoves();
                 for (const auto& move : moves) {
+
+
                     if (isValidMove(MoveInfo(piece->getPosition(), piece, pieceAtPosition(move)))) {
                         validMoves.push_back(MoveInfo(piece->getPosition(), piece, pieceAtPosition(move)));
                     }
@@ -110,6 +101,29 @@ const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
     }
     return validMoves;
 }
+
+bool Board::isValidMove(const MoveInfo& move) const {
+    const Piece* piece = move.piece;
+    if (!piece) return false;
+
+    // Check if the target square is occupied by a piece of the same colour
+    const Piece* targetPiece = pieceAtPosition(move.target);
+    if (targetPiece && targetPiece->getColour() == piece->getColour()) {
+        return false;
+    }
+
+    // Check if the move is valid for the piece type
+    if (!piece->isValidMove(move.target)) {
+        return false;
+    }
+
+
+    
+
+}
+    
+
+    
 
 
 

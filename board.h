@@ -21,7 +21,11 @@ class Board {
     InvisibleBoardInfo ibi;
 
     void notifyObservers(MoveInfo latest);
+
+    //helper functions
     void InitHomeRow(Colour c, int row);
+    const bool isValidMoveWithoutPieceCheck(const MoveInfo& move) const;
+    
 
     public:
 
