@@ -35,14 +35,14 @@ class Board {
     //properly undoes a move, restoring the previous state of the board (still no board notifications)
     void undoMove(const MoveInfo& move);
 
-    const bool calculateCheck(Colour colour);
-    const bool calculateCheckmate(Colour colour, bool useCheckCache = true);
+    bool calculateCheck(Colour colour);
+    bool calculateCheckmate(Colour colour, bool useCheckCache = true);
     void setCheckCache(bool value, Colour colour);
     void setCheckmateCache(bool value, Colour colour);
 
     Board (const Board&);
     Board& operator=(const Board&);
-    
+
 
 
     

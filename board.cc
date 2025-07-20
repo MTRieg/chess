@@ -22,6 +22,7 @@ Board::Board(int size_in) : size{size_in}{
     }
 }
 
+
 Board::Board(const Board& other) {
     if(this == &other) {
         return; // Handle self-assignment
@@ -29,6 +30,35 @@ Board::Board(const Board& other) {
 
     // Clean up existing resources
     for (int i = 0; i < size; ++i) {
+        delete[] board[i];
+    }
+    delete[] board;
+
+    // Copy the other board's state
+    size = other.size;
+    board = new Piece**[size];
+    for (int i = 0; i < size; ++i) {
+        board[i] = new Piece*[size];
+        for (int j = 0; j < size; ++j) {
+            if (other.board[i][j]) {
+                board[i][j] = other.board[i][j]->clone();
+            } else {
+                board[i][j] = nullptr;
+            }
+        }
+    }
+}
+
+Board& Board::operator=(const Board& other) {
+    if(this == &other) {
+        return *this; // Handle self-assignment
+    }
+
+    // Clean up existing resources
+    for (int i = 0; i < size; ++i) {
+        for(int j = 0; j < size; ++j) {
+            delete board[i][j]; // Delete existing pieces
+        }
         delete[] board[i];
     }
     delete[] board;
@@ -273,7 +303,7 @@ void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPo
             delete board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank]; 
             //delete the piece at the captured position if it exists (should be redundant)
         }
-        board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank] = capturedPiece; // Restore captured piece
+        board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank] = capturedPiece->clone(); // Restore captured piece
     }
 }
 
@@ -313,7 +343,7 @@ void Board::undoMove(const MoveInfo& move) {
 
 }
 
-const bool Board::calculateCheck(Colour colour){
+bool Board::calculateCheck(Colour colour){
     for(int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
             Piece* piece = board[i][j];
