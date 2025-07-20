@@ -11,8 +11,7 @@ Colour &operator++(Colour &c) {
 
 Piece::Piece(Colour colour, Board *b) : c{colour}, b{b} {}
 
-Piece::PieceType Piece::getType() const { return type; }
-Colour Piece::getColour() const { return c; }
+Piece::Colour Piece::getColour() const { return c; }
 
 Piece::Position Piece::getPosition() const { return pos; }
 
@@ -27,7 +26,7 @@ bool Piece::verifyMove(Position p) {
     return false; 
 }
 
-bool Piece::move(Position p, Type promotion_type) {
+bool Piece::move(Position p, PieceType promotion_type) {
 
     if (verifyMove(p)) {
         pos = p; // Update the position if the move is valid
