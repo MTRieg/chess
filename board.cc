@@ -232,6 +232,9 @@ void Board::applyMove(const Piece::Position &oldPos, const Piece::Position &newP
 }
 
 
+//assumes capturedPiece is a valid pointer, and that the move is valid
+//for example, things will start breaking if capturedPiece does not point to this board
+//if capturedPiece exists, it will now be responsible for deleting capturedPiece
 void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr) {
     Piece *movedPiece = board[newPos.File][newPos.Rank];
     if (!movedPiece) {
@@ -240,10 +243,51 @@ void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPo
 
     movedPiece->move(oldPos); // Update the piece's local position variables
     board[oldPos.File][oldPos.Rank] = movedPiece; // Place back at old position
-    board[newPos.File][newPos.Rank] = nullptr; // Remove from new position
+    board[newPos.File][newPos.Rank] = nullptr; // Remove from new position 
 
     if (capturedPiece) {
+        if(board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank] != nullptr) {
+            delete board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank]; 
+            //delete the piece at the captured position if it exists (should be redundant)
+        }
         board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank] = capturedPiece; // Restore captured piece
+    }
+}
+
+void Board::undoMove(MoveInfo& move) {
+    Piece::Position oldPos = move.oldPos;
+    Piece::Position newPos = move.piece->getPosition();
+    Piece *capturedPiece = move.capturedPiece;
+
+    undoMove(oldPos, newPos, capturedPiece);
+    // If the move was a promotion, we need to restore the original piece type
+    if(move.isPromotion) {
+        // Handle promotion undo logic
+        auto colour = move.piece->getColour();
+        delete pieceAtPosition(oldPos);
+        board[oldPos.File][oldPos.Rank] = new Pawn(colour, oldPos, this); // Restore the original piece type
+    }
+
+    if(move.piece->getType() == Piece::PieceType::King && 
+       (std::abs(oldPos.File - newPos.File) == 2)) { // Castling undo
+        // Handle castling undo logic
+        if(move.piece->getColour() == Colour::White) {
+            if(newPos.File == 6) { // Kingside castle
+                board[7][0] = board[5][0]; // Restore the rook
+                board[5][0] = nullptr; // Remove the rook from its old position
+            } else if(newPos.File == 2) { // Queenside castle
+                board[0][0] = board[3][0]; // Restore the rook
+                board[3][0] = nullptr; // Remove the rook from its old position
+            }
+        } else {
+            if(newPos.File == 6) { // Kingside castle
+                board[7][7] = board[5][7]; // Restore the rook
+                board[5][7] = nullptr; // Remove the rook from its old position
+            } else if(newPos.File == 2) { // Queenside castle
+                board[0][7] = board[3][7]; // Restore the rook
+                board[3][7] = nullptr; // Remove the rook from its old position
+            }
+        }
     }
 }
     
