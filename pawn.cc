@@ -18,7 +18,25 @@ Piece* Pawn::clone() const {
 }
 
 bool Pawn::verifyMove(Position p) const {
-
+    int direction = (c == Colour::White) ? 1 : -1;
+    if (p.File == pos.File) {
+        // Moving forward
+        if (p.Rank == pos.Rank + direction) {
+            return !b->pieceAtPosition(p);
+        }
+        // Double move from starting position
+        if ((c == Colour::White && pos.Rank == 1 && p.Rank == 3) ||
+            (c == Colour::Black && pos.Rank == 6 && p.Rank == 4)) {
+            Position intermediate{pos.Rank + direction, pos.File};
+            return !b->pieceAtPosition(p) && !b->pieceAtPosition(intermediate);
+        }
+    } else if (p.File == pos.File + 1 || p.File == pos.File - 1) {
+        // Capturing
+        if (p.Rank == pos.Rank + direction) {
+            return b->pieceAtPosition(p) && b->pieceAtPosition(p)->getColour() != c;
+        }
+    }
+    return false;
 }
 
 std::vector<Piece::Position> Pawn::validMoves() const {
