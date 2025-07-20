@@ -19,7 +19,7 @@ class Board {
     InvisibleBoardInfo ibi;
 
     void notifyObservers(MoveInfo latest);
-    void InitHomeRow(Colour c, int row);
+    void initHomeRow(Colour c, int row);
 
     //the four of these could be made boolean, but the public functions are 
     //required to use these private functions responsibly.
