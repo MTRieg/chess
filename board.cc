@@ -123,6 +123,7 @@ bool Board::isValidMove(const MoveInfo& move) const {
     }
 
     // Check if the move puts the king in check
+    
 
 
 
@@ -134,55 +135,101 @@ bool Board::isValidMove(const MoveInfo& move) const {
 
 
 void Board::applyMove(const MoveInfo& move) {
-    Piece *Moved_Piece = board[move.piece->getPosition().File][move.piece->getPosition().Rank];
-    if (!Moved_Piece) {
-        return; // No piece to move, so board is not updated
-    }
 
-    Piece::Position oldPos = Moved_Piece->getPosition();
-    Piece::Position newPos = move.piece->getPosition();
+    auto newPos = move.piece->getPosition();
+    auto oldPos = move.oldPos;
 
-    // Move the piece directly
-    Moved_Piece->move(newPos); // Update the piece's local position variables 
-    // has to be done before moving it on the board so that the local function does not complain
-    board[oldPos.File][oldPos.Rank] = nullptr; // Remove from old position
-    delete pieceAtPosition(newPos); // Delete captured piece if any
-    board[newPos.File][newPos.Rank] = Moved_Piece; // Place at new position
-    
-    if(move.isEnPassant){
-        Piece::Position enPassantPos = newPos;
-        enPassantPos.Rank += (move.piece->getColour() == Colour::White) ? -1 : 1;
-        delete pieceAtPosition(enPassantPos);
-    }
+    movePieceDirectly(oldPos, newPos, move.capturedPiece);
+
+
     if(move.isPromotion){
         // Handle promotion logic here, e.g., change to a Queen
         Piece::Position promotionPos = newPos;
         delete pieceAtPosition(promotionPos);
         switch(move.piece->getType()) {
             case Piece::PieceType::Queen:
-                board[promotionPos.File][promotionPos.Rank] = new Queen(Moved_Piece->getColour(), promotionPos, this);
+                board[promotionPos.File][promotionPos.Rank] = new Queen(move.piece->getColour(), promotionPos, this);
                 break;
             case Piece::PieceType::Rook:
-                board[promotionPos.File][promotionPos.Rank] = new Rook(Moved_Piece->getColour(), promotionPos, this);
+                board[promotionPos.File][promotionPos.Rank] = new Rook(move.piece->getColour(), promotionPos, this);
                 break;
             case Piece::PieceType::Bishop:
-                board[promotionPos.File][promotionPos.Rank] = new Bishop(Moved_Piece->getColour(), promotionPos, this);
+                board[promotionPos.File][promotionPos.Rank] = new Bishop(move.piece->getColour(), promotionPos, this);
                 break;
             case Piece::PieceType::Knight:
-                board[promotionPos.File][promotionPos.Rank] = new Knight(Moved_Piece->getColour(), promotionPos, this);
+                board[promotionPos.File][promotionPos.Rank] = new Knight(move.piece->getColour(), promotionPos, this);
                 break;
             default:
                 // Default to Queen if no valid promotion type is specified
-                board[promotionPos.File][promotionPos.Rank] = new Queen(Moved_Piece->getColour(), promotionPos, this);
+                board[promotionPos.File][promotionPos.Rank] = new Queen(move.piece->getColour(), promotionPos, this);
                 break;
         }
        
     }
 
 
+    if(move.piece->getType() == Piece::PieceType::King && 
+       (std::abs(oldPos.File - newPos.File) == 2)) { // Castling move
+        // Handle castling logic
+        if(move.piece->getColour() == Colour::White) {
+            if(newPos.File == 6) { // Kingside castle
+                board[5][0] = board[7][0]; // Move the rook
+                board[7][0] = nullptr; // Remove the rook from its old position
+            } else if(newPos.File == 2) { // Queenside castle
+                board[3][0] = board[0][0]; // Move the rook
+                board[0][0] = nullptr; // Remove the rook from its old position
+            }
+        } else {
+            if(newPos.File == 6) { // Kingside castle
+                board[5][7] = board[7][7]; // Move the rook
+                board[7][7] = nullptr; // Remove the rook from its old position
+            } else if(newPos.File == 2) { // Queenside castle
+                board[3][7] = board[0][7]; // Move the rook
+                board[0][7] = nullptr; // Remove the rook from its old position
+            }
+        }
+    }
+
+
+
+    if(move.piece->getType() == Piece::PieceType::King) {
+        if(move.piece->getColour() == Colour::White) {
+            ibi.wkc = false; // White cannot kingside castle anymore
+            ibi.wqc = false; // White cannot queenside castle anymore
+        } else {
+            ibi.bkc = false; // Black cannot kingside castle anymore
+            ibi.bqc = false; // Black cannot queenside castle anymore
+        }
+    } else if(move.piece->getType() == Piece::PieceType::Rook) {
+        if(move.piece->getColour() == Colour::White && oldPos.File == 0) {
+            ibi.wqc = false; // White queen rook moved
+        } else if(move.piece->getColour() == Colour::White && oldPos.File == 7) {
+            ibi.wkc = false; // White king rook moved
+        } else if(move.piece->getColour() == Colour::Black && oldPos.File == 0) {
+            ibi.bqc = false; // Black queen rook moved
+        } else if(move.piece->getColour() == Colour::Black && oldPos.File == 7) {
+            ibi.bkc = false; // Black king rook moved
+        }
+    }
+
 }
 
 
+void Board::movePieceDirectly(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr) {
+    Piece *movedPiece = board[oldPos.File][oldPos.Rank];
+    if (!movedPiece) {
+        return; // No piece to move
+    }
+
+    movedPiece->move(newPos); // Update the piece's local position variables
+    delete pieceAtPosition(newPos); // Delete captured piece if any
+    board[newPos.File][newPos.Rank] = movedPiece; // Place at new position
+    board[oldPos.File][oldPos.Rank] = nullptr; // Remove from old position
+
+    if (capturedPiece) {
+        delete capturedPiece; // Delete captured piece
+    }
+}
 
     
 
