@@ -14,14 +14,14 @@ class Knight: public Piece{
             return PieceType::Knight;
         }
 
-        bool verifyMove(Position p) override{
+        bool verifyMove(Position p) const override {
             // Knights move in an L-shape: 2 squares in one direction and then 1 square perpendicular
             int dRank = std::abs(p.Rank - pos.Rank);
             int dFile = std::abs(p.File - pos.File);
             return (dRank == 2 && dFile == 1) || (dRank == 1 && dFile == 2);
         }
 
-        std::vector<Position> validMoves() override {
+        std::vector<Position> validMoves() const override {
             // Generate all valid moves for the knight
             std::vector<Position> moves;
             for (int dr = -2; dr <= 2; ++dr) {

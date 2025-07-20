@@ -7,6 +7,6 @@ class King : public Piece {
 
         Piece::PieceType getType() const override;
 
-        bool verifyMove(Piece::Position p) override;
-        std::vector<Position> validMoves() override;
+        bool verifyMove(Piece::Position p) const override;
+        std::vector<Position> validMoves() const override;
 };

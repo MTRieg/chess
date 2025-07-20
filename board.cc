@@ -23,6 +23,7 @@ Board::Board(int size_in = 8) : size{size_in}{
 }
 
 
+
 void Board::init() {
     for(int i=0; i<8; i++){
         board[i][1] = new Pawn(Colour::White, Piece::Position{i, 1}, this);
@@ -111,21 +112,77 @@ bool Board::isValidMove(const MoveInfo& move) const {
     if (!piece) return false;
 
     // Check if the target square is occupied by a piece of the same colour
-    const Piece* targetPiece = pieceAtPosition(move.target);
+    const Piece* targetPiece = pieceAtPosition(move.piece->getPosition());
     if (targetPiece && targetPiece->getColour() == piece->getColour()) {
         return false;
     }
 
     // Check if the move is valid for the piece type
-    if (!piece->isValidMove(move.target)) {
+    if (!pieceAtPosition(piece->getPosition())->verifyMove(move.piece->getPosition())) {
         return false;
     }
 
+    // Check if the move puts the king in check
+
+
+
 
     
+    return true; // If all checks pass, the move is valid
+}
+
+
+
+void Board::applyMove(const MoveInfo& move) {
+    Piece *Moved_Piece = board[move.piece->getPosition().File][move.piece->getPosition().Rank];
+    if (!Moved_Piece) {
+        return; // No piece to move, so board is not updated
+    }
+
+    Piece::Position oldPos = Moved_Piece->getPosition();
+    Piece::Position newPos = move.piece->getPosition();
+
+    // Move the piece directly
+    Moved_Piece->move(newPos); // Update the piece's local position variables 
+    // has to be done before moving it on the board so that the local function does not complain
+    board[oldPos.File][oldPos.Rank] = nullptr; // Remove from old position
+    delete pieceAtPosition(newPos); // Delete captured piece if any
+    board[newPos.File][newPos.Rank] = Moved_Piece; // Place at new position
+    
+    if(move.isEnPassant){
+        Piece::Position enPassantPos = newPos;
+        enPassantPos.Rank += (move.piece->getColour() == Colour::White) ? -1 : 1;
+        delete pieceAtPosition(enPassantPos);
+    }
+    if(move.isPromotion){
+        // Handle promotion logic here, e.g., change to a Queen
+        Piece::Position promotionPos = newPos;
+        delete pieceAtPosition(promotionPos);
+        switch(move.piece->getType()) {
+            case Piece::PieceType::Queen:
+                board[promotionPos.File][promotionPos.Rank] = new Queen(Moved_Piece->getColour(), promotionPos, this);
+                break;
+            case Piece::PieceType::Rook:
+                board[promotionPos.File][promotionPos.Rank] = new Rook(Moved_Piece->getColour(), promotionPos, this);
+                break;
+            case Piece::PieceType::Bishop:
+                board[promotionPos.File][promotionPos.Rank] = new Bishop(Moved_Piece->getColour(), promotionPos, this);
+                break;
+            case Piece::PieceType::Knight:
+                board[promotionPos.File][promotionPos.Rank] = new Knight(Moved_Piece->getColour(), promotionPos, this);
+                break;
+            default:
+                // Default to Queen if no valid promotion type is specified
+                board[promotionPos.File][promotionPos.Rank] = new Queen(Moved_Piece->getColour(), promotionPos, this);
+                break;
+        }
+       
+    }
+
 
 }
-    
+
+
 
     
 

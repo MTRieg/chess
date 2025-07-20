@@ -14,14 +14,14 @@ class King: public Piece{
             return PieceType::King;
         }
 
-        bool verifyMove(Position p) override{
+        bool verifyMove(Position p) const override{
             // Kings move one square in any direction
             int dRank = std::abs(p.Rank - pos.Rank);
             int dFile = std::abs(p.File - pos.File);
             return (dRank <= 1 && dFile <= 1);
         }
 
-        std::vector<Position> validMoves() override {
+        std::vector<Position> validMoves() const override {
             // Generate all valid moves for the king
             std::vector<Position> moves;
             for (int dr = -1; dr <= 1; ++dr) {

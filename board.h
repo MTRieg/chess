@@ -21,14 +21,19 @@ class Board {
     InvisibleBoardInfo ibi;
 
     void notifyObservers(MoveInfo latest);
-
-    //helper functions
     void InitHomeRow(Colour c, int row);
-    const bool isValidMoveWithoutPieceCheck(const MoveInfo& move) const;
+
+    //directly applies the move to the pieces, without checking validity or notifying observers
+    void applyMove(const MoveInfo& move); 
+    void undoMove(const MoveInfo& move);
+
+
+
     
 
-    public:
 
+    public:
+    
     Board(int size = 8);
     ~Board();
 

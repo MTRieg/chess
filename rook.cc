@@ -15,7 +15,7 @@ class Rook: public Piece{
             return PieceType::Rook;
         }
 
-        bool verifyMove(Position p) override{
+        bool verifyMove(Position p) const override{
             if(((pos.Rank == p.Rank) != (pos.File == p.File))) {
                 return false; // If the column and row are both different, it's not a valid rook move
                               // If the column and row are both the same, you're trying to move the piece 
@@ -29,7 +29,7 @@ class Rook: public Piece{
 
         }
 
-        std::vector<Position> validMoves() override {
+        std::vector<Position> validMoves() const override {
             std::vector<Position> moves;
 
             
@@ -50,7 +50,7 @@ class Rook: public Piece{
 
 
     private:
-        void appendMovesForDirection(int dr, int df, std::vector<Position> moves = {}) {
+        void appendMovesForDirection(int dr, int df, std::vector<Position> moves = {}) const{
             int r = pos.Rank + dr, f = pos.File + df;
             while (r >= 0 && r < 8 && f >= 0 && f < 8) {
                 if(!b->pieceAtSquare(f, r)){

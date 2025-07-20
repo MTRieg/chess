@@ -16,7 +16,7 @@ Colour Piece::getColour() const { return c; }
 
 Piece::Position Piece::getPosition() const { return pos; }
 
-bool Piece::verifyMove(Position p) {
+bool Piece::verifyMove(Position p) const{
     //individual pieces are encouraged to override this method, but this 
     //provides a default implementation
     for(auto &move : validMoves()) {
