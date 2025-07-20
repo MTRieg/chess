@@ -4,12 +4,15 @@
 using namespace std;
 
 class King : public Piece {
+
     public:
-        King(Colour colour, Position pos, Board *b);
 
-        Piece::PieceType getType() const override;
-        Piece *clone() const override;
+    King(Colour colour, Position pos, Board *b);
 
-        bool verifyMove(Piece::Position p) const override;
-        vector<Position> validMoves() const override;
+    Piece::PieceType getType() const override;
+    Piece *clone() const override;
+
+    bool verifyMove(Piece::Position p) const override;
+    vector<Piece::Position> validMoves() const override;
+
 };
