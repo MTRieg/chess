@@ -11,7 +11,7 @@ Colour &operator++(Colour &c) {
 
 Piece::Piece(Colour colour, Board *b) : c{colour}, b{b} {}
 
-Piece::Colour Piece::getColour() const { return c; }
+Colour Piece::getColour() const { return c; }
 
 Piece::Position Piece::getPosition() const { return pos; }
 
@@ -47,11 +47,11 @@ std::string Piece::Position::Algebraic(Position p) {
 
 
 
-// ostream &operator<<(ostream &out, const Colour &c) const {
-//     switch (c) {
-//         case Colour::White: out << "White"; break;
-//         case Colour::Black: out << "Black"; break;
-//     }
-//     return out;
-// }
+ostream &operator<<(ostream &out, const Colour &c) {
+    switch (c) {
+        case Colour::White: out << "White"; break;
+        case Colour::Black: out << "Black"; break;
+    }
+    return out;
+}
 

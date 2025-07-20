@@ -6,6 +6,7 @@
 #define BOARD_H
 class Board;
 #endif 
+using namespace std;
 
 enum class Colour {
     White,
@@ -51,6 +52,4 @@ class Piece {
 
 };
 
-// printing
-// ostream &operator<<(ostream &out, const Colour &c) const;
-
+ostream &operator<<(ostream &out, const Colour &c);
