@@ -1,6 +1,13 @@
 #include <iostream>
 #include "piece.h"
 #include "board.h"
+#include "pawn.h"
+#include "rook.h"
+#include "knight.h"
+#include "bishop.h"
+#include "queen.h"
+#include "king.h"
+
 
 Colour &operator++(Colour &c) {
     switch (c) {
@@ -11,6 +18,18 @@ Colour &operator++(Colour &c) {
 }
 
 Piece::Piece(Colour colour, Position pos, Board *b) : c{colour}, pos{pos}, b{b} {}
+
+Piece *Piece::CreatePiece(Colour colour, Board *b, Piece::PieceType type, Piece::Position pos) {
+    switch (type) {
+        case Piece::PieceType::Pawn: return new Pawn(colour, pos, b);
+        case Piece::PieceType::Knight: return new Knight(colour, pos, b);
+        case Piece::PieceType::Bishop: return new Bishop(colour, pos, b);
+        case Piece::PieceType::Rook: return new Rook(colour, pos, b);
+        case Piece::PieceType::Queen: return new Queen(colour, pos, b);
+        case Piece::PieceType::King: return new King(colour, pos, b);
+        default: return nullptr;
+    }
+}
 
 Colour Piece::getColour() const { return c; }
 

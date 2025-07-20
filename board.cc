@@ -12,7 +12,7 @@
 #include <vector>
 
 
-Board::Board(int size_in = 8) : size{size_in}{
+Board::Board(int size_in = 8) : size{size_in}, checkCache{false}, checkmateCache{false} {
     board = new Piece**[size];
     for (int i = 0; i < size; ++i) {
         board[i] = new Piece*[size];
@@ -122,13 +122,15 @@ bool Board::isValidMove(const MoveInfo& move) const {
         return false;
     }
 
-    // Check if the move puts the king in check
+    applyMove(move); // Temporarily apply the move to check for check or checkmate
+    bool inCheck = calculateCheck(piece->getColour());
 
+    undoMove(move); // Undo the temporary move
 
+    if (inCheck) {
+        return false; // Move puts own king in check, not valid
+    }
 
-
-
-    
     return true; // If all checks pass, the move is valid
 }
 
@@ -233,9 +235,7 @@ void Board::applyMove(const Piece::Position &oldPos, const Piece::Position &newP
 
 
 //assumes capturedPiece is a valid pointer, and that the move is valid
-//for example, things will start breaking if capturedPiece does not point to this board
-//if capturedPiece exists, it will now be responsible for deleting capturedPiece
-void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr) {
+void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, const Piece *const capturedPiece = nullptr) {
     Piece *movedPiece = board[newPos.File][newPos.Rank];
     if (!movedPiece) {
         return; // No piece to undo
@@ -254,7 +254,7 @@ void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPo
     }
 }
 
-void Board::undoMove(MoveInfo& move) {
+void Board::undoMove(const MoveInfo& move) {
     Piece::Position oldPos = move.oldPos;
     Piece::Position newPos = move.piece->getPosition();
     Piece *capturedPiece = move.capturedPiece;
@@ -273,26 +273,73 @@ void Board::undoMove(MoveInfo& move) {
         // Handle castling undo logic
         if(move.piece->getColour() == Colour::White) {
             if(newPos.File == 6) { // Kingside castle
-                board[7][0] = board[5][0]; // Restore the rook
-                board[5][0] = nullptr; // Remove the rook from its old position
+                undoMove(Piece::Position{7, 0}, Piece::Position{5, 0}); // Restore the rook
             } else if(newPos.File == 2) { // Queenside castle
-                board[0][0] = board[3][0]; // Restore the rook
-                board[3][0] = nullptr; // Remove the rook from its old position
+                undoMove(Piece::Position{0, 0}, Piece::Position{3, 0}); // Restore the rook
             }
         } else {
             if(newPos.File == 6) { // Kingside castle
-                board[7][7] = board[5][7]; // Restore the rook
-                board[5][7] = nullptr; // Remove the rook from its old position
+                undoMove(Piece::Position{7, 7}, Piece::Position{5, 7}); // Restore the rook
             } else if(newPos.File == 2) { // Queenside castle
-                board[0][7] = board[3][7]; // Restore the rook
-                board[3][7] = nullptr; // Remove the rook from its old position
+                undoMove(Piece::Position{0, 7}, Piece::Position{3, 7}); // Restore the rook
             }
         }
     }
+
+    ibi = move.ibi;
+
 }
+
+const bool Board::calculateCheck(Colour colour){
+    for(int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            Piece* piece = board[i][j];
+            if (piece && piece->getColour() != colour) {
+                std::vector<Piece::Position> moves = piece->validMoves();
+                for (const auto& move : moves) {
+                    const Piece* targetPiece = pieceAtPosition(move);
+                    if (targetPiece && targetPiece->getType() == Piece::PieceType::King && targetPiece->getColour() == colour) {
+                        return true; // Check found
+                    }
+                }
+            }
+        }
+    }
+    return false; // No check found
+
+}
+
+
+const bool Board::calculateCheckmate(Colour colour, bool useCheckCache = true) {
+    if ((useCheckCache && !checkCache) || !useCheckCache && !calculateCheck(colour)) {
+        return false; // Cannot be checkmate if not in check
+    }
+
+    std::vector<MoveInfo> validMoves = getValidMoves(colour);
+    if (validMoves.empty()) {
+        return true;
+    }
     
+    return false;
+}
 
 
 
+void Board::setCheckCache(bool value, Colour colour) {
+    if (colour == Colour::White) {
+        checkCache = calculateCheck(Colour::White);
+    } else {
+        checkCache = calculateCheck(Colour::Black);
+    }
+}
 
+
+
+void Board::setCheckmateCache(bool value, Colour colour) {
+    if (colour == Colour::White) {
+        checkmateCache = calculateCheckmate(Colour::White);
+    } else {
+        checkmateCache = calculateCheckmate(Colour::Black);
+    }
+}
 

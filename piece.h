@@ -41,6 +41,8 @@ class Piece {
     virtual bool verifyMove(Position p) const;
     void move(Position p);
 
+    Piece *createPiece(Colour colour, Board *b, PieceType type, Position pos);
+
     protected:
 
     PieceType type;
@@ -48,7 +50,8 @@ class Piece {
     Colour c;
     const Board *b;
 
-    Piece(Colour colour, Board *b);
+    Piece(Colour colour,  Position pos, Board *b);
+
 
 
 };

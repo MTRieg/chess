@@ -18,7 +18,7 @@ class Board {
     Piece*** board;
 
     vector<BoardObserver*> observers;
-    bool check = false, checkmate = false;
+    bool checkCache = false, checkmateCache = false;
     InvisibleBoardInfo ibi;
 
     void notifyObservers(MoveInfo latest);
@@ -35,10 +35,14 @@ class Board {
 
     //undoes a move, restoring the previous state of the board
     //this will only affect the board, not the observers or ibi
-    void undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr);
+    void undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, const Piece *const capturedPiece = nullptr);
     //properly undoes a move, restoring the previous state of the board (still no board notifications)
-    void undoMove(MoveInfo& move);
+    void undoMove(const MoveInfo& move);
 
+    const bool calculateCheck(Colour colour);
+    const bool calculateCheckmate(Colour colour, bool useCheckCache = true);
+    void setCheckCache(bool value, Colour colour);
+    void setCheckmateCache(bool value, Colour colour);
 
 
     
