@@ -45,11 +45,6 @@ class Bishop: public Piece{
         }
 
 
-
-
-
-
-
     private:
         void appendMovesForDirection(int dr, int df, std::vector<Position> moves = {}) {
             int r = pos.Rank + dr, f = pos.File + df;
