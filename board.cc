@@ -22,20 +22,16 @@ Board::Board(int size_in) : size{size_in}{
     }
 }
 
-
-
 void Board::init() {
     for(int i=0; i<8; i++){
         board[i][1] = new Pawn(Colour::White, Piece::Position{i, 1}, this);
         board[i][6] = new Pawn(Colour::Black, Piece::Position{i, 6}, this);
     }
-    InitHomeRow(Colour::White, 0);
-    InitHomeRow(Colour::Black, 7);
+    initHomeRow(Colour::White, 0);
+    initHomeRow(Colour::Black, 7);
 }
 
-
-
-void Board::InitHomeRow(Colour c, int row) {
+void Board::initHomeRow(Colour c, int row) {
     board[0][row] = new Rook(c, Piece::Position{0, row}, this);
     board[1][row] = new Knight(c, Piece::Position{1, row}, this);
     board[2][row] = new Bishop(c, Piece::Position{2, row}, this);

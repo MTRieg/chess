@@ -8,7 +8,7 @@
 #include "queen.h"
 #include "king.h"
 
-
+// colour iterator
 Colour &operator++(Colour &c) {
     switch (c) {
         case Colour::White: c = Colour::Black; break;
@@ -17,6 +17,7 @@ Colour &operator++(Colour &c) {
     return c;
 }
 
+// constructor
 Piece::Piece(Colour colour, Position pos, Board *b) : c{colour}, pos{pos}, b{b} {}
 
 Piece *Piece::CreatePiece(Colour colour, Board *b, Piece::PieceType type, Piece::Position pos) {
@@ -31,8 +32,8 @@ Piece *Piece::CreatePiece(Colour colour, Board *b, Piece::PieceType type, Piece:
     }
 }
 
+// accessors
 Colour Piece::getColour() const { return c; }
-
 Piece::Position Piece::getPosition() const { return pos; }
 
 bool Piece::verifyMove(Position p) const{
