@@ -22,6 +22,32 @@ Board::Board(int size_in) : size{size_in}{
     }
 }
 
+Board::Board(const Board& other) {
+    if(this == &other) {
+        return; // Handle self-assignment
+    }
+
+    // Clean up existing resources
+    for (int i = 0; i < size; ++i) {
+        delete[] board[i];
+    }
+    delete[] board;
+
+    // Copy the other board's state
+    size = other.size;
+    board = new Piece**[size];
+    for (int i = 0; i < size; ++i) {
+        board[i] = new Piece*[size];
+        for (int j = 0; j < size; ++j) {
+            if (other.board[i][j]) {
+                board[i][j] = other.board[i][j]->clone();
+            } else {
+                board[i][j] = nullptr;
+            }
+        }
+    }
+}
+
 
 
 void Board::init() {
@@ -106,7 +132,7 @@ int Board::getSize() const {
     return size;
 }
 
-const bool Board::isValidMove(const MoveInfo& move) const {
+bool Board::isValidMove(const MoveInfo& move) {
     const Piece* piece = move.piece;
     if (!piece) return false;
 

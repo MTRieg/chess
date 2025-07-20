@@ -40,7 +40,7 @@ class Piece {
     virtual bool verifyMove(Position p) const;
     void move(Position p);
 
-    Piece *createPiece(Colour colour, Board *b, PieceType type, Position pos);
+    virtual Piece *Piece::clone() const = 0;
 
     protected:
 

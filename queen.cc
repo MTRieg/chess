@@ -15,6 +15,10 @@ class Queen: public Piece{
             return PieceType::Queen;
         }
 
+        Piece *clone() const override {
+            return new Queen(*this);
+        }
+
         bool verifyMove(Position p) const override{
             if(((pos.Rank == p.Rank) && (pos.File == p.File))) {
                 return false; // If the column and row are both the same, you're trying to move the piece 

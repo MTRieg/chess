@@ -8,6 +8,7 @@ class Queen : public Piece {
         Queen(Colour colour, Position pos, Board *b);
 
         Piece::PieceType getType() const override;
+        Piece *clone() const override;
 
         bool verifyMove(Piece::Position p) const override;
         vector<Position> validMoves() const override;
