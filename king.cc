@@ -1,40 +1,42 @@
 
-#include "piece.h"
 #include <cmath>
 #include <vector>
+#include "piece.h"
+#include "king.h"
+using namespace std;
 
 
+King::King(Colour colour, Position pos, Board *b) : Piece(colour, pos, b) {}
 
+Piece::PieceType King::getType() const {
+    return Piece::PieceType::King;
+}
 
-class King: public Piece{
-    public:
-        King(Colour colour, Position pos, Board *b) : Piece(colour, pos, b) {}
+Piece* King::clone() const {
+    return new King(*this);
+}
 
-        PieceType getType() const override {
-            return PieceType::King;
-        }
+bool King::verifyMove(Position p) const {
+    // kings move one square in any direction
+    int dRank = std::abs(p.Rank - pos.Rank);
+    int dFile = std::abs(p.File - pos.File);
+    return (dRank <= 1 && dFile <= 1);
+}
 
-        bool verifyMove(Position p) const override{
-            // Kings move one square in any direction
-            int dRank = std::abs(p.Rank - pos.Rank);
-            int dFile = std::abs(p.File - pos.File);
-            return (dRank <= 1 && dFile <= 1);
-        }
-
-        std::vector<Position> validMoves() const override {
-            // Generate all valid moves for the king
-            std::vector<Position> moves;
-            for (int dr = -1; dr <= 1; ++dr) {
-                for (int df = -1; df <= 1; ++df) {
-                    if (dr != 0 || df != 0) { // Exclude the current position
-                        Position newPos{pos.Rank + dr, pos.File + df};
-                        moves.push_back(newPos);
-                    }
-                }
+std::vector<Piece::Position> King::validMoves() const {
+    // generate all valid moves for the king
+    std::vector<Position> moves;
+    for (int dr = -1; dr <= 1; ++dr) {
+        for (int df = -1; df <= 1; ++df) {
+            if (dr != 0 || df != 0) { // exclude the current position
+                Position newPos{pos.Rank + dr, pos.File + df};
+                moves.push_back(newPos);
             }
-            return moves;
         }
-};
+    }
+    return moves;
+}
+
 
 
 

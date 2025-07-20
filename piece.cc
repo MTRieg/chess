@@ -46,8 +46,6 @@ std::string Piece::Position::Algebraic(Position p) {
 
 
 
-
-
 ostream &operator<<(ostream &out, const Colour &c) {
     switch (c) {
         case Colour::White: out << "White"; break;
