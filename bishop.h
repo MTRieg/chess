@@ -3,7 +3,7 @@
 
 class Bishop : public Piece {
     public:
-        Bishop(Colour colour, Board *b);
+        Bishop(Colour colour, Position pos, Board *b);
 
         Piece::PieceType getType() const override;
 

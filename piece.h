@@ -48,7 +48,7 @@ class Piece {
     Colour c;
     const Board *b;
 
-    Piece(Colour colour, Board *b);
+    Piece(Colour colour, Position pos, Board *b);
 
 
 };

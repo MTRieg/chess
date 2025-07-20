@@ -10,7 +10,7 @@ Colour &operator++(Colour &c) {
     return c;
 }
 
-Piece::Piece(Colour colour, Board *b) : c{colour}, b{b} {}
+Piece::Piece(Colour colour, Position pos, Board *b) : c{colour}, pos{pos}, b{b} {}
 
 Colour Piece::getColour() const { return c; }
 

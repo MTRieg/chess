@@ -5,23 +5,23 @@
 #ifndef INVISIBLE_BOARD_INFO
 #define INVISIBLE_BOARD_INFO
 struct InvisibleBoardInfo {
-    bool wkc, wqc, bkc, bqc; // castling ability
-    int enPassantFile;
+    bool wkc = true, wqc = true, bkc = true, bqc = true; // castling ability
+    int enPassantFile = -1;
 };
 #endif
 
 
 class Board {
 
-    int size;
+    int size = 8;
     Piece*** board;
 
-    BoardObserver** observers;
-    bool check;
-    bool checkmate;
+    vector<BoardObserver*> observers;
+    bool check = false, checkmate = false;
     InvisibleBoardInfo ibi;
 
-    void notifyObservers();
+    void notifyObservers(MoveInfo latest);
+    void InitHomeRow(Colour c, int row);
 
     public:
 
@@ -41,7 +41,6 @@ class Board {
     const bool check();
     const bool checkmate();
     const InvisibleBoardInfo BoardInfo();
-
 
 
 };
