@@ -118,6 +118,22 @@ void Board::removeObserver(BoardObserver* observer) {
     observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
 }
 
+
+void Board::movePiece(const MoveInfo& move) {
+    if (!isValidMove(move)) {
+        throw std::invalid_argument("Invalid move");
+    }
+
+    applyMove(move);
+    notifyObservers(move);
+
+    // Update check and checkmate status
+    setCheckCache(calculateCheck(move.piece->getColour()), move.piece->getColour());
+    setCheckmateCache(calculateCheckmate(move.piece->getColour()), move.piece->getColour());
+}
+
+
+
 const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
     std::vector<MoveInfo> validMoves;
     Board *tempBoard = new Board(*this); // Create a temporary copy of the board
