@@ -34,7 +34,7 @@ class Board {
     //this will only affect the board, not the observers or ibi
     void undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr);
     //properly undoes a move, restoring the previous state of the board (still no board notifications)
-    void undoMove(const MoveInfo& move);
+    void undoMove(MoveInfo& move);
 
 
 
