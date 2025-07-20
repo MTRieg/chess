@@ -56,10 +56,9 @@ class Rook: public Piece{
                 if(!b->pieceAtSquare(f, r)){
                     moves.push_back({r, f});
                 }else{
-                    Colour targetColour = b->pieceAtSquare(f, r)->getColour();
-                    if (targetColour == c) break; // Stop if own piece
                     moves.push_back({r, f});
-                    break; // Stop if opponent's piece
+                    break; // Stop after adding the first piece seen
+                    // Piece.cc is expected to check whether or not a move is a self-capture
                 }
                 r += dr;
                 f += df;
@@ -70,7 +69,7 @@ class Rook: public Piece{
             int r = pos.Rank + dr, f = pos.File + df;
             while (r >= 0 && r < 8 && f >= 0 && f < 8) {
                 if(b->pieceAtSquare(f, r)){
-                    Colour targetColour = b->pieceAtSquare(f, r).getColour();
+                    Colour targetColour = b->pieceAtSquare(f, r)->getColour();
                     if (targetColour == c) return false; // Stop if own piece
                     if (f == p.File && r == p.Rank) return true; // return true if the target square is reached
                     return false; // Stop if opponent's piece
