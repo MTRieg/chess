@@ -8,9 +8,9 @@ enum class Mode { Home, Game, Setup };
 class Game {
 
     const int NUM_PLAYERS = 2;
-    
-    Board board;
-    GameData gameData;
+
+    Board *board;
+    GameData *gameData;
     int playerTurn = 0;
     vector<Player> players;
     vector<int> scores;
