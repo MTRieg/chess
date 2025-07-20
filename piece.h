@@ -33,8 +33,8 @@ class Piece {
     };
 
     
-    virtual PieceType getType() const;
     Colour getColour() const;
+    virtual PieceType getType() const;
     Position getPosition() const;
 
     virtual std::vector<Position> validMoves() = 0;
@@ -42,6 +42,8 @@ class Piece {
     bool move(Position p, PieceType promotion_type = PieceType::Queen);
 
     protected:
+
+    PieceType type;
     Position pos;
     Colour c;
     const Board *b;
@@ -52,5 +54,5 @@ class Piece {
 };
 
 // printing
-// ostream &operator<<(ostream &out, const Colour &c) const;
+ostream &operator<<(ostream &out, const Colour &c) const;
 

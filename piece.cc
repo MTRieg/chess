@@ -1,3 +1,4 @@
+#include <iostream>
 #include "piece.h"
 #include "board.h"
 
@@ -11,8 +12,9 @@ Colour &operator++(Colour &c) {
 
 Piece::Piece(Colour colour, Board *b) : c{colour}, b{b} {}
 
-Piece::Colour Piece::getColour() const { return c; }
-
+// accessors
+Colour Piece::getColour() const { return c; }
+Piece::PieceType Piece::getType() const { return type; }
 Piece::Position Piece::getPosition() const { return pos; }
 
 bool Piece::verifyMove(Position p) {
@@ -46,12 +48,12 @@ std::string Piece::Position::Algebraic(Position p) {
 
 
 
-
-// ostream &operator<<(ostream &out, const Colour &c) const {
-//     switch (c) {
-//         case Colour::White: out << "White"; break;
-//         case Colour::Black: out << "Black"; break;
-//     }
-//     return out;
-// }
+// printing
+ostream &operator<<(ostream &out, const Colour &c) const {
+    switch (c) {
+        case Colour::White: out << "White"; break;
+        case Colour::Black: out << "Black"; break;
+    }
+    return out;
+}
 

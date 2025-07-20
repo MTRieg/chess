@@ -12,6 +12,10 @@ Board::Board() : size{size} {
     
 }
 
+int Board::getSize() const {
+    return size;
+}
+
 
 
 

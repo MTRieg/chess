@@ -1,7 +1,13 @@
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <string>
 #include "game.h"
+#include "human.h"
+#include "bot1.h"
+#include "bot2.h"
+#include "bot3.h"
+#include "bot4.h"
 #include "board.h"
 #include "gamedata.h"
 #include "piece.h"
@@ -28,30 +34,31 @@ void Game::run()  {
         }
 
         if (cmd == "game") {\
-            Colour turnColour = Piece::Colour::White;
+            Colour turnColour = Colour::White;
             for (int i = 0; i < NUM_PLAYERS; ++i) {
                 string playerType;
                 cin >> playerType;
                 if (playerType == "human") {
-                    players[i] = new Human(board, turnColour++);
+                    players[i] = make_unique<Human>(board, turnColour);
                 } else if (playerType == "computer[1]") {
-                    player = Player::Computer1;
+                    players[i] = make_unique<Bot1>(board, turnColour);
                 } else if (playerType == "computer[2]") {
-                    player = Player::Computer2;
+                    players[i] = make_unique<Bot2>(board, turnColour);
                 } else if (playerType == "computer[3]") {
-                    player = Player::Computer3;
+                    players[i] = make_unique<Bot3>(board, turnColour);
                 } else if (playerType == "computer[4]") {
-                    player = Player::Computer4;
+                    players[i] = make_unique<Bot4>(board, turnColour);
                 } else {
                     cout << "Invalid player type: " << playerType << endl;
                     continue;
                 }
+                ++turnColour;
             }
             mode = Mode::Game;
 
         } else if (cmd == "setup") {
             mode = Mode::Setup;
-            // board
+            setup();
 
         } else if (cmd == "quit") {
             break;
@@ -79,7 +86,7 @@ void Game::play() {
 
     // resignation
     if (cmd == "resign") {
-        cout << "Player " << playerTurn << " resigned." << endl;
+        cout << players[playerTurn]->getColour() << " resigned." << endl;
         mode = Mode::Home;
         nextTurn();
         ++scores[playerTurn];
@@ -94,13 +101,11 @@ void Game::play() {
 
     // computer move
     if (cmd == "move") {
-        if (players[playerTurn] == Player::Human) {
-            cout << "The computer has already played." << endl;
+        if (!players[playerTurn]->autoMovable()) {
+            cout << "It's your turn, the computer has already played!" << endl;
             return;
-        }
-        if (players[playerTurn] == Player::Computer1) {
-
-            cout << "Computer 1 is making a move..." << endl;
+        } else {
+            cout << "computer move" << endl;
         }
 
     }
@@ -132,8 +137,13 @@ void Game::setup() {
 }
 
 void Game::nextTurn() {
-    turnColour = (turnColour == Piece::Colour::White) ? Piece::Colour::Black : Piece::Colour::White;
     playerTurn = (playerTurn + 1) % players.size();
 }
 
+void Game::printScores() const {
+    cout << "Final Score:" << endl;
+    for (int i = 0; i < players.size(); ++i) {
+        cout << players[i]->getColour() << ": " << scores[i] << endl;
+    }
+}
 

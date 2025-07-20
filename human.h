@@ -3,5 +3,7 @@
 class Human : public Player {
 
     public:
-    Human() = default;
+    Human(Board* board, Colour colour);
+    bool autoMovable() override;
+
 };

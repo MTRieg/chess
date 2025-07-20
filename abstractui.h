@@ -16,7 +16,7 @@ class AbstractUI : public BoardObserver {
     AbstractUI(AbstractUI&&) = delete;
     AbstractUI& operator=(AbstractUI&&) = delete;
 
-    virtual ~AbstractUI() = default();
+    virtual ~AbstractUI() = default;
 
     virtual void update(MoveInfo latest) override = 0;
 
