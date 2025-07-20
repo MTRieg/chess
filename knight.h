@@ -1,4 +1,5 @@
 #include "piece.h"
+#include <vector>
 
 class Knight : public Piece {
     public:
@@ -6,6 +7,6 @@ class Knight : public Piece {
 
         Piece::PieceType getType() const override;
 
-        bool verifyMoves(Piece::Position p);
-        Position* validMoves() override;
+        bool verifyMove(Piece::Position p) override;
+        std::vector<Position> validMoves() override;
 };

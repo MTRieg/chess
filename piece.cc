@@ -8,14 +8,20 @@ Colour Piece::getColour() const { return c; }
 
 Piece::Position Piece::getPosition() const { return pos; }
 
-bool Piece::verifyMoves(Position p) {
-    // This method should be overridden in derived classes
-    return false;
+bool Piece::verifyMove(Position p) {
+    //individual pieces are encouraged to override this method, but this 
+    //provides a default implementation
+    for(auto &move : validMoves()) {
+        if (move.Rank == p.Rank && move.File == p.File) {
+            return true; 
+        }
+    }
+    return false; 
 }
 
-bool Piece::move(Position p, PieceType promotion_type) {
-    
-    if (verifyMoves(p)) {
+bool Piece::move(Position p, Type promotion_type) {
+
+    if (verifyMove(p)) {
         pos = p; // Update the position if the move is valid
         return true;
     }
