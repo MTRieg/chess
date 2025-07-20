@@ -23,8 +23,12 @@ class Board {
     void notifyObservers(MoveInfo latest);
     void InitHomeRow(Colour c, int row);
 
-    //directly applies the move to the pieces, without checking validity or notifying observers
+    
+    //directly moves a piece to a new position, without any additional checks/effects
+    void movePieceDirectly(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr);
+    //still no notifications for observers or checks for validity, but does handle castling, en passant, and promotion
     void applyMove(const MoveInfo& move); 
+
     void undoMove(const MoveInfo& move);
 
 
