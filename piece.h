@@ -1,7 +1,11 @@
 #include <string>
+#include <vector>
 
-
+#ifndef BOARD_H
+#define BOARD_H
 class Board;
+#endif 
+
 struct Position;
 struct Colour;
 
@@ -34,8 +38,8 @@ class Piece {
         Colour getColour() const;
         Position getPosition() const;
 
-        virtual Position *validMoves() = 0;
-        bool verifyMoves(Position p);
+        virtual std::vector<Position> validMoves() = 0;
+        virtual bool verifyMove(Position p);
         bool move(Position p, PieceType promotion_type = PieceType::Queen);
 
 
