@@ -1,3 +1,4 @@
+#include <iostream>
 #include "piece.h"
 #include "board.h"
 

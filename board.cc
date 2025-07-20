@@ -102,6 +102,14 @@ const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
     return validMoves;
 }
 
+int Board::getSize() const {
+    return size;
+}
+
+int Board::getSize() const {
+    return size;
+}
+
 bool Board::isValidMove(const MoveInfo& move) const {
     const Piece* piece = move.piece;
     if (!piece) return false;

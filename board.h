@@ -33,6 +33,7 @@ class Board {
     ~Board();
 
     void init();
+    int getSize() const;
     const vector<MoveInfo> getValidMoves(Colour colour) const;
     const bool isValidMove(const MoveInfo& move) const;
     void movePiece(const MoveInfo& move);
