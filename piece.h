@@ -40,7 +40,7 @@ class Piece {
     virtual bool verifyMove(Position p) const;
     void move(Position p);
 
-    virtual Piece *Piece::clone() const = 0;
+    virtual Piece *clone() const = 0;
 
     protected:
 
@@ -48,8 +48,6 @@ class Piece {
     Position pos;
     Colour c;
     const Board *b;
-
-    Piece(Colour colour,  Position pos, Board *b);
 
 
 
