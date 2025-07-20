@@ -41,7 +41,6 @@ class Board {
     void setCheckmateCache(bool value, Colour colour);
 
     Board (const Board&);
-    Board& operator=(const Board&);
 
 
 
@@ -56,7 +55,7 @@ class Board {
     void init();
     int getSize() const;
     const vector<MoveInfo> getValidMoves(Colour colour) const;
-    bool isValidMove(const MoveInfo& move);
+    bool isValidMove(const MoveInfo& move, Board* tempBoard = nullptr) const;
     void movePiece(const MoveInfo& move);
     void addObserver(BoardObserver* observer);
     void removeObserver(BoardObserver* observer);
