@@ -39,7 +39,7 @@ class Piece {
 
     virtual std::vector<Position> validMoves() const = 0;
     virtual bool verifyMove(Position p) const;
-    bool move(Position p, PieceType promotion_type = PieceType::Queen);
+    void move(Position p);
 
     protected:
 
