@@ -123,7 +123,7 @@ bool Board::isValidMove(const MoveInfo& move) const {
     }
 
     // Check if the move puts the king in check
-    
+
 
 
 
@@ -139,7 +139,7 @@ void Board::applyMove(const MoveInfo& move) {
     auto newPos = move.piece->getPosition();
     auto oldPos = move.oldPos;
 
-    movePieceDirectly(oldPos, newPos, move.capturedPiece);
+    applyMove(oldPos, newPos, move.capturedPiece);
 
 
     if(move.isPromotion){
@@ -215,7 +215,7 @@ void Board::applyMove(const MoveInfo& move) {
 }
 
 
-void Board::movePieceDirectly(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr) {
+void Board::applyMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr) {
     Piece *movedPiece = board[oldPos.File][oldPos.Rank];
     if (!movedPiece) {
         return; // No piece to move
@@ -231,6 +231,21 @@ void Board::movePieceDirectly(const Piece::Position &oldPos, const Piece::Positi
     }
 }
 
+
+void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr) {
+    Piece *movedPiece = board[newPos.File][newPos.Rank];
+    if (!movedPiece) {
+        return; // No piece to undo
+    }
+
+    movedPiece->move(oldPos); // Update the piece's local position variables
+    board[oldPos.File][oldPos.Rank] = movedPiece; // Place back at old position
+    board[newPos.File][newPos.Rank] = nullptr; // Remove from new position
+
+    if (capturedPiece) {
+        board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank] = capturedPiece; // Restore captured piece
+    }
+}
     
 
 

@@ -23,12 +23,19 @@ class Board {
     void notifyObservers(MoveInfo latest);
     void InitHomeRow(Colour c, int row);
 
+
+    //the four of these could be made boolean, but the public functions are 
+    //required to use these private functions responsibly.
     
     //directly moves a piece to a new position, without any additional checks/effects
-    void movePieceDirectly(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr);
+    void applyMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr);
     //still no notifications for observers or checks for validity, but does handle castling, en passant, and promotion
     void applyMove(const MoveInfo& move); 
 
+    //undoes a move, restoring the previous state of the board
+    //this will only affect the board, not the observers or ibi
+    void undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr);
+    //properly undoes a move, restoring the previous state of the board (still no board notifications)
     void undoMove(const MoveInfo& move);
 
 

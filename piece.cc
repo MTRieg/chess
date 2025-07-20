@@ -27,14 +27,7 @@ bool Piece::verifyMove(Position p) const{
     return false; 
 }
 
-bool Piece::move(Position p, PieceType promotion_type) {
-
-    if (verifyMove(p)) {
-        pos = p; // Update the position if the move is valid
-        return true;
-    }
-    return false; // Move is not valid
-}
+void Piece::move(Position p) {pos = p;}
 
 std::string Piece::Position::Algebraic(Position p) {
     // Convert the position to algebraic notation
