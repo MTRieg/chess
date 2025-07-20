@@ -22,6 +22,17 @@ Board::Board(int size_in) : size{size_in}{
     }
 }
 
+Board::~Board() {
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            delete board[i][j]; // Delete each piece
+        }
+        delete[] board[i]; // Delete each row
+    }
+    delete[] board; // Delete the board array
+}
+
+
 Board::Board(const Board& other) {
     if(this == &other) {
         return; // Handle self-assignment
@@ -109,15 +120,16 @@ void Board::removeObserver(BoardObserver* observer) {
 
 const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
     std::vector<MoveInfo> validMoves;
+    Board *tempBoard = new Board(*this); // Create a temporary copy of the board
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
             Piece* piece = board[i][j];
             if (piece && piece->getColour() == colour) {
                 std::vector<Piece::Position> moves = piece->validMoves();
                 for (const auto& move : moves) {
-
-                    if (isValidMove(MoveInfo(piece->getPosition(), piece, pieceAtPosition(move)))) {
-                        validMoves.push_back(MoveInfo(piece->getPosition(), piece, pieceAtPosition(move)));
+                    auto moveInfo = MoveInfo{piece->getPosition(), piece, pieceAtPosition(move)->clone()};
+                    if (tempBoard->isValidMove(moveInfo, tempBoard)) {
+                        validMoves.push_back(moveInfo);
                     }
                 }
             }
@@ -130,7 +142,8 @@ int Board::getSize() const {
     return size;
 }
 
-bool Board::isValidMove(const MoveInfo& move) {
+//resets tempBoard after use, so it can be reused for multiple calls
+bool Board::isValidMove(const MoveInfo& move, Board* tempBoard = nullptr) const{
     const Piece* piece = move.piece;
     if (!piece) return false;
 
@@ -145,10 +158,17 @@ bool Board::isValidMove(const MoveInfo& move) {
         return false;
     }
 
-    applyMove(move); // Temporarily apply the move to check for check or checkmate
-    bool inCheck = calculateCheck(piece->getColour());
+    bool inCheck;
 
-    undoMove(move); // Undo the temporary move
+    if(!tempBoard) {
+        tempBoard = new Board(*this); // If no temporary board is provided, create a copy of the current board
+        tempBoard->applyMove(move); // Temporarily apply the move to check for check or checkmate
+        inCheck = tempBoard->calculateCheck(piece->getColour());
+    }else{
+        tempBoard->applyMove(move); // Temporarily apply the move to check for check or checkmate
+        inCheck = tempBoard->calculateCheck(piece->getColour());
+        tempBoard->undoMove(move);
+    }
 
     if (inCheck) {
         return false; // Move puts own king in check, not valid
@@ -273,7 +293,7 @@ void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPo
             delete board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank]; 
             //delete the piece at the captured position if it exists (should be redundant)
         }
-        board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank] = capturedPiece; // Restore captured piece
+        board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank] = capturedPiece->clone(); // Restore captured piece
     }
 }
 
@@ -313,7 +333,7 @@ void Board::undoMove(const MoveInfo& move) {
 
 }
 
-const bool Board::calculateCheck(Colour colour){
+bool Board::calculateCheck(Colour colour){
     for(int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
             Piece* piece = board[i][j];
@@ -333,7 +353,7 @@ const bool Board::calculateCheck(Colour colour){
 }
 
 
-const bool Board::calculateCheckmate(Colour colour, bool useCheckCache = true) {
+bool Board::calculateCheckmate(Colour colour, bool useCheckCache = true) {
     if ((useCheckCache && !checkCache) || !useCheckCache && !calculateCheck(colour)) {
         return false; // Cannot be checkmate if not in check
     }
