@@ -20,7 +20,7 @@ class Game {
     Mode mode;
     
     public:
-    Game() = default;
+    Game();
     void run();
 
     private:

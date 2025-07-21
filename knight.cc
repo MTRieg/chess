@@ -2,7 +2,6 @@
 #include <cmath>
 #include <vector>
 #include "knight.h"
-#include "piece.h"
 using namespace std;
 
 Knight::Knight(Colour colour, Position pos, Board *b) : Piece(colour, pos, b) {}

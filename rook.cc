@@ -8,6 +8,10 @@ using namespace std;
 
 Rook::Rook(Colour colour, Position pos, Board *b) : Piece(colour, pos, b) {}
 
+Piece* Rook::clone() const {
+    return new Rook(*this);
+}
+
 Piece::PieceType Rook::getType() const {
     return PieceType::Rook;
 }

@@ -20,6 +20,8 @@ Colour &operator++(Colour &c) {
 // constructor
 Piece::Piece(Colour colour, Position pos, Board *b) : c{colour}, pos{pos}, b{b} {}
 
+Piece::~Piece() = default;
+
 Colour Piece::getColour() const { return c; }
 Piece::Position Piece::getPosition() const { return pos; }
 
@@ -36,7 +38,7 @@ bool Piece::verifyMove(Position p) const{
 
 void Piece::move(Position p) {pos = p;}
 
-std::string Piece::Position::Algebraic(Position p) {
+std::string Piece::Position::Algebraic(Piece::Position p) {
     // Convert the position to algebraic notation
     return std::string(1, 'a' + p.File) + std::to_string(p.Rank + 1);
 }

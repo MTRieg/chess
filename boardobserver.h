@@ -31,7 +31,7 @@ class BoardObserver {
 
     public:
     BoardObserver() = default;
-    virtual ~BoardObserver() = 0;
+    virtual ~BoardObserver() = default;
     virtual void update(MoveInfo latest) = 0;
 
 };

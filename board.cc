@@ -159,7 +159,7 @@ int Board::getSize() const {
 }
 
 //resets tempBoard after use, so it can be reused for multiple calls
-bool Board::isValidMove(const MoveInfo& move, Board* tempBoard = nullptr) const{
+bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
     const Piece* piece = move.piece;
     if (!piece) return false;
 
@@ -276,7 +276,7 @@ void Board::applyMove(const MoveInfo& move) {
 }
 
 
-void Board::applyMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr) {
+void Board::applyMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece) {
     Piece *movedPiece = board[oldPos.File][oldPos.Rank];
     if (!movedPiece) {
         return; // No piece to move
@@ -294,7 +294,7 @@ void Board::applyMove(const Piece::Position &oldPos, const Piece::Position &newP
 
 
 //assumes capturedPiece is a valid pointer, and that the move is valid
-void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, const Piece *const capturedPiece = nullptr) {
+void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, const Piece *const capturedPiece) {
     Piece *movedPiece = board[newPos.File][newPos.Rank];
     if (!movedPiece) {
         return; // No piece to undo
@@ -369,7 +369,7 @@ bool Board::calculateCheck(Colour colour){
 }
 
 
-bool Board::calculateCheckmate(Colour colour, bool useCheckCache = true) {
+bool Board::calculateCheckmate(Colour colour, bool useCheckCache) {
     if ((useCheckCache && !checkCache) || !useCheckCache && !calculateCheck(colour)) {
         return false; // Cannot be checkmate if not in check
     }

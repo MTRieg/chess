@@ -31,9 +31,13 @@ class Piece {
     };
 
     Piece(Colour colour, Position pos, Board *b);
+    Piece(const Piece&) = default; // Copy constructor for derived classes
+    Piece& operator=(const Piece&) = default; // Copy assignment operator for derived classes
+
+    virtual ~Piece();
     
     Colour getColour() const;
-    virtual PieceType getType() const;
+    virtual PieceType getType() const = 0;
     Position getPosition() const;
 
     virtual std::vector<Position> validMoves() const = 0;
@@ -48,6 +52,7 @@ class Piece {
     Position pos;
     Colour c;
     const Board *b;
+
 
 
 

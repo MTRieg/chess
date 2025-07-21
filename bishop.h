@@ -16,8 +16,7 @@ class Bishop : public Piece {
     vector<Piece::Position> validMoves() const override;
 
     private:
-
     void appendMovesForDirection(int dr, int df, vector<Position> &moves) const;
     bool validMoveGivenDirection(Piece::Position p, int dr, int df) const;
-
+    
 };

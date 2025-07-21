@@ -13,7 +13,7 @@ class TextUI : public AbstractUI {
     int historyWidth = 2; // default width of history ui
 
     public:
-    TextUI(Board* board, GameData* gameData) : AbstractUI(board, gameData) {}
+    TextUI(Board* board, GameData* gameData);
 
     void update(MoveInfo latest);
 

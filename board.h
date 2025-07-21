@@ -4,10 +4,6 @@
 #include "boardobserver.h"
 using namespace std;
 
-struct InvisibleBoardInfo {
-    bool wkc = true, wqc = true, bkc = true, bqc = true; // castling ability
-    int enPassantFile = -1;
-};
 
 class Board {
 
