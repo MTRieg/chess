@@ -27,8 +27,8 @@ class Piece {
 
     struct Position{
         int Rank, File;
-        std::string Algebraic(Position p);
     };
+    
 
     Piece(Colour colour, Position pos, Board *b);
     Piece(const Piece&) = default; // Copy constructor for derived classes
@@ -58,6 +58,10 @@ class Piece {
 
 };
 
+std::string Algebraic(const Piece::Position p);
+
 // printing
 ostream &operator<<(ostream &out, const Colour &c);
+
+char firstChar(Piece::PieceType type);
 

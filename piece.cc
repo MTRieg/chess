@@ -17,6 +17,18 @@ Colour &operator++(Colour &c) {
     return c;
 }
 
+char firstChar(Piece::PieceType type) {
+            switch (type) {
+                case Piece::PieceType::Pawn: return 'P';
+                case Piece::PieceType::Knight: return 'N';
+                case Piece::PieceType::Bishop: return 'B';
+                case Piece::PieceType::Rook: return 'R';
+                case Piece::PieceType::Queen: return 'Q';
+                case Piece::PieceType::King: return 'K';
+            }
+            return ' ';
+        }
+
 // constructor
 Piece::Piece(Colour colour, Position pos, Board *b) : c{colour}, pos{pos}, b{b} {}
 
@@ -38,7 +50,7 @@ bool Piece::verifyMove(Position p) const{
 
 void Piece::move(Position p) {pos = p;}
 
-std::string Piece::Position::Algebraic(Piece::Position p) {
+std::string Algebraic(Piece::Position p) {
     // Convert the position to algebraic notation
     return std::string(1, 'a' + p.File) + std::to_string(p.Rank + 1);
 }

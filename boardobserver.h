@@ -18,12 +18,16 @@ struct MoveInfo {
     bool isEnPassant = false;
     bool isPromotion = false;
     InvisibleBoardInfo ibi; //castling rights and en passant info from before the move was made
+    
+    
 
     MoveInfo(Piece::Position oldPos, Piece *piece, 
              Piece *const capturedPiece = nullptr,
              bool isEnPassant = false, bool isPromotion = false);
 
     string algebraic() const;
+
+    mutable string algebraicNotation;
 
 };
 

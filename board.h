@@ -35,6 +35,7 @@ class Board {
     bool calculateCheckmate(Colour colour, bool useCheckCache = true);
     void setCheckCache(bool value, Colour colour);
     void setCheckmateCache(bool value, Colour colour);
+    void reevaluateCheckAndCheckmate(Colour colour);
 
     Board (const Board&);
 
@@ -60,6 +61,7 @@ class Board {
     const bool check();
     const bool checkmate();
     const InvisibleBoardInfo BoardInfo();
+    void updateAlgebraicNotation(const MoveInfo& move, const Board * const boardAfterMove = nullptr) const;
 
 };
 

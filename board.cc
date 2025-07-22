@@ -124,6 +124,9 @@ void Board::movePiece(const MoveInfo& move) {
         throw std::invalid_argument("Invalid move");
     }
 
+    updateAlgebraicNotation(move);
+    
+
     applyMove(move);
     notifyObservers(move);
 
@@ -401,4 +404,113 @@ void Board::setCheckmateCache(bool value, Colour colour) {
         checkmateCache = calculateCheckmate(Colour::Black);
     }
 }
+
+
+void Board::reevaluateCheckAndCheckmate(Colour colour) {
+    setCheckCache(calculateCheck(colour), colour);
+    setCheckmateCache(calculateCheckmate(colour), colour);
+}
+
+
+
+//assumes move is a valid move, and check and checkmate variables in boardAfterMove have been updated)
+void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const boardAfterMove) const {
+    
+
+    move.algebraicNotation = "";
+    if (!move.piece) {
+        return;
+    }
+
+    if (move.piece->getType() == Piece::PieceType::King && 
+       (std::abs(move.oldPos.File - move.piece->getPosition().File) == 2)) {
+         move.algebraicNotation += (move.piece->getPosition().File == 6) ? "O-O" : "O-O-O"; 
+    }else if (move.isPromotion){
+        if(move.capturedPiece) {
+            move.algebraicNotation = Algebraic(move.oldPos)[0] + "x"; //add the file of the piece
+        }
+        move.algebraicNotation += Algebraic(move.piece->getPosition()) + " = " + firstChar(move.piece->getType());
+    }else if(move.piece->getType() == Piece::PieceType::Pawn) {
+        if(move.capturedPiece) {
+            move.algebraicNotation = Algebraic(move.piece->getPosition())[0] + "x"; //add the file of the piece
+        }
+        move.algebraicNotation += Algebraic(move.oldPos);
+    }else{
+        move.algebraicNotation += firstChar(move.piece->getType());
+        
+        bool equivalentMoveSameFile = false;
+        bool equivalentMoveSameRank = false;
+
+        //pieces in the same file as move.piece
+        for(int i=0; i<size && !equivalentMoveSameFile; i++){
+            if(i != move.oldPos.Rank){ //if it's not move.piece
+                //loop over all squares the piece at that square can move to
+                for( Piece::Position positionPieceCanMove : pieceAtSquare(move.oldPos.File, i)->validMoves()){
+                    if(positionPieceCanMove.Rank == move.piece->getPosition().Rank
+                        &&positionPieceCanMove.File == move.piece->getPosition().File){
+                            equivalentMoveSameFile = true;
+                            break;
+                    }
+                }
+            }
+        }
+
+        //pieces in the same rank as move.piece
+
+        for(int i=0; i<size && !equivalentMoveSameRank; i++){
+            if(i != move.oldPos.File){ //if it's not move.piece
+                //loop over all squares the piece at that square can move to
+                for( Piece::Position positionPieceCanMove : pieceAtSquare(i, move.oldPos.Rank)->validMoves()){
+                    if(positionPieceCanMove.Rank == move.piece->getPosition().Rank
+                        &&positionPieceCanMove.File == move.piece->getPosition().File){
+                            equivalentMoveSameRank = true;
+                            break;
+                    }
+                }
+            }
+        }
+
+        if(equivalentMoveSameFile && equivalentMoveSameRank){
+            move.algebraicNotation += Algebraic(move.oldPos);
+        }else if(equivalentMoveSameFile){
+            move.algebraicNotation += Algebraic(move.oldPos)[0];
+        }else if(equivalentMoveSameRank){
+            move.algebraicNotation += Algebraic(move.oldPos)[1];
+        }
+
+
+
+
+        if (move.capturedPiece) {
+            move.algebraicNotation += "x";
+        }
+        move.algebraicNotation += Algebraic(move.oldPos);
+    }
+
+
+    if(boardAfterMove) {
+        if (boardAfterMove->checkmateCache) {
+            move.algebraicNotation += "#";
+        }else if (boardAfterMove->checkCache){
+            move.algebraicNotation += "+";
+        }
+    } else {
+        Board *tempBoard = new Board(*this);
+        tempBoard->applyMove(move); 
+        tempBoard->reevaluateCheckAndCheckmate(move.piece->getColour());
+
+
+        if (tempBoard->calculateCheck(move.piece->getColour())) {
+            tempBoard->setCheckCache(true, move.piece->getColour());
+            if (tempBoard->calculateCheckmate(move.piece->getColour())) {
+                move.algebraicNotation += "#";
+            } else {
+                move.algebraicNotation += "+";
+            }
+        }
+    }
+    
+    
+}
+
 
