@@ -17,7 +17,7 @@ Piece* Queen::clone() const {
 }
 
 
-bool Queen::verifyMove(Piece::Position p) const {
+bool Queen::verifyMove(Position p) const {
     if ((pos.Rank == p.Rank) && (pos.File == p.File)) {
         return false; // If the column and row are both the same, you're trying to move the piece 
                         // to the square it's already on, which is not a valid move
@@ -33,8 +33,8 @@ bool Queen::verifyMove(Piece::Position p) const {
     return false; // should never reach here
 }
 
-std::vector<Piece::Position> Queen::validMoves() const {
-    std::vector<Piece::Position> moves;
+std::vector<Position> Queen::validMoves() const {
+    std::vector<Position> moves;
 
     // Bishop-style movement: diagonals
     appendMovesForDirection(-1, -1, moves);
@@ -52,7 +52,7 @@ std::vector<Piece::Position> Queen::validMoves() const {
 
 
 // Helper function to get valid moves in one direction
-void Queen::appendMovesForDirection(int dr, int df, std::vector<Piece::Position> &moves) const {
+void Queen::appendMovesForDirection(int dr, int df, std::vector<Position> &moves) const {
     int r = pos.Rank + dr, f = pos.File + df;
     while (r >= 0 && r < 8 && f >= 0 && f < 8) {
         if(!b->pieceAtSquare(f, r)){
@@ -67,7 +67,7 @@ void Queen::appendMovesForDirection(int dr, int df, std::vector<Piece::Position>
     }
 }
 
-bool Queen::validMoveGivenDirection(Piece::Position p, int dr, int df) const {
+bool Queen::validMoveGivenDirection(Position p, int dr, int df) const {
     int r = pos.Rank + dr, f = pos.File + df;
     while (r >= 0 && r < 8 && f >= 0 && f < 8) {
         if(b->pieceAtSquare(f, r)){

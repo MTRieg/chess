@@ -12,6 +12,6 @@ class Pawn : public Piece {
     Piece::PieceType getType() const override;
     Piece *clone() const override;
 
-    bool verifyMove(Piece::Position p) const override;
-    vector<Piece::Position> validMoves() const override;
+    bool verifyMove(Position p) const override;
+    vector<Position> validMoves() const override;
 };

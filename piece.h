@@ -10,7 +10,13 @@ enum class Colour {
     Black
 };
 
+struct Position{
+    int Rank, File;
+};
+
+
 Colour &operator++(Colour &c);
+
 
 class Piece {
     
@@ -25,9 +31,7 @@ class Piece {
         King
     };
 
-    struct Position{
-        int Rank, File;
-    };
+    
     
 
     Piece(Colour colour, Position pos, Board *b);
@@ -58,7 +62,7 @@ class Piece {
 
 };
 
-std::string Algebraic(const Piece::Position p);
+std::string Algebraic(const Position p);
 
 // printing
 ostream &operator<<(ostream &out, const Colour &c);

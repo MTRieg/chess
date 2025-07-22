@@ -23,7 +23,7 @@ bool King::verifyMove(Position p) const {
     return (dRank <= 1 && dFile <= 1);
 }
 
-std::vector<Piece::Position> King::validMoves() const {
+std::vector<Position> King::validMoves() const {
     // generate all valid moves for the king
     std::vector<Position> moves;
     for (int dr = -1; dr <= 1; ++dr) {

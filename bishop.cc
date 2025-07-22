@@ -30,8 +30,8 @@ bool Bishop::verifyMove(Position p) const {
 
 }
 
-vector<Piece::Position> Bishop::validMoves() const {
-    vector<Piece::Position> moves;
+vector<Position> Bishop::validMoves() const {
+    vector<Position> moves;
 
     // bishop-style movement on diagonals
     appendMovesForDirection(-1, -1, moves);
@@ -43,7 +43,7 @@ vector<Piece::Position> Bishop::validMoves() const {
 }
 
 // helpers
-void Bishop::appendMovesForDirection(int dr, int df, vector<Piece::Position> &moves) const {
+void Bishop::appendMovesForDirection(int dr, int df, vector<Position> &moves) const {
     int r = pos.Rank + dr, f = pos.File + df;
     while (r >= 0 && r < 8 && f >= 0 && f < 8) {
         if(!b->pieceAtSquare(f, r)){

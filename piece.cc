@@ -35,7 +35,7 @@ Piece::Piece(Colour colour, Position pos, Board *b) : c{colour}, pos{pos}, b{b} 
 Piece::~Piece() = default;
 
 Colour Piece::getColour() const { return c; }
-Piece::Position Piece::getPosition() const { return pos; }
+Position Piece::getPosition() const { return pos; }
 
 bool Piece::verifyMove(Position p) const{
     //individual pieces are encouraged to override this method, but this 
@@ -50,7 +50,7 @@ bool Piece::verifyMove(Position p) const{
 
 void Piece::move(Position p) {pos = p;}
 
-std::string Algebraic(Piece::Position p) {
+std::string Algebraic(Position p) {
     // Convert the position to algebraic notation
     return std::string(1, 'a' + p.File) + std::to_string(p.Rank + 1);
 }

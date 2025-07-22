@@ -21,9 +21,9 @@ bool Knight::verifyMove(Position p) const {
     return (dRank == 2 && dFile == 1) || (dRank == 1 && dFile == 2);
 }
 
-std::vector<Piece::Position> Knight::validMoves() const {
+std::vector<Position> Knight::validMoves() const {
     // generate all valid moves for the knight
-    std::vector<Piece::Position> moves;
+    std::vector<Position> moves;
     for (int dr = -2; dr <= 2; ++dr) {
         for (int df = -2; df <= 2; ++df) {
             if (std::abs(dr) + std::abs(df) == 3) { // L-shape move

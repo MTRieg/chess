@@ -16,7 +16,7 @@ Piece::PieceType Rook::getType() const {
     return PieceType::Rook;
 }
 
-bool Rook::verifyMove(Piece::Position p) const {
+bool Rook::verifyMove(Position p) const {
     if ((pos.Rank == p.Rank) != (pos.File == p.File)) {
         return false; // If the column and row are both different, it's not a valid rook move
                         // If the column and row are both the same, you're trying to move the piece 
@@ -28,8 +28,8 @@ bool Rook::verifyMove(Piece::Position p) const {
 
 }
 
-std::vector<Piece::Position> Rook::validMoves() const {
-    std::vector<Piece::Position> moves;
+std::vector<Position> Rook::validMoves() const {
+    std::vector<Position> moves;
 
     // Rook-style movement: up, down, left, right
     appendMovesForDirection(-1,  0, moves);
@@ -42,7 +42,7 @@ std::vector<Piece::Position> Rook::validMoves() const {
 
 
 // helpers
-void Rook::appendMovesForDirection(int dr, int df, std::vector<Piece::Position> &moves) const{
+void Rook::appendMovesForDirection(int dr, int df, std::vector<Position> &moves) const{
     int r = pos.Rank + dr, f = pos.File + df;
     while (r >= 0 && r < 8 && f >= 0 && f < 8) {
         if(!b->pieceAtSquare(f, r)){
@@ -57,7 +57,7 @@ void Rook::appendMovesForDirection(int dr, int df, std::vector<Piece::Position> 
     }
 }
 
-bool Rook::validMoveGivenDirection(Piece::Position p, int dr, int df) const {
+bool Rook::validMoveGivenDirection(Position p, int dr, int df) const {
     int r = pos.Rank + dr, f = pos.File + df;
     while (r >= 0 && r < 8 && f >= 0 && f < 8) {
         if(b->pieceAtSquare(f, r)){

@@ -10,11 +10,11 @@ class Queen : public Piece {
     Piece::PieceType getType() const override;
     Piece *clone() const override;
 
-    bool verifyMove(Piece::Position p) const override;
+    bool verifyMove(Position p) const override;
     vector<Position> validMoves() const override;
 
     private:
     void appendMovesForDirection(int dr, int df, vector<Position> &moves) const;
-    bool validMoveGivenDirection(Piece::Position p, int dr, int df) const;
+    bool validMoveGivenDirection(Position p, int dr, int df) const;
 
 };

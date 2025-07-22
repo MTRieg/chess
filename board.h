@@ -21,13 +21,13 @@ class Board {
     //required to use these private functions responsibly.
     
     //directly moves a piece to a new position, without any additional checks/effects
-    void applyMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece = nullptr);
+    void applyMove(const Position &oldPos, const Position &newPos, Piece *capturedPiece = nullptr);
     //still no notifications for observers or checks for validity, but does handle castling, en passant, and promotion
     void applyMove(const MoveInfo& move); 
 
     //undoes a move, restoring the previous state of the board
     //this will only affect the board, not the observers or ibi
-    void undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, const Piece *const capturedPiece = nullptr);
+    void undoMove(const Position &oldPos, const Position &newPos, const Piece *const capturedPiece = nullptr);
     //properly undoes a move, restoring the previous state of the board (still no board notifications)
     void undoMove(const MoveInfo& move);
 
@@ -57,7 +57,7 @@ class Board {
     void addObserver(BoardObserver* observer);
     void removeObserver(BoardObserver* observer);
     const Piece *pieceAtSquare(int file, int rank) const;
-    const Piece *pieceAtPosition(const Piece::Position &pos) const;
+    const Piece *pieceAtPosition(const Position &pos) const;
     const bool check();
     const bool checkmate();
     const InvisibleBoardInfo BoardInfo();

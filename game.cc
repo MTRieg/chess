@@ -16,6 +16,12 @@ using namespace std;
 Game::Game() {
     board = new Board();
     gameData = new GameData();
+    tUI = new TextUI(board, gameData);
+
+    board->init();
+    board->addObserver(gameData);
+    board->addObserver(tUI);
+
     mode = Mode::Home;
     for (int i = 0; i < NUM_PLAYERS; ++i) {
         scores.push_back(0);
@@ -55,9 +61,8 @@ void Game::run()  {
                 }
                 ++turnColour;
             }
-            mode = Mode::Game;
 
-            
+            mode = Mode::Game;            
 
         } else if (cmd == "setup") {
             mode = Mode::Setup;
@@ -122,7 +127,10 @@ void Game::play() {
             return;
         }
 
+
+
         // try move
+        
         
 
         // check endings

@@ -63,22 +63,22 @@ Board::Board(const Board& other) {
 
 void Board::init() {
     for(int i=0; i<8; i++){
-        board[i][1] = new Pawn(Colour::White, Piece::Position{i, 1}, this);
-        board[i][6] = new Pawn(Colour::Black, Piece::Position{i, 6}, this);
+        board[i][1] = new Pawn(Colour::White, Position{i, 1}, this);
+        board[i][6] = new Pawn(Colour::Black, Position{i, 6}, this);
     }
     initHomeRow(Colour::White, 0);
     initHomeRow(Colour::Black, 7);
 }
 
 void Board::initHomeRow(Colour c, int row) {
-    board[0][row] = new Rook(c, Piece::Position{0, row}, this);
-    board[1][row] = new Knight(c, Piece::Position{1, row}, this);
-    board[2][row] = new Bishop(c, Piece::Position{2, row}, this);
-    board[3][row] = new Queen(c, Piece::Position{3, row}, this);
-    board[4][row] = new King(c, Piece::Position{4, row}, this);
-    board[5][row] = new Bishop(c, Piece::Position{5, row}, this);
-    board[6][row] = new Knight(c, Piece::Position{6, row}, this);
-    board[7][row] = new Rook(c, Piece::Position{7, row}, this);
+    board[0][row] = new Rook(c, Position{0, row}, this);
+    board[1][row] = new Knight(c, Position{1, row}, this);
+    board[2][row] = new Bishop(c, Position{2, row}, this);
+    board[3][row] = new Queen(c, Position{3, row}, this);
+    board[4][row] = new King(c, Position{4, row}, this);
+    board[5][row] = new Bishop(c, Position{5, row}, this);
+    board[6][row] = new Knight(c, Position{6, row}, this);
+    board[7][row] = new Rook(c, Position{7, row}, this);
 }
 
 const Piece *Board::pieceAtSquare(int file, int rank) const {
@@ -88,7 +88,7 @@ const Piece *Board::pieceAtSquare(int file, int rank) const {
     return board[file][rank];
 }
 
-const Piece *Board::pieceAtPosition(const Piece::Position &pos) const {
+const Piece *Board::pieceAtPosition(const Position &pos) const {
     return pieceAtSquare(pos.File, pos.Rank);
 }
 
@@ -144,7 +144,7 @@ const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
         for (int j = 0; j < size; ++j) {
             Piece* piece = board[i][j];
             if (piece && piece->getColour() == colour) {
-                std::vector<Piece::Position> moves = piece->validMoves();
+                std::vector<Position> moves = piece->validMoves();
                 for (const auto& move : moves) {
                     auto moveInfo = MoveInfo{piece->getPosition(), piece, pieceAtPosition(move)->clone()};
                     if (tempBoard->isValidMove(moveInfo, tempBoard)) {
@@ -160,6 +160,11 @@ const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
 int Board::getSize() const {
     return size;
 }
+
+
+
+
+
 
 //resets tempBoard after use, so it can be reused for multiple calls
 bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
@@ -208,7 +213,7 @@ void Board::applyMove(const MoveInfo& move) {
 
     if(move.isPromotion){
         // Handle promotion logic here, e.g., change to a Queen
-        Piece::Position promotionPos = newPos;
+        Position promotionPos = newPos;
         delete pieceAtPosition(promotionPos);
         switch(move.piece->getType()) {
             case Piece::PieceType::Queen:
@@ -279,7 +284,7 @@ void Board::applyMove(const MoveInfo& move) {
 }
 
 
-void Board::applyMove(const Piece::Position &oldPos, const Piece::Position &newPos, Piece *capturedPiece) {
+void Board::applyMove(const Position &oldPos, const Position &newPos, Piece *capturedPiece) {
     Piece *movedPiece = board[oldPos.File][oldPos.Rank];
     if (!movedPiece) {
         return; // No piece to move
@@ -297,7 +302,7 @@ void Board::applyMove(const Piece::Position &oldPos, const Piece::Position &newP
 
 
 //assumes capturedPiece is a valid pointer, and that the move is valid
-void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPos, const Piece *const capturedPiece) {
+void Board::undoMove(const Position &oldPos, const Position &newPos, const Piece *const capturedPiece) {
     Piece *movedPiece = board[newPos.File][newPos.Rank];
     if (!movedPiece) {
         return; // No piece to undo
@@ -317,8 +322,8 @@ void Board::undoMove(const Piece::Position &oldPos, const Piece::Position &newPo
 }
 
 void Board::undoMove(const MoveInfo& move) {
-    Piece::Position oldPos = move.oldPos;
-    Piece::Position newPos = move.piece->getPosition();
+    Position oldPos = move.oldPos;
+    Position newPos = move.piece->getPosition();
     Piece *capturedPiece = move.capturedPiece;
 
     undoMove(oldPos, newPos, capturedPiece);
@@ -335,15 +340,15 @@ void Board::undoMove(const MoveInfo& move) {
         // Handle castling undo logic
         if(move.piece->getColour() == Colour::White) {
             if(newPos.File == 6) { // Kingside castle
-                undoMove(Piece::Position{7, 0}, Piece::Position{5, 0}); // Restore the rook
+                undoMove(Position{7, 0}, Position{5, 0}); // Restore the rook
             } else if(newPos.File == 2) { // Queenside castle
-                undoMove(Piece::Position{0, 0}, Piece::Position{3, 0}); // Restore the rook
+                undoMove(Position{0, 0}, Position{3, 0}); // Restore the rook
             }
         } else {
             if(newPos.File == 6) { // Kingside castle
-                undoMove(Piece::Position{7, 7}, Piece::Position{5, 7}); // Restore the rook
+                undoMove(Position{7, 7}, Position{5, 7}); // Restore the rook
             } else if(newPos.File == 2) { // Queenside castle
-                undoMove(Piece::Position{0, 7}, Piece::Position{3, 7}); // Restore the rook
+                undoMove(Position{0, 7}, Position{3, 7}); // Restore the rook
             }
         }
     }
@@ -357,7 +362,7 @@ bool Board::calculateCheck(Colour colour){
         for (int j = 0; j < size; ++j) {
             Piece* piece = board[i][j];
             if (piece && piece->getColour() != colour) {
-                std::vector<Piece::Position> moves = piece->validMoves();
+                std::vector<Position> moves = piece->validMoves();
                 for (const auto& move : moves) {
                     const Piece* targetPiece = pieceAtPosition(move);
                     if (targetPiece && targetPiece->getType() == Piece::PieceType::King && targetPiece->getColour() == colour) {
@@ -445,7 +450,7 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
         for(int i=0; i<size && !equivalentMoveSameFile; i++){
             if(i != move.oldPos.Rank){ //if it's not move.piece
                 //loop over all squares the piece at that square can move to
-                for( Piece::Position positionPieceCanMove : pieceAtSquare(move.oldPos.File, i)->validMoves()){
+                for( Position positionPieceCanMove : pieceAtSquare(move.oldPos.File, i)->validMoves()){
                     if(positionPieceCanMove.Rank == move.piece->getPosition().Rank
                         &&positionPieceCanMove.File == move.piece->getPosition().File){
                             equivalentMoveSameFile = true;
@@ -460,7 +465,7 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
         for(int i=0; i<size && !equivalentMoveSameRank; i++){
             if(i != move.oldPos.File){ //if it's not move.piece
                 //loop over all squares the piece at that square can move to
-                for( Piece::Position positionPieceCanMove : pieceAtSquare(i, move.oldPos.Rank)->validMoves()){
+                for( Position positionPieceCanMove : pieceAtSquare(i, move.oldPos.Rank)->validMoves()){
                     if(positionPieceCanMove.Rank == move.piece->getPosition().Rank
                         &&positionPieceCanMove.File == move.piece->getPosition().File){
                             equivalentMoveSameRank = true;

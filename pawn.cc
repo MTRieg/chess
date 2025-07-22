@@ -39,10 +39,10 @@ bool Pawn::verifyMove(Position p) const {
     return false;
 }
 
-std::vector<Piece::Position> Pawn::validMoves() const {
-    std::vector<Piece::Position> moves;
+std::vector<Position> Pawn::validMoves() const {
+    std::vector<Position> moves;
     int direction = (c == Colour::White) ? 1 : -1;
-    Piece::Position oneSquareForward{pos.Rank + direction, pos.File};
+    Position oneSquareForward{pos.Rank + direction, pos.File};
     if (!b->pieceAtPosition(oneSquareForward)) {
         moves.push_back(oneSquareForward);
         // If on starting rank, can move two squares forward
@@ -55,7 +55,7 @@ std::vector<Piece::Position> Pawn::validMoves() const {
     }
     // Capture diagonally
     for (int df = -1; df <= 1; df += 2) {
-        Piece::Position diagonalCapture{pos.Rank + direction, pos.File + df};
+        Position diagonalCapture{pos.Rank + direction, pos.File + df};
         if (b->pieceAtPosition(diagonalCapture) && b->pieceAtPosition(diagonalCapture)->getColour() != c) {
             moves.push_back(diagonalCapture);
         }
