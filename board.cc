@@ -540,4 +540,46 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
     
 }
 
+MoveInfo &Board::moveInfo(Position oldPos, Position newPos, Piece::PieceType promotionType = Piece::PieceType::Queen){
+
+
+    auto piece = pieceAtPosition(oldPos)->clone();
+    auto capturedPiece = pieceAtPosition(newPos)->clone();
+    bool passant = false;
+    bool promotion = false;
+    if(piece->getType() == Piece::PieceType::Pawn && ibi.enPassantFile == newPos.File && 
+        newPos.Rank == (piece->getColour() == Colour::White ? 5 : 2)){
+        Position passanted_position = {newPos.File, newPos.Rank + (piece->getColour() == Colour::White ? 1 : -1)};
+        capturedPiece = pieceAtPosition(passanted_position)->clone();
+        passant = true;
+    }
+
+    if(piece->getType() == Piece::PieceType::Pawn && (newPos.Rank == 0 || newPos.Rank == 7)){
+        delete piece;
+        switch(promotionType){
+            case Piece::PieceType::Knight:
+                piece = new Knight(pieceAtPosition(oldPos)->getColour(), newPos, this);
+                break;
+            case Piece::PieceType::Bishop:
+                piece = new Bishop(pieceAtPosition(oldPos)->getColour(), newPos, this);
+                break;
+            case Piece::PieceType::Rook:
+                piece = new Rook(pieceAtPosition(oldPos)->getColour(), newPos, this);
+                break;
+            default:
+                piece = new Queen(pieceAtPosition(oldPos)->getColour(), newPos, this);
+        }
+        promotion = true;
+
+    }
+
+
+    auto moveInfo = MoveInfo{piece->getPosition(), piece, capturedPiece, passant, promotion};
+    
+
+
+}
+
+
+
 
