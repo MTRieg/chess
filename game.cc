@@ -20,6 +20,7 @@ Game::Game() {
     for (int i = 0; i < NUM_PLAYERS; ++i) {
         scores.push_back(0);
     }
+    players.resize(NUM_PLAYERS);
 }
 
 void Game::run()  {
@@ -55,6 +56,8 @@ void Game::run()  {
                 ++turnColour;
             }
             mode = Mode::Game;
+
+            
 
         } else if (cmd == "setup") {
             mode = Mode::Setup;

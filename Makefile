@@ -1,5 +1,5 @@
 CXX = g++-14
-CXXFLAGS = -std=c++20 -Wall -MMD -Werror=vla
+CXXFLAGS = -std=c++20 -Wall -MMD -Werror=vla -g
 EXEC = chess
 SRC = $(filter-out gui.cc, $(wildcard *.cc))
 OBJECTS = ${SRC:.cc=.o}
