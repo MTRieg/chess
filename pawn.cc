@@ -33,8 +33,14 @@ bool Pawn::verifyMove(Position p) const {
     } else if (p.File == pos.File + 1 || p.File == pos.File - 1) {
         // Capturing
         if (p.Rank == pos.Rank + direction) {
+            if(b->BoardInfo().enPassantFile == p.File){ 
+                if(((c == Colour::White) ? 5 : 2) == p.Rank){
+                    return true; //en passant
+                }
+            }
             return b->pieceAtPosition(p) && b->pieceAtPosition(p)->getColour() != c;
         }
+        
     }
     return false;
 }
@@ -42,22 +48,11 @@ bool Pawn::verifyMove(Position p) const {
 std::vector<Position> Pawn::validMoves() const {
     std::vector<Position> moves;
     int direction = (c == Colour::White) ? 1 : -1;
-    Position oneSquareForward{pos.Rank + direction, pos.File};
-    if (!b->pieceAtPosition(oneSquareForward)) {
-        moves.push_back(oneSquareForward);
-        // If on starting rank, can move two squares forward
-        if ((c == Colour::White && pos.Rank == 1) || (c == Colour::Black && pos.Rank == 6)) {
-            Position twoSquaresForward{pos.Rank + 2 * direction, pos.File};
-            if (!b->pieceAtPosition(twoSquaresForward)) {
-                moves.push_back(twoSquaresForward);
-            }
-        }
-    }
-    // Capture diagonally
-    for (int df = -1; df <= 1; df += 2) {
-        Position diagonalCapture{pos.Rank + direction, pos.File + df};
-        if (b->pieceAtPosition(diagonalCapture) && b->pieceAtPosition(diagonalCapture)->getColour() != c) {
-            moves.push_back(diagonalCapture);
+    Position possiblePawnMoves[4] = {{pos.Rank + direction, pos.File}, {pos.Rank + direction, pos.File + 1},
+                                    {pos.Rank + direction, pos.File - 1},{pos.Rank + 2 * direction, pos.File}};
+    for(auto move : possiblePawnMoves){
+        if(verifyMove(move)){
+            moves.push_back(move);
         }
     }
     return moves;

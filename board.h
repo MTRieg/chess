@@ -60,7 +60,7 @@ class Board {
     const Piece *pieceAtPosition(const Position &pos) const;
     const bool check();
     const bool checkmate();
-    const InvisibleBoardInfo BoardInfo();
+    const InvisibleBoardInfo BoardInfo() const;
     void updateAlgebraicNotation(const MoveInfo& move, const Board * const boardAfterMove = nullptr) const;
 
 };

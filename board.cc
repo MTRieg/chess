@@ -100,7 +100,7 @@ const bool Board::checkmate() {
     return checkmateCache;
 }
 
-const InvisibleBoardInfo Board::BoardInfo() {
+const InvisibleBoardInfo Board::BoardInfo() const{
     return ibi;
 }
 
@@ -145,8 +145,16 @@ const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
             Piece* piece = board[i][j];
             if (piece && piece->getColour() == colour) {
                 std::vector<Position> moves = piece->validMoves();
-                for (const auto& move : moves) {
-                    auto moveInfo = MoveInfo{piece->getPosition(), piece, pieceAtPosition(move)->clone()};
+                for (const Position& move : moves) {
+                    auto capturedPiece = pieceAtPosition(move)->clone();
+                    bool passant = false;
+                    if(piece->getType() == Piece::PieceType::Pawn && ibi.enPassantFile == move.File && 
+                      move.Rank == (colour == Colour::White ? 5 : 2)){
+                        Position passanted_position = {move.File, move.Rank + (colour == Colour::White ? 1 : -1)};
+                        capturedPiece = pieceAtPosition(passanted_position)->clone();
+                        passant = true;
+                    }
+                    auto moveInfo = MoveInfo{piece->getPosition(), piece, capturedPiece, passant, };
                     if (tempBoard->isValidMove(moveInfo, tempBoard)) {
                         validMoves.push_back(moveInfo);
                     }
@@ -166,10 +174,18 @@ int Board::getSize() const {
 
 
 
+
+
+
 //resets tempBoard after use, so it can be reused for multiple calls
 bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
     const Piece* piece = move.piece;
     if (!piece) return false;
+
+    if((pieceAtPosition(move.oldPos)->getType() != move.piece->getType()) ||
+                (pieceAtPosition(move.oldPos))->getColour() != move.capturedPiece->getColour()){
+                    return false; //the original piece is not where they say it is now
+            }
 
     // Check if the target square is occupied by a piece of the same colour
     const Piece* targetPiece = pieceAtPosition(move.piece->getPosition());
@@ -181,6 +197,12 @@ bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
     if (!pieceAtPosition(piece->getPosition())->verifyMove(move.piece->getPosition())) {
         return false;
     }
+
+    if(move.capturedPiece && (
+            (pieceAtPosition(move.capturedPiece->getPosition())->getType() != move.capturedPiece->getType()) ||
+                (pieceAtPosition(move.capturedPiece->getPosition()))->getColour() != move.capturedPiece->getColour())){
+                    return false; //the captured piece is not where they say it is
+            }
 
     bool inCheck;
 
