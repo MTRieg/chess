@@ -12,7 +12,7 @@ struct InvisibleBoardInfo {
 #endif
 
 struct MoveInfo {
-    Piece::Position oldPos;
+    Position oldPos;
     Piece *piece; // the piece after it has been moved
     Piece *capturedPiece;
     bool isEnPassant = false;
@@ -21,7 +21,7 @@ struct MoveInfo {
     
     
 
-    MoveInfo(Piece::Position oldPos, Piece *piece, 
+    MoveInfo(Position oldPos, Piece *piece, 
              Piece *const capturedPiece = nullptr,
              bool isEnPassant = false, bool isPromotion = false);
 
