@@ -6,7 +6,7 @@ using namespace std;
 class Rook : public Piece {
 
     public:
-    Rook(Colour colour, Position pos, Board *b);
+    Rook(Colour colour, Position pos, const Board * const b);
 
     Piece::PieceType getType() const override;
     Piece *clone() const override;

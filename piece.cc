@@ -29,8 +29,26 @@ char firstChar(Piece::PieceType type) {
             return ' ';
         }
 
+Piece *clonePiece(const Piece *const piece){
+    return piece ? piece->clone() : nullptr;
+}
+
+//returns true if they have the same type and colour (or if both are null)
+bool comparePieces(const Piece *const p1, const Piece *const p2){
+    if(!p1 || !p2) return (p1 == p2);
+    return ((p1->getType() == p2->getType()) &&
+                ((p1)->getColour() == p2->getColour()));
+            
+}
+
+
+
 // constructor
-Piece::Piece(Colour colour, Position pos, Board *b) : c{colour}, pos{pos}, b{b} {}
+Piece::Piece(Colour colour, Position pos, const Board *const b) : c{colour}, pos{pos}, b{b} {}
+
+
+Position::Position(string s): File{s[0]-'a'}, Rank{s[1]-'1'}{}
+Position::Position(int file, int rank): File{file}, Rank{rank}{};
 
 Piece::~Piece() = default;
 

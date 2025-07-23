@@ -6,7 +6,7 @@
 using namespace std;
 
 
-King::King(Colour colour, Position pos, Board *b) : Piece(colour, pos, b) {}
+King::King(Colour colour, Position pos, const Board *const b) : Piece(colour, pos, b) {}
 
 Piece::PieceType King::getType() const {
     return Piece::PieceType::King;
@@ -29,11 +29,18 @@ std::vector<Position> King::validMoves() const {
     for (int dr = -1; dr <= 1; ++dr) {
         for (int df = -1; df <= 1; ++df) {
             if (dr != 0 || df != 0) { // exclude the current position
-                Position newPos{pos.Rank + dr, pos.File + df};
+                Position newPos{pos.File + df, pos.Rank + dr};
                 moves.push_back(newPos);
             }
         }
     }
+    if(pos.File == 4 && (pos.Rank == 0 || pos.Rank == 7)){
+        Position kingside = Position{6, pos.Rank};
+        Position queenside = Position{2, pos.Rank};
+        moves.push_back(kingside);
+        moves.push_back(queenside);
+    }
+
     return moves;
 }
 

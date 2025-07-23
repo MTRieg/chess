@@ -34,24 +34,14 @@ Board::~Board() {
 
 
 Board::Board(const Board& other) {
-    if(this == &other) {
-        return; // Handle self-assignment
-    }
-
-    // Clean up existing resources
-    for (int i = 0; i < size; ++i) {
-        delete[] board[i];
-    }
-    delete[] board;
-
-    // Copy the other board's state
+    
     size = other.size;
     board = new Piece**[size];
     for (int i = 0; i < size; ++i) {
         board[i] = new Piece*[size];
         for (int j = 0; j < size; ++j) {
             if (other.board[i][j]) {
-                board[i][j] = other.board[i][j]->clone();
+                board[i][j] = clonePiece(other.board[i][j]);
             } else {
                 board[i][j] = nullptr;
             }
@@ -123,7 +113,7 @@ void Board::movePiece(const MoveInfo& move) {
     if (!isValidMove(move)) {
         throw std::invalid_argument("Invalid move");
     }
-
+    
     updateAlgebraicNotation(move);
     
 
@@ -145,19 +135,17 @@ const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
             Piece* piece = board[i][j];
             if (piece && piece->getColour() == colour) {
                 std::vector<Position> moves = piece->validMoves();
-                for (const Position& move : moves) {
-                    auto capturedPiece = pieceAtPosition(move)->clone();
-                    bool passant = false;
-                    if(piece->getType() == Piece::PieceType::Pawn && ibi.enPassantFile == move.File && 
-                      move.Rank == (colour == Colour::White ? 5 : 2)){
-                        Position passanted_position = {move.File, move.Rank + (colour == Colour::White ? 1 : -1)};
-                        capturedPiece = pieceAtPosition(passanted_position)->clone();
-                        passant = true;
+                for (const Position& destination : moves) {
+                    auto move = moveInfo({i,j},destination);
+                    if(isValidMove(move, tempBoard)){
+                        validMoves.push_back(move);
+                        if(move.isPromotion){
+                            validMoves.push_back(moveInfo({i,j},destination, Piece::PieceType::Bishop));
+                            validMoves.push_back(moveInfo({i,j},destination, Piece::PieceType::Knight));
+                            validMoves.push_back(moveInfo({i,j},destination, Piece::PieceType::Rook));
+                        }
                     }
-                    auto moveInfo = MoveInfo{piece->getPosition(), piece, capturedPiece, passant, };
-                    if (tempBoard->isValidMove(moveInfo, tempBoard)) {
-                        validMoves.push_back(moveInfo);
-                    }
+                    
                 }
             }
         }
@@ -182,8 +170,7 @@ bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
     const Piece* piece = move.piece;
     if (!piece) return false;
 
-    if((pieceAtPosition(move.oldPos)->getType() != move.piece->getType()) ||
-                (pieceAtPosition(move.oldPos))->getColour() != move.capturedPiece->getColour()){
+    if(!comparePieces(pieceAtPosition(move.oldPos), move.piece)){
                     return false; //the original piece is not where they say it is now
             }
 
@@ -194,13 +181,11 @@ bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
     }
 
     // Check if the move is valid for the piece type
-    if (!pieceAtPosition(piece->getPosition())->verifyMove(move.piece->getPosition())) {
+    if (!pieceAtPosition(move.oldPos)->verifyMove(move.piece->getPosition())) {
         return false;
     }
 
-    if(move.capturedPiece && (
-            (pieceAtPosition(move.capturedPiece->getPosition())->getType() != move.capturedPiece->getType()) ||
-                (pieceAtPosition(move.capturedPiece->getPosition()))->getColour() != move.capturedPiece->getColour())){
+    if(move.capturedPiece && comparePieces(pieceAtPosition(move.capturedPiece->getPosition()), move.capturedPiece)){
                     return false; //the captured piece is not where they say it is
             }
 
@@ -339,7 +324,7 @@ void Board::undoMove(const Position &oldPos, const Position &newPos, const Piece
             delete board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank]; 
             //delete the piece at the captured position if it exists (should be redundant)
         }
-        board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank] = capturedPiece->clone(); // Restore captured piece
+        board[capturedPiece->getPosition().File][capturedPiece->getPosition().Rank] = clonePiece(capturedPiece); // Restore captured piece
     }
 }
 
@@ -400,7 +385,7 @@ bool Board::calculateCheck(Colour colour){
 
 
 bool Board::calculateCheckmate(Colour colour, bool useCheckCache) {
-    if ((useCheckCache && !checkCache) || !useCheckCache && !calculateCheck(colour)) {
+    if ((useCheckCache && !checkCache) || (!useCheckCache && !calculateCheck(colour))) {
         return false; // Cannot be checkmate if not in check
     }
 
@@ -470,7 +455,9 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
 
         //pieces in the same file as move.piece
         for(int i=0; i<size && !equivalentMoveSameFile; i++){
-            if(i != move.oldPos.Rank){ //if it's not move.piece
+            if(i != move.oldPos.Rank //if it's not move.piece
+                && pieceAtSquare(move.oldPos.File, i)
+                && pieceAtSquare(move.oldPos.File, i)->getColour() == move.piece->getColour()){
                 //loop over all squares the piece at that square can move to
                 for( Position positionPieceCanMove : pieceAtSquare(move.oldPos.File, i)->validMoves()){
                     if(positionPieceCanMove.Rank == move.piece->getPosition().Rank
@@ -485,7 +472,9 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
         //pieces in the same rank as move.piece
 
         for(int i=0; i<size && !equivalentMoveSameRank; i++){
-            if(i != move.oldPos.File){ //if it's not move.piece
+            if(i != move.oldPos.File //if it's not move.piece
+                && pieceAtSquare(i, move.oldPos.Rank)
+                && pieceAtSquare(i, move.oldPos.Rank)->getColour() == move.piece->getColour()){
                 //loop over all squares the piece at that square can move to
                 for( Position positionPieceCanMove : pieceAtSquare(i, move.oldPos.Rank)->validMoves()){
                     if(positionPieceCanMove.Rank == move.piece->getPosition().Rank
@@ -511,7 +500,7 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
         if (move.capturedPiece) {
             move.algebraicNotation += "x";
         }
-        move.algebraicNotation += Algebraic(move.oldPos);
+        move.algebraicNotation += Algebraic(move.piece->getPosition());
     }
 
 
@@ -540,17 +529,18 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
     
 }
 
-MoveInfo &Board::moveInfo(Position oldPos, Position newPos, Piece::PieceType promotionType = Piece::PieceType::Queen){
+MoveInfo Board::moveInfo(Position oldPos, Position newPos, Piece::PieceType promotionType) const{
 
 
-    auto piece = pieceAtPosition(oldPos)->clone();
-    auto capturedPiece = pieceAtPosition(newPos)->clone();
+    auto piece = clonePiece(pieceAtPosition(oldPos));
+    piece->move(newPos);
+    auto capturedPiece = clonePiece(pieceAtPosition(newPos));
     bool passant = false;
     bool promotion = false;
     if(piece->getType() == Piece::PieceType::Pawn && ibi.enPassantFile == newPos.File && 
         newPos.Rank == (piece->getColour() == Colour::White ? 5 : 2)){
         Position passanted_position = {newPos.File, newPos.Rank + (piece->getColour() == Colour::White ? 1 : -1)};
-        capturedPiece = pieceAtPosition(passanted_position)->clone();
+        capturedPiece = clonePiece(pieceAtPosition(passanted_position));
         passant = true;
     }
 
@@ -574,8 +564,9 @@ MoveInfo &Board::moveInfo(Position oldPos, Position newPos, Piece::PieceType pro
     }
 
 
-    auto moveInfo = MoveInfo{piece->getPosition(), piece, capturedPiece, passant, promotion};
+    auto moveInfo = MoveInfo{oldPos, piece, capturedPiece, passant, promotion};
     
+    return moveInfo;
 
 
 }

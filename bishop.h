@@ -7,7 +7,7 @@ class Bishop : public Piece {
 
     public:
 
-    Bishop(Colour colour, Position pos, Board *b);
+    Bishop(Colour colour, Position pos, const Board *const b);
 
     Piece::PieceType getType() const override;
     Piece *clone() const override;

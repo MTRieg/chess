@@ -6,7 +6,7 @@
 using namespace std;
 
 // constructor
-Bishop::Bishop(Colour colour, Position pos, Board *b) : Piece(colour, pos, b) {}
+Bishop::Bishop(Colour colour, Position pos, const Board *const b) : Piece(colour, pos, b) {}
 
 Piece::PieceType Bishop::getType() const {
     return PieceType::Bishop;
@@ -47,9 +47,9 @@ void Bishop::appendMovesForDirection(int dr, int df, vector<Position> &moves) co
     int r = pos.Rank + dr, f = pos.File + df;
     while (r >= 0 && r < 8 && f >= 0 && f < 8) {
         if(!b->pieceAtSquare(f, r)){
-            moves.push_back({r, f});
+            moves.push_back({f, r});
         }else{
-            moves.push_back({r, f});
+            moves.push_back({f, r});
             break; // Stop after adding the first piece seen
             // Piece.cc is expected to check whether or not a move is a self-capture
         }
@@ -61,11 +61,9 @@ void Bishop::appendMovesForDirection(int dr, int df, vector<Position> &moves) co
 bool Bishop::validMoveGivenDirection(Position p, int dr, int df) const {
     int r = pos.Rank + dr, f = pos.File + df;
     while (r >= 0 && r < 8 && f >= 0 && f < 8) {
+        if (f == p.File && r == p.Rank) return true; 
         if(b->pieceAtSquare(f, r)){
-            Colour targetColour = b->pieceAtSquare(f, r)->getColour();
-            if (targetColour == c) return false; // Stop if own piece
-            if (f == p.File && r == p.Rank) return true; // return true if the target square is reached
-            return false; // Stop if opponent's piece
+            return false; // Stop if a piece is in the way
         }
         r += dr;
         f += df;

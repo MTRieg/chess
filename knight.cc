@@ -4,7 +4,7 @@
 #include "knight.h"
 using namespace std;
 
-Knight::Knight(Colour colour, Position pos, Board *b) : Piece(colour, pos, b) {}
+Knight::Knight(Colour colour, Position pos, const Board *const b) : Piece(colour, pos, b) {}
 
 Piece::PieceType Knight::getType() const {
     return PieceType::Knight;

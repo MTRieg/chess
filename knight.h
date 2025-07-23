@@ -7,7 +7,7 @@ class Knight : public Piece {
 
     public:
 
-    Knight(Colour colour, Position pos, Board *b);
+    Knight(Colour colour, Position pos, const Board *const b);
 
     Piece::PieceType getType() const override;
     Piece *clone() const override;

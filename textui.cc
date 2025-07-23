@@ -26,28 +26,28 @@ void TextUI::update(MoveInfo latest) {
             char pieceChar;
             switch (piece->getType()) {
                 case Piece::PieceType::Pawn:
-                    pieceChar = 'P';
+                    pieceChar = 'p';
                     break;
                 case Piece::PieceType::Knight:
-                    pieceChar = 'N';
+                    pieceChar = 'n';
                     break;
                 case Piece::PieceType::Bishop:
-                    pieceChar = 'B';
+                    pieceChar = 'b';
                     break;
                 case Piece::PieceType::Rook:
-                    pieceChar = 'R';
+                    pieceChar = 'r';
                     break;
                 case Piece::PieceType::Queen:
-                    pieceChar = 'Q';
+                    pieceChar = 'q';
                     break;
                 case Piece::PieceType::King:
-                    pieceChar = 'K';
+                    pieceChar = 'k';
                     break;
             }
             
             // adjust for player
             if (piece->getColour() == Colour::Black) {
-                pieceChar = tolower(pieceChar);
+                pieceChar = toupper(pieceChar);
             }
 
             boardDisplay[i][j] = pieceChar;
@@ -69,12 +69,12 @@ void TextUI::update(MoveInfo latest) {
 
 void TextUI::output() {
 
-    system("clear"); // clear the console
+    //system("clear"); // clear the console
     int step = 0;
 
     // print from white
-    for (int rank = 0; rank < board->getSize(); ++rank) {
-        cout << 8 - rank << " "; // numbers
+    for (int rank = board->getSize() - 1; rank >= 0; --rank) {
+        cout << rank + 1 << " "; // numbers
         for (int file = 0; file < board->getSize(); ++file) {
             cout << boardDisplay[file][rank] << " ";
         }
@@ -87,7 +87,7 @@ void TextUI::output() {
     }
     cout << endl << "  ";
     for (int file = 0; file < board->getSize(); ++file) {
-        cout << char('a' + file); // letters
+        cout << char('a' + file) << ' '; // letters
     }
     cout << endl;
 

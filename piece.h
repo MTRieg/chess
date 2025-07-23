@@ -11,7 +11,9 @@ enum class Colour {
 };
 
 struct Position{
-    int Rank, File;
+    int File, Rank;
+    Position(string s);
+    Position(int file, int rank);
 };
 
 
@@ -30,11 +32,9 @@ class Piece {
         Queen,
         King
     };
-
-    
     
 
-    Piece(Colour colour, Position pos, Board *b);
+    Piece(Colour colour, Position pos, const Board *const b);
     Piece(const Piece&) = default; // Copy constructor for derived classes
     Piece& operator=(const Piece&) = default; // Copy assignment operator for derived classes
 
@@ -55,12 +55,15 @@ class Piece {
     PieceType type;
     Position pos;
     Colour c;
-    const Board *b;
+    const Board * const b;
 
 
 
 
 };
+
+Piece *clonePiece(const Piece *const Piece);
+bool comparePieces(const Piece *const p1, const Piece *const p2);
 
 std::string Algebraic(const Position p);
 

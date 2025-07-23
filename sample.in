@@ -1,2 +1,8 @@
 game
-human
+human human
+move e2 e4
+move f1 e2
+move g1 f3
+move e1 g1
+resign 
+quit

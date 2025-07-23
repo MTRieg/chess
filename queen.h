@@ -5,7 +5,7 @@ using namespace std;
 
 class Queen : public Piece {
     public:
-    Queen(Colour colour, Position pos, Board *b);
+    Queen(Colour colour, Position pos, const Board *const b);
 
     Piece::PieceType getType() const override;
     Piece *clone() const override;
