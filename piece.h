@@ -10,6 +10,10 @@ enum class Colour {
     Black
 };
 
+vector<int> rgb(Colour c);
+
+Colour &operator++(Colour &c);
+
 struct Position{
     int File, Rank;
     Position(string s);
@@ -19,7 +23,7 @@ struct Position{
 
 
 
-Colour &operator++(Colour &c);
+
 
 
 class Piece {

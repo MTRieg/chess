@@ -29,6 +29,14 @@ char firstChar(Piece::PieceType type) {
             return ' ';
         }
 
+vector<int> rgb(Colour c){
+    switch (c) {
+        case Colour::White: return {255, 255, 255}; // White
+        case Colour::Black: return {0, 0, 0};       // Black
+    }
+    return {0, 0, 0}; // Default to black if unknown colour
+}
+
 Piece *clonePiece(const Piece *const piece, const Board *const board) {
     return piece ? piece->clone(board) : nullptr;
 }

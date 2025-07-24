@@ -5,6 +5,7 @@
 #include "gamedata.h"
 #include "player.h"
 #include "textui.h"
+#include "gui.h"
 using namespace std;
 
 enum class Mode { Home, Game, Setup };
@@ -15,7 +16,8 @@ class Game {
 
     Board *board;
     GameData *gameData;
-    TextUI *tUI;
+    std::unique_ptr<TextUI> tUI;
+    std::unique_ptr<GUI> gui;
     int playerTurn = 0;
     vector<unique_ptr<Player>> players;
     vector<int> scores;

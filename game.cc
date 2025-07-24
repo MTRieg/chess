@@ -14,12 +14,20 @@
 #include "piece.h"
 #include "abstractui.h"
 #include "textui.h"
+#include "gui.h" // Add this line
 using namespace std;
 
 Game::Game() {
     board = new Board(8);
     gameData = new GameData();
-    tUI = new TextUI(board, gameData);
+    tUI = std::make_unique<TextUI>(board, gameData);
+    try {
+        gui = std::make_unique<GUI>(board, gameData);
+    } catch (const runtime_error& e) {
+        cerr << e.what() << endl;
+        board->removeObserver(gui.get());
+        gui.reset(); // Deletes and sets to nullptr
+    }
 
     board->init();
     board->addObserver(gameData);
@@ -222,7 +230,7 @@ void Game::play() {
 }
 
 void Game::setup() {
-
+    
 }
 
 void Game::nextTurn() {

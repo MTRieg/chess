@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 #include "abstractui.h"
+#include "board.h"
+#include "piece.h"
 
 class GUI : public AbstractUI {
 
@@ -16,6 +18,12 @@ class GUI : public AbstractUI {
     GC gc;
     unsigned long colours[5];
 
+
+    void drawPiece(Piece::PieceType type, Position p, Colour c);
+    void drawBackground();
+
+    
+
     public:
     GUI(Board* board, GameData* gameData, int width=DEFAULT_WIDTH, int height=DEFAULT_HEIGHT);
     ~GUI();
@@ -26,11 +34,12 @@ class GUI : public AbstractUI {
     int getHeight() const;
 
     // drawing methods
-    void fillRectangle(int x, int y, int width, int height, int colour=Black);
-    void drawString(int x, int y, const std::string &msg);
+    void fillRectangle(int x, int y, int width, int height, unsigned long colour);
+    void drawString(int x, int y, const std::string &msg, unsigned long colour);
 
     // abstract ui methods
     void update(MoveInfo latest) override;
     void output() override;
 
 };
+ 
