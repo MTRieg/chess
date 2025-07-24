@@ -13,6 +13,7 @@ enum class Colour {
 vector<int> rgb(Colour c);
 
 Colour &operator++(Colour &c);
+ostream &operator<<(ostream &out, const Colour &c);
 
 struct Position{
     int File, Rank;

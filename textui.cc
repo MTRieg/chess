@@ -9,6 +9,8 @@ TextUI::TextUI(Board* board, GameData* gameData)
 
     // initialize the history display
     historyDisplay.resize(16, "");
+
+    board->addObserver(this);
 }
 
 void TextUI::update(MoveInfo latest) {

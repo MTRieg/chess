@@ -17,6 +17,8 @@ Colour &operator++(Colour &c) {
     return c;
 }
 
+
+
 char firstChar(Piece::PieceType type) {
             switch (type) {
                 case Piece::PieceType::Pawn: return 'P';

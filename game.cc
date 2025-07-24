@@ -25,7 +25,6 @@ Game::Game() {
         gui = std::make_unique<GUI>(board, gameData);
     } catch (const runtime_error& e) {
         cerr << e.what() << endl;
-        board->removeObserver(gui.get());
         gui.reset(); // Deletes and sets to nullptr
     }
 
@@ -40,11 +39,20 @@ Game::Game() {
     players.resize(NUM_PLAYERS);
 }
 
+Game::~Game() {
+    if (gui) {board->removeObserver(gui.get());}
+    if (tUI) {board->removeObserver(tUI.get());}
+
+    delete board;
+    delete gameData;
+}
+
 void Game::run()  {
 
     string cmd;
 
     while (true) {
+        cout << "Enter command (game, setup, quit): " << endl;
         cin >> cmd;
 
         if(cin.eof()){
@@ -63,6 +71,7 @@ void Game::run()  {
         if (cmd == "game") {
             Colour turnColour = Colour::White;
             for (int i = 0; i < NUM_PLAYERS; ++i) {
+                cout << "Enter player type for " << turnColour << " (human, computer[1-4]): ";
                 string playerType;
                 cin >> playerType;
                 if (playerType == "human") {
@@ -109,6 +118,10 @@ void Game::play() {
         return;
     }
     istringstream iss{cmd};
+
+    cout << "Current turn: " << players[playerTurn]->getColour() << endl;
+    cout << "Enter a command: resign, move with no args for computer move, \n"
+         << "or move <from> <to> [<promotionType>]:" << endl;
 
     // parse command
     if (iss.fail()) {
@@ -230,7 +243,7 @@ void Game::play() {
 }
 
 void Game::setup() {
-    
+
 }
 
 void Game::nextTurn() {

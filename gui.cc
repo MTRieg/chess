@@ -12,7 +12,7 @@ GUI::GUI(Board* board, GameData* gameData, int width, int height)
 
     d = XOpenDisplay(NULL);
     if (d == NULL) {
-        cerr << "Cannot open display" << endl;
+        cerr << "GUI: Cannot open display" << endl;
         throw runtime_error("Cannot open display");
     }
     s = DefaultScreen(d);
@@ -48,6 +48,8 @@ GUI::GUI(Board* board, GameData* gameData, int width, int height)
     XSynchronize(d, True);
 
     usleep(1000);
+
+    board->addObserver(this);
 }
 
 GUI::~GUI() {
