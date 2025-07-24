@@ -8,7 +8,7 @@ class Bot : public Player {
     virtual ~Bot() = default; // optional, but recommended
     bool autoMovable() override;
 
-    virtual MoveInfo &makeMove() = 0;
+    virtual MoveInfo makeMove() = 0;
 
     
 };

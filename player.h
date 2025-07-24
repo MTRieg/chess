@@ -15,7 +15,7 @@ class Player {
     Colour getColour() const;
 
     virtual ~Player() = default;
-    virtual MoveInfo &makeMove() = 0; // method to be implemented by derived classes for making a move
+    virtual MoveInfo makeMove() = 0; // method to be implemented by derived classes for making a move
 
     // whether the player can move without specifying a move
     virtual bool autoMovable() = 0; 

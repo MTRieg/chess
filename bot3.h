@@ -5,6 +5,6 @@ class Bot3 : public Bot {
     
     public:
     Bot3(Board* board, Colour colour);
-    MoveInfo &makeMove() override;
+    MoveInfo makeMove() override;
     
 };

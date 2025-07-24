@@ -5,7 +5,7 @@
 
 Bot3::Bot3(Board* board, Colour colour) : Bot(board, colour) {}
 
-MoveInfo &Bot3::makeMove() {
+MoveInfo Bot3::makeMove() {
     // This method should implement the logic for the bot's move
     // For example, it could randomly select a valid move from the available pieces.
 

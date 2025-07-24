@@ -132,7 +132,11 @@ void Game::play() {
             cout << "It's your turn, the computer has already played!" << endl;
             return;
         } else {
-            MoveInfo &move = players[playerTurn]->makeMove();
+            if(players[playerTurn] == nullptr){
+                cout << "No player at this turn, cannot make move" << endl;
+                return;
+            };
+            MoveInfo move = players[playerTurn]->makeMove();
             try {
                 board->movePiece(move);
                 nextTurn();
