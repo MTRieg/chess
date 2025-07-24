@@ -132,6 +132,14 @@ void Game::play() {
             cout << "It's your turn, the computer has already played!" << endl;
             return;
         } else {
+            MoveInfo &move = players[playerTurn]->makeMove();
+            try {
+                board->movePiece(move);
+                nextTurn();
+            } catch (const std::invalid_argument& e) {
+                cout << "Invalid move: " << e.what() << endl;
+                return;
+            }
             cout << "computer move" << endl;
         }
 
@@ -178,11 +186,18 @@ void Game::play() {
 
         // try move
         MoveInfo move = board->moveInfo(oldPos, newPos, promoType);
-        if(move.colour() == players[playerTurn]->getColour() && board->isValidMove(move)){
-            board->movePiece(move);
-            nextTurn();
+        if(move.colour() == players[playerTurn]->getColour()){
+                try{
+                board->movePiece(move);
+                nextTurn();
+            }
+            catch (const std::invalid_argument& e) {
+                cout << "Invalid move: " << e.what() << endl;
+                return;
+            }
+            
         }else{
-            cout << "Move is not valid in this position" << endl;
+            cout << "Not the correct player's turn" << endl;
         }
 
         // check endings

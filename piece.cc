@@ -49,6 +49,9 @@ Piece::Piece(Colour colour, Position pos, const Board *const b) : c{colour}, pos
 
 Position::Position(string s): File{s[0]-'a'}, Rank{s[1]-'1'}{}
 Position::Position(int file, int rank): File{file}, Rank{rank}{};
+bool Position::inBounds(int size) const {
+    return File >= 0 && File < size && Rank >= 0 && Rank < size;
+}
 
 Piece::~Piece() = default;
 

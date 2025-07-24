@@ -14,6 +14,7 @@ struct Position{
     int File, Rank;
     Position(string s);
     Position(int file, int rank);
+    bool inBounds(int size) const;
 };
 
 

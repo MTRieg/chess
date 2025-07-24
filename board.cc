@@ -109,6 +109,42 @@ void Board::removeObserver(BoardObserver* observer) {
 }
 
 
+void updateBoardInfo(InvisibleBoardInfo &ibi, const MoveInfo &move) {
+    Colour colour = move.piece->getColour();
+    if(move.piece->getType() == Piece::PieceType::King) {
+        if(colour == Colour::White) {
+            ibi.wkc = false;
+            ibi.wqc = false;
+        } else {
+            ibi.bkc = false;
+            ibi.bqc = false;
+        }
+    }else if(move.piece->getType() == Piece::PieceType::Rook) {
+        int rookRank = ((colour == Colour::White) ? 0 : 7);
+        if(move.oldPos.Rank == rookRank) {
+            if(move.oldPos.File == 0) {
+                if(colour == Colour::White) {
+                    ibi.wqc = false;
+                } else {
+                    ibi.bqc = false;
+                }
+            } else if(move.oldPos.File == 7) {
+                if(colour == Colour::White) {
+                    ibi.wkc = false;
+                } else {
+                    ibi.bkc = false;
+                }
+            }
+        }
+    }
+    else if(abs(move.oldPos.Rank - move.piece->getPosition().Rank) == 2 && 
+            move.piece->getType() == Piece::PieceType::Pawn) {
+        ibi.enPassantFile = move.piece->getPosition().File;
+    }
+}
+
+
+
 void Board::movePiece(const MoveInfo& move) {
     if (!isValidMove(move)) {
         throw std::invalid_argument("Invalid move");
@@ -118,12 +154,17 @@ void Board::movePiece(const MoveInfo& move) {
     
 
     applyMove(move);
+
+    updateBoardInfo(ibi, move);
+
     notifyObservers(move);
 
     // Update check and checkmate status
     setCheckCache(calculateCheck(move.piece->getColour()), move.piece->getColour());
     setCheckmateCache(calculateCheckmate(move.piece->getColour()), move.piece->getColour());
 }
+
+
 
 
 
@@ -169,6 +210,10 @@ int Board::getSize() const {
 bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
     const Piece* piece = move.piece;
     if (!piece) return false;
+
+    if(!piece->getPosition().inBounds(size) || !move.oldPos.inBounds(size)) {
+        return false; // Invalid position
+    }
 
     if(!comparePieces(pieceAtPosition(move.oldPos), move.piece)){
                     return false; //the original piece is not where they say it is now
@@ -294,13 +339,13 @@ void Board::applyMove(const Position &oldPos, const Position &newPos, Piece *cap
     }
 
     movedPiece->move(newPos); // Update the piece's local position variables
-    delete pieceAtPosition(newPos); // Delete captured piece if any
+    if(capturedPiece) {
+        delete pieceAtPosition(capturedPiece->getPosition()); // Delete captured piece if any
+    }
     board[newPos.File][newPos.Rank] = movedPiece; // Place at new position
     board[oldPos.File][oldPos.Rank] = nullptr; // Remove from old position
 
-    if (capturedPiece) {
-        delete capturedPiece; // Delete captured piece
-    }
+    
 }
 
 
