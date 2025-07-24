@@ -12,7 +12,8 @@ Piece::PieceType Queen::getType() const {
     return PieceType::Queen;
 }
 
-Piece* Queen::clone() const {
+Piece* Queen::clone(const Board *const board) const {
+    if (board) return new Queen(this->c, this->pos, board);
     return new Queen(*this);
 }
 

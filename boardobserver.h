@@ -25,6 +25,7 @@ struct MoveInfo {
              Piece *const capturedPiece = nullptr,
              bool isEnPassant = false, bool isPromotion = false);
 
+    const Colour colour();
     string algebraic() const;
 
     mutable string algebraicNotation;

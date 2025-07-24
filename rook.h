@@ -9,7 +9,7 @@ class Rook : public Piece {
     Rook(Colour colour, Position pos, const Board * const b);
 
     Piece::PieceType getType() const override;
-    Piece *clone() const override;
+    Piece *clone(const Board *const b = nullptr) const override;
 
     bool verifyMove(Position p) const override;
     vector<Position> validMoves() const override;

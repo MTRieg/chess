@@ -6,14 +6,14 @@
 #include "board.h"
 using namespace std;
 
-
-Pawn::Pawn(Colour colour, Position pos, Board *b) : Piece(colour, pos, b) {}
+Pawn::Pawn(Colour colour, Position pos, const Board *const b) : Piece(colour, pos, b) {}
 
 Piece::PieceType Pawn::getType() const {
     return PieceType::Pawn;
 }
 
-Piece* Pawn::clone() const {
+Piece* Pawn::clone(const Board *const board) const {
+    if (board) return new Pawn(this->c, this->pos, board);
     return new Pawn(*this);
 }
 
@@ -27,7 +27,7 @@ bool Pawn::verifyMove(Position p) const {
         // Double move from starting position
         if ((c == Colour::White && pos.Rank == 1 && p.Rank == 3) ||
             (c == Colour::Black && pos.Rank == 6 && p.Rank == 4)) {
-            Position intermediate{pos.Rank + direction, pos.File};
+            Position intermediate{pos.File, pos.Rank + direction};
             return !b->pieceAtPosition(p) && !b->pieceAtPosition(intermediate);
         }
     } else if (p.File == pos.File + 1 || p.File == pos.File - 1) {

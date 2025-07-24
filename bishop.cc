@@ -11,8 +11,9 @@ Bishop::Bishop(Colour colour, Position pos, const Board *const b) : Piece(colour
 Piece::PieceType Bishop::getType() const {
     return PieceType::Bishop;
 }
-    
-Piece* Bishop::clone() const {
+
+Piece* Bishop::clone(const Board *const board) const {
+    if (board) return new Bishop(this->c, this->pos, board);
     return new Bishop(*this);
 }
 
@@ -50,7 +51,7 @@ void Bishop::appendMovesForDirection(int dr, int df, vector<Position> &moves) co
             moves.push_back({f, r});
         }else{
             moves.push_back({f, r});
-            break; // Stop after adding the first piece seen
+            return; // Stop after adding the first piece seen
             // Piece.cc is expected to check whether or not a move is a self-capture
         }
         r += dr;

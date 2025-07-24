@@ -17,6 +17,7 @@ struct Position{
 };
 
 
+
 Colour &operator++(Colour &c);
 
 
@@ -48,7 +49,7 @@ class Piece {
     virtual bool verifyMove(Position p) const;
     void move(Position p);
 
-    virtual Piece *clone() const = 0;
+    virtual Piece *clone(const Board *const board = nullptr) const = 0;
 
     protected:
 
@@ -62,7 +63,7 @@ class Piece {
 
 };
 
-Piece *clonePiece(const Piece *const Piece);
+Piece *clonePiece(const Piece *const piece, const Board *const board = nullptr);
 bool comparePieces(const Piece *const p1, const Piece *const p2);
 
 std::string Algebraic(const Position p);

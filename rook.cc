@@ -8,7 +8,8 @@ using namespace std;
 
 Rook::Rook(Colour colour, Position pos, const Board * const b) : Piece(colour, pos, b) {}
 
-Piece* Rook::clone() const {
+Piece* Rook::clone(const Board *const board) const {
+    if (board) return new Rook(this->c, this->pos, board);
     return new Rook(*this);
 }
 

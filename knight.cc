@@ -10,7 +10,8 @@ Piece::PieceType Knight::getType() const {
     return PieceType::Knight;
 }
 
-Piece* Knight::clone() const {
+Piece* Knight::clone(const Board *const board) const {
+    if (board) return new Knight(this->c, this->pos, board);
     return new Knight(*this);
 }
 
@@ -27,7 +28,7 @@ std::vector<Position> Knight::validMoves() const {
     for (int dr = -2; dr <= 2; ++dr) {
         for (int df = -2; df <= 2; ++df) {
             if (std::abs(dr) + std::abs(df) == 3) { // L-shape move
-                Position newPos{pos.Rank + dr, pos.File + df};
+                Position newPos{pos.File + df, pos.Rank + dr};
                 moves.push_back(newPos);
             }
         }

@@ -11,4 +11,10 @@ std::string MoveInfo::algebraic() const{
     return algebraicNotation;
 }
 
+//return colour of move (undefined behaviour when given invalid move)
+const Colour MoveInfo::colour(){
+    if(!piece){return Colour::White;}//anti-crash code, 
+    return piece->getColour();
+}
+
 

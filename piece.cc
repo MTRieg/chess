@@ -29,8 +29,8 @@ char firstChar(Piece::PieceType type) {
             return ' ';
         }
 
-Piece *clonePiece(const Piece *const piece){
-    return piece ? piece->clone() : nullptr;
+Piece *clonePiece(const Piece *const piece, const Board *const board) {
+    return piece ? piece->clone(board) : nullptr;
 }
 
 //returns true if they have the same type and colour (or if both are null)

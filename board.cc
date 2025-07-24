@@ -41,7 +41,7 @@ Board::Board(const Board& other) {
         board[i] = new Piece*[size];
         for (int j = 0; j < size; ++j) {
             if (other.board[i][j]) {
-                board[i][j] = clonePiece(other.board[i][j]);
+                board[i][j] = clonePiece(other.board[i][j], this);
             } else {
                 board[i][j] = nullptr;
             }
@@ -189,8 +189,8 @@ bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
                     return false; //the captured piece is not where they say it is
             }
 
-    bool inCheck;
-
+    bool inCheck = false;
+    
     if(!tempBoard) {
         tempBoard = new Board(*this); // If no temporary board is provided, create a copy of the current board
         tempBoard->applyMove(move); // Temporarily apply the move to check for check or checkmate
@@ -200,7 +200,7 @@ bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
         inCheck = tempBoard->calculateCheck(piece->getColour());
         tempBoard->undoMove(move);
     }
-
+    
     if (inCheck) {
         return false; // Move puts own king in check, not valid
     }
@@ -249,19 +249,15 @@ void Board::applyMove(const MoveInfo& move) {
         // Handle castling logic
         if(move.piece->getColour() == Colour::White) {
             if(newPos.File == 6) { // Kingside castle
-                board[5][0] = board[7][0]; // Move the rook
-                board[7][0] = nullptr; // Remove the rook from its old position
+                applyMove(Position{7, 0}, Position{5, 0}); 
             } else if(newPos.File == 2) { // Queenside castle
-                board[3][0] = board[0][0]; // Move the rook
-                board[0][0] = nullptr; // Remove the rook from its old position
+                applyMove(Position{0, 0}, Position{3, 0});
             }
         } else {
             if(newPos.File == 6) { // Kingside castle
-                board[5][7] = board[7][7]; // Move the rook
-                board[7][7] = nullptr; // Remove the rook from its old position
+                applyMove(Position{7, 7}, Position{5, 7});
             } else if(newPos.File == 2) { // Queenside castle
-                board[3][7] = board[0][7]; // Move the rook
-                board[0][7] = nullptr; // Remove the rook from its old position
+                applyMove(Position{0, 7}, Position{3, 7});
             }
         }
     }
@@ -364,18 +360,24 @@ void Board::undoMove(const MoveInfo& move) {
 
 }
 
+//colour is colour that might be in check
 bool Board::calculateCheck(Colour colour){
+    Position kingPosition = {0,0};
+    for(int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            auto piece = pieceAtSquare(i,j);
+            if(piece && piece->getType() == Piece::PieceType::King && piece->getColour() == colour){
+                kingPosition = {i,j};
+            }
+        }
+    }
+
     for(int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
             Piece* piece = board[i][j];
-            if (piece && piece->getColour() != colour) {
-                std::vector<Position> moves = piece->validMoves();
-                for (const auto& move : moves) {
-                    const Piece* targetPiece = pieceAtPosition(move);
-                    if (targetPiece && targetPiece->getType() == Piece::PieceType::King && targetPiece->getColour() == colour) {
-                        return true; // Check found
-                    }
-                }
+            if (piece && piece->getColour() != colour && piece->verifyMove(kingPosition)) {
+                    piece->verifyMove(kingPosition);
+                    return true;
             }
         }
     }
@@ -398,7 +400,7 @@ bool Board::calculateCheckmate(Colour colour, bool useCheckCache) {
 }
 
 
-
+//colour is colour of piece that just moved
 void Board::setCheckCache(bool value, Colour colour) {
     if (colour == Colour::White) {
         checkCache = calculateCheck(Colour::White);
@@ -446,7 +448,7 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
         if(move.capturedPiece) {
             move.algebraicNotation = Algebraic(move.piece->getPosition())[0] + "x"; //add the file of the piece
         }
-        move.algebraicNotation += Algebraic(move.oldPos);
+        move.algebraicNotation += Algebraic(move.piece->getPosition());
     }else{
         move.algebraicNotation += firstChar(move.piece->getType());
         

@@ -171,11 +171,16 @@ void Game::play() {
             }
         }
 
+        if(oldPos.File == 4 && oldPos.Rank == 2 && newPos.File == 4 && newPos.Rank == 3){
+            oldPos.File = 4;
+        }
+
 
         // try move
         MoveInfo move = board->moveInfo(oldPos, newPos, promoType);
-        if(board->isValidMove(move)){
+        if(move.colour() == players[playerTurn]->getColour() && board->isValidMove(move)){
             board->movePiece(move);
+            nextTurn();
         }else{
             cout << "Move is not valid in this position" << endl;
         }

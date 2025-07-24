@@ -12,7 +12,8 @@ Piece::PieceType King::getType() const {
     return Piece::PieceType::King;
 }
 
-Piece* King::clone() const {
+Piece* King::clone(const Board *const board) const {
+    if (board) return new King(this->c, this->pos, board);
     return new King(*this);
 }
 
@@ -20,6 +21,7 @@ bool King::verifyMove(Position p) const {
     // kings move one square in any direction
     int dRank = std::abs(p.Rank - pos.Rank);
     int dFile = std::abs(p.File - pos.File);
+    if(dFile == 2 && dRank == 0) return(pos.File == 4 && (pos.Rank == 0 || pos.Rank == 7)); // Castling move
     return (dRank <= 1 && dFile <= 1);
 }
 
