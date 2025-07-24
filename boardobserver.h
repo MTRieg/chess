@@ -14,16 +14,19 @@ struct InvisibleBoardInfo {
 struct MoveInfo {
     Position oldPos;
     Piece *piece; // the piece after it has been moved
+    //if piece is nullptr, then this tells the boardobservers to treat this as a flag to update their boards
+    //though some observers may just always hard refresh from board
     Piece *capturedPiece;
     bool isEnPassant = false;
     bool isPromotion = false;
     InvisibleBoardInfo ibi; //castling rights and en passant info from before the move was made
     
-    
 
     MoveInfo(Position oldPos, Piece *piece, 
              Piece *const capturedPiece = nullptr,
              bool isEnPassant = false, bool isPromotion = false);
+    
+    MoveInfo();
 
     const Colour colour();
     string algebraic() const;

@@ -9,6 +9,7 @@ class Board {
 
     int size = 8;
     Piece*** board;
+    bool setupMode = true; //will be set to false by either init() or leaveSetupMode()
 
     vector<BoardObserver*> observers;
     bool checkCache = false, checkmateCache = false;
@@ -36,6 +37,7 @@ class Board {
     void setCheckCache(bool value, Colour colour);
     void setCheckmateCache(bool value, Colour colour);
     void reevaluateCheckAndCheckmate(Colour colour);
+    void updateCastlingRights();
 
     Board (const Board&);
 
@@ -53,6 +55,10 @@ class Board {
     int getSize() const;
     const vector<MoveInfo> getValidMoves(Colour colour) const;
     bool isValidMove(const MoveInfo& move, Board* tempBoard = nullptr) const;
+
+    void addPiece(Piece* piece);
+    void leaveSetupMode(Colour colour);
+
     void movePiece(const MoveInfo& move);
     void addObserver(BoardObserver* observer);
     void removeObserver(BoardObserver* observer);

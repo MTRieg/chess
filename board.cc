@@ -58,6 +58,72 @@ void Board::init() {
     }
     initHomeRow(Colour::White, 0);
     initHomeRow(Colour::Black, 7);
+    setupMode = false; // Set to false after initialization
+    notifyObservers(MoveInfo());
+    // do not need to use leaveSetupMode() here because the code creates a valid non-check board
+}
+
+void Board::addPiece(Piece* piece) {
+    if (piece == nullptr) {
+        throw std::invalid_argument("Cannot add a null piece to the board.");
+    }
+    Position pos = piece->getPosition();
+    if (pos.File < 0 || pos.File >= size || pos.Rank < 0 || pos.Rank >= size) {
+        throw std::out_of_range("Piece position is out of bounds.");
+    }
+    board[pos.File][pos.Rank] = piece;
+    notifyObservers(MoveInfo{pos, piece, nullptr, false, false});
+}
+
+void Board::leaveSetupMode(Colour colour) {
+    //with more development time, you could add more checks to make sure the position is valid
+    //for now, I will just calculate check or checkmate and making sure castling rights are correct
+    if(!setupMode){
+        cerr << "Warning: leaveSetupMode called when setupMode is already false." << endl;
+        return;
+    }
+    updateCastlingRights();
+
+    checkCache = calculateCheck(colour);
+    checkmateCache = calculateCheckmate(colour);
+    setupMode = false;
+}
+
+//only makes sure that, if the pieces are not on their home square, they cannot be involved in castling
+void Board::updateCastlingRights(){
+    if (pieceAtSquare(4, 0) == nullptr ||
+        pieceAtSquare(4, 0)->getType() != Piece::PieceType::King ||
+        pieceAtSquare(4, 0)->getColour() != Colour::White) {
+        ibi.wkc = false;
+        ibi.wqc = false;
+    }
+    if(pieceAtSquare(4, 7) == nullptr ||
+        pieceAtSquare(4, 7)->getType() != Piece::PieceType::King ||
+        pieceAtSquare(4, 7)->getColour() != Colour::Black) {
+        ibi.bkc = false;
+        ibi.bqc = false;
+    }
+    if(pieceAtSquare(0,0) == nullptr ||
+        pieceAtSquare(0,0)->getType() != Piece::PieceType::Rook ||
+        pieceAtSquare(0,0)->getColour() != Colour::White) {
+        ibi.wqc = false;
+    }
+    if(pieceAtSquare(7,0) == nullptr ||
+        pieceAtSquare(7,0)->getType() != Piece::PieceType::Rook ||
+        pieceAtSquare(7,0)->getColour() != Colour::Black) {
+        ibi.wkc = false;
+    }
+    if(pieceAtSquare(0,7) == nullptr ||
+        pieceAtSquare(0,7)->getType() != Piece::PieceType::Rook ||
+        pieceAtSquare(0,7)->getColour() != Colour::White) {
+        ibi.bqc = false;
+    }
+    if(pieceAtSquare(7,7) == nullptr ||
+        pieceAtSquare(7,7)->getType() != Piece::PieceType::Rook ||
+        pieceAtSquare(7,7)->getColour() != Colour::Black) {
+        ibi.bkc = false;
+    }
+    return;
 }
 
 void Board::initHomeRow(Colour c, int row) {
@@ -170,7 +236,8 @@ void Board::movePiece(const MoveInfo& move) {
 
 const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
     std::vector<MoveInfo> validMoves;
-    Board *tempBoard = new Board(*this); // Create a temporary copy of the board
+    //Board *tempBoard = new Board(*this); // Create a temporary copy of the board
+    //tried using this as part of isValidMove, but it seemed to not be working correctly
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
             Piece* piece = board[i][j];
@@ -178,7 +245,7 @@ const std::vector<MoveInfo> Board::getValidMoves(Colour colour) const {
                 std::vector<Position> moves = piece->validMoves();
                 for (const Position& destination : moves) {
                     auto move = moveInfo({i,j},destination);
-                    if(isValidMove(move, tempBoard)){
+                    if(isValidMove(move)){
                         validMoves.push_back(move);
                         if(move.isPromotion){
                             validMoves.push_back(moveInfo({i,j},destination, Piece::PieceType::Bishop));

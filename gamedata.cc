@@ -2,8 +2,12 @@
 #include "gamedata.h"
 
 // add latest move update from board
-void GameData::update(MoveInfo lastest) {
-    history.push_back(lastest);
+void GameData::update(MoveInfo latest) {
+    if(latest.piece != nullptr && !latest.algebraic().empty()) { 
+        //if it's a real move, not just a board update
+        history.push_back(latest);
+    }
+    
 }
 
 // returns the last n moves from the game

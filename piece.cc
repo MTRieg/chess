@@ -57,7 +57,13 @@ bool comparePieces(const Piece *const p1, const Piece *const p2){
 Piece::Piece(Colour colour, Position pos, const Board *const b) : c{colour}, pos{pos}, b{b} {}
 
 
-Position::Position(string s): File{s[0]-'a'}, Rank{s[1]-'1'}{}
+Position::Position(string s) {
+    if (s.length() < 2) {
+        throw std::invalid_argument("Position string must be at least 2 characters long");
+    }
+    File = s[0] - 'a';
+    Rank = s[1] - '1';
+}
 Position::Position(int file, int rank): File{file}, Rank{rank}{};
 bool Position::inBounds(int size) const {
     return File >= 0 && File < size && Rank >= 0 && Rank < size;

@@ -48,8 +48,8 @@ bool Pawn::verifyMove(Position p) const {
 std::vector<Position> Pawn::validMoves() const {
     std::vector<Position> moves;
     int direction = (c == Colour::White) ? 1 : -1;
-    Position possiblePawnMoves[4] = {{pos.Rank + direction, pos.File}, {pos.Rank + direction, pos.File + 1},
-                                    {pos.Rank + direction, pos.File - 1},{pos.Rank + 2 * direction, pos.File}};
+    Position possiblePawnMoves[4] = {{pos.File, pos.Rank + direction}, {pos.File + 1, pos.Rank + direction},
+                                    {pos.File - 1, pos.Rank + direction},{pos.File, pos.Rank + 2 * direction}};
     for(auto move : possiblePawnMoves){
         if(verifyMove(move)){
             moves.push_back(move);

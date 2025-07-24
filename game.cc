@@ -20,6 +20,7 @@ using namespace std;
 Game::Game() {
     board = new Board(8);
     gameData = new GameData();
+    board->addObserver(gameData);
     tUI = std::make_unique<TextUI>(board, gameData);
     try {
         gui = std::make_unique<GUI>(board, gameData);
@@ -27,10 +28,6 @@ Game::Game() {
         cerr << e.what() << endl;
         gui.reset(); // Deletes and sets to nullptr
     }
-
-    board->init();
-    board->addObserver(gameData);
-    //abstractUI creation automatically attaches the ui as an observer of board
 
     mode = Mode::Home;
     for (int i = 0; i < NUM_PLAYERS; ++i) {
@@ -92,6 +89,7 @@ void Game::run()  {
                 ++turnColour;
             }
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // flush leftover newline
+            board->init();
             mode = Mode::Game;            
 
         } else if (cmd == "setup") {
@@ -110,8 +108,9 @@ void Game::run()  {
 }
 
 
+void Game::setup(){
+    Colour turnColour = Colour::White;
 
-void Game::play() {
     string cmd;
     getline(cin, cmd);
     if(cin.eof()){
@@ -119,9 +118,41 @@ void Game::play() {
     }
     istringstream iss{cmd};
 
+    // parse command
+    if (iss.fail()) {
+        cout << "Invalid command (read fail)" << endl;
+    }
+    //needs work
+    cout << "Enter setup command (add <piece> <position>, remove <position>, done): " << endl;
+    while (true) {
+        if (cmd == "done") {
+            board->leaveSetupMode(turnColour);
+            break;
+        }else if (cmd == "+"){
+
+        }else if (cmd == "-"){
+
+        }else if (cmd == "="){
+
+        }
+
+    }
+}
+
+
+void Game::play() {
     cout << "Current turn: " << players[playerTurn]->getColour() << endl;
     cout << "Enter a command: resign, move with no args for computer move, \n"
          << "or move <from> <to> [<promotionType>]:" << endl;
+
+    string cmd;
+    getline(cin, cmd);
+    if(cin.eof()){
+        return;
+    }
+    istringstream iss{cmd};
+
+    
 
     // parse command
     if (iss.fail()) {
@@ -179,8 +210,16 @@ void Game::play() {
             return;
         }
 
-        Position oldPos = Position(fromPos);
-        Position newPos = Position(toPos);
+        Position oldPos = {0,0}, newPos = {0,0};
+        try{
+            oldPos = Position(fromPos);
+            newPos = Position(toPos);
+        }
+        catch (const std::invalid_argument& e) {
+            cout << "Invalid position format: " << endl;
+            cerr << e.what() << endl;
+            return;
+        }
         Piece::PieceType promoType;
 
         if(promotionType.length() == 0){
@@ -242,9 +281,7 @@ void Game::play() {
 
 }
 
-void Game::setup() {
 
-}
 
 void Game::nextTurn() {
     playerTurn = (playerTurn + 1) % players.size();

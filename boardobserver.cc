@@ -7,6 +7,9 @@ MoveInfo::MoveInfo(Position oldPos, Piece *piece,
     : oldPos{oldPos}, piece{piece}, capturedPiece{capturedPiece},
         isEnPassant{isEnPassant}, isPromotion{isPromotion} {}
 
+MoveInfo::MoveInfo() : oldPos{0,0}, piece{nullptr}, capturedPiece{nullptr},
+                       isEnPassant{false}, isPromotion{false} {}
+
 std::string MoveInfo::algebraic() const{
     return algebraicNotation;
 }

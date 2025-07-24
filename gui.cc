@@ -46,8 +46,7 @@ GUI::GUI(Board* board, GameData* gameData, int width, int height)
     XSetNormalHints(d, w, &hints);
 
     XSynchronize(d, True);
-
-    usleep(1000);
+    output(); // Initial output to draw the board
 
     board->addObserver(this);
 }
@@ -103,7 +102,7 @@ void GUI::output(){
 void GUI::drawPiece(Piece::PieceType type, Position p, Colour c) {
     char pieceSymbol = firstChar(type);
     int x = p.File * 64 + 32; 
-    int y = p.Rank * 64 + 32; 
+    int y = (board->getSize() - p.Rank - 1) * 64 + 32; 
     // 2: white piece, 3: black piece
     int pieceColour = (c == Colour::White) ? 2 : 3;
     string pieceSymbolStr(1, pieceSymbol);
