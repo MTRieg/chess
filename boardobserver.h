@@ -27,6 +27,7 @@ struct MoveInfo {
              bool isEnPassant = false, bool isPromotion = false);
     
     MoveInfo();
+    ~MoveInfo();
 
     const Colour colour();
     string algebraic() const;

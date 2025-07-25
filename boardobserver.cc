@@ -10,6 +10,11 @@ MoveInfo::MoveInfo(Position oldPos, Piece *piece,
 MoveInfo::MoveInfo() : oldPos{0,0}, piece{nullptr}, capturedPiece{nullptr},
                        isEnPassant{false}, isPromotion{false} {}
 
+MoveInfo::~MoveInfo() {
+    delete piece; 
+    delete capturedPiece; 
+}
+
 std::string MoveInfo::algebraic() const{
     return algebraicNotation;
 }
