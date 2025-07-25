@@ -17,18 +17,19 @@
 #include "gui.h" // Add this line
 using namespace std;
 
-Game::Game() {
+Game::Game(bool useGUI) {
     board = new Board(8);
     gameData = new GameData();
     board->addObserver(gameData);
     tUI = std::make_unique<TextUI>(board, gameData);
-    try {
-        gui = std::make_unique<GUI>(board, gameData);
-    } catch (const runtime_error& e) {
-        cerr << e.what() << endl;
-        gui.reset(); // Deletes and sets to nullptr
+    if(useGUI) {
+        try {
+            gui = std::make_unique<GUI>(board, gameData);
+        } catch (const runtime_error& e) {
+            cerr << e.what() << endl;
+            gui.reset(); // Deletes and sets to nullptr
+        }
     }
-
     mode = Mode::Home;
     for (int i = 0; i < NUM_PLAYERS; ++i) {
         scores.push_back(0);
@@ -39,6 +40,12 @@ Game::Game() {
 Game::~Game() {
     if (gui) {board->removeObserver(gui.get());}
     if (tUI) {board->removeObserver(tUI.get());}
+
+    cout << "Final Scores:" << endl;
+    for (int i = 0; i < NUM_PLAYERS; ++i) {
+        cout << "Player " << i + 1 << ": " << scores[i] << " points" << endl;
+    }
+    cout << "Program terminated." << endl;
 
     delete board;
     delete gameData;
@@ -270,6 +277,15 @@ void Game::play() {
             mode = Mode::Home;
             nextTurn();
             ++scores[playerTurn];
+            return;
+        }
+        if(board->stalemate()){
+            cout << players[playerTurn]->getColour() << " was stalemated." << endl;
+            mode = Mode::Home;
+            nextTurn();
+            for(auto& score : scores){
+                score += 0.5; // reset scores
+            }
             return;
         }
         

@@ -156,6 +156,10 @@ const bool Board::checkmate() {
     return checkmateCache;
 }
 
+const bool Board::stalemate() {
+    return stalemateCache;
+}
+
 const InvisibleBoardInfo Board::BoardInfo() const{
     return ibi;
 }
@@ -225,9 +229,10 @@ void Board::movePiece(const MoveInfo& move) {
 
     notifyObservers(move);
 
+
+    Colour oppColour = (move.piece->getColour() == Colour::White) ? Colour::Black : Colour::White;
     // Update check and checkmate status
-    setCheckCache(calculateCheck(move.piece->getColour()), move.piece->getColour());
-    setCheckmateCache(calculateCheckmate(move.piece->getColour()), move.piece->getColour());
+    reevaluateCheckStalemateCheckmate(oppColour);
 }
 
 
@@ -303,6 +308,8 @@ bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
 
     bool inCheck = false;
     
+    
+
     if(!tempBoard) {
         tempBoard = new Board(*this); // If no temporary board is provided, create a copy of the current board
         tempBoard->applyMove(move); // Temporarily apply the move to check for check or checkmate
@@ -488,7 +495,6 @@ bool Board::calculateCheck(Colour colour){
         for (int j = 0; j < size; ++j) {
             Piece* piece = board[i][j];
             if (piece && piece->getColour() != colour && piece->verifyMove(kingPosition)) {
-                    piece->verifyMove(kingPosition);
                     return true;
             }
         }
@@ -497,44 +503,71 @@ bool Board::calculateCheck(Colour colour){
 
 }
 
+bool Board::calculateStalemate(Colour colour, bool useCheckCache) {
+    if ((useCheckCache && checkCache) || (!useCheckCache && calculateCheck(colour))) {
+        return false; // Cannot be stalemate if in check
+    }
+
+    return !validNextMove(colour); // return if there are no valid next moves
+}
+
+bool Board::reevaluateCheckCache(Colour colour) {
+    checkCache = calculateCheck(colour);
+    return checkCache;
+}
+
+bool Board::reevaluateCheckmateCache(Colour colour, bool useCheckCache) {
+    checkmateCache = calculateCheckmate(colour, useCheckCache);
+    return checkmateCache;
+}
+
+bool Board::reevaluateStalemateCache(Colour colour, bool useCheckCache, bool useCheckmateCache) {
+    if (useCheckmateCache && checkmateCache){
+        stalemateCache = false; // If checkmate is true, stalemate cannot be true
+        return stalemateCache;
+    }
+    stalemateCache = calculateStalemate(colour, useCheckCache);
+    return stalemateCache;
+}
+
 
 bool Board::calculateCheckmate(Colour colour, bool useCheckCache) {
     if ((useCheckCache && !checkCache) || (!useCheckCache && !calculateCheck(colour))) {
         return false; // Cannot be checkmate if not in check
     }
-
-    std::vector<MoveInfo> validMoves = getValidMoves(colour);
-    if (validMoves.empty()) {
-        return true;
-    }
     
-    return false;
+    return !validNextMove(colour);
+}
+
+bool Board::validNextMove(Colour colour) const {
+    // Check if the current player has any valid moves
+    std::vector<MoveInfo> validMoves = getValidMoves(colour);
+    return !validMoves.empty();
 }
 
 
-//colour is colour of piece that just moved
-void Board::setCheckCache(bool value, Colour colour) {
-    if (colour == Colour::White) {
-        checkCache = calculateCheck(Colour::White);
-    } else {
-        checkCache = calculateCheck(Colour::Black);
+
+void Board::reevaluateCheckStalemateCheckmate(Colour colour) {
+    if(calculateCheck(colour)){
+        if(validNextMove(colour)) {
+            checkCache = true;
+            checkmateCache = false;
+            stalemateCache = false;
+        } else {
+            checkCache = true;
+            checkmateCache = true;
+            stalemateCache = false;
+        }
+    }else{
+        checkCache = false;
+        if(validNextMove(colour)) {
+            checkmateCache = false;
+            stalemateCache = false;
+        } else {
+            checkmateCache = false;
+            stalemateCache = true;
+        }
     }
-}
-
-
-
-void Board::setCheckmateCache(bool value, Colour colour) {
-    if (colour == Colour::White) {
-        checkmateCache = calculateCheckmate(Colour::White);
-    } else {
-        checkmateCache = calculateCheckmate(Colour::Black);
-    }
-}
-
-
-void Board::reevaluateCheckAndCheckmate(Colour colour) {
-    setCheckCache(calculateCheck(colour), colour);
-    setCheckmateCache(calculateCheckmate(colour), colour);
 }
 
 
@@ -626,13 +659,12 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
         }
     } else {
         Board *tempBoard = new Board(*this);
-        tempBoard->applyMove(move); 
-        tempBoard->reevaluateCheckAndCheckmate(move.piece->getColour());
+        tempBoard->applyMove(move);
+        tempBoard->reevaluateCheckStalemateCheckmate(move.piece->getColour());
 
 
-        if (tempBoard->calculateCheck(move.piece->getColour())) {
-            tempBoard->setCheckCache(true, move.piece->getColour());
-            if (tempBoard->calculateCheckmate(move.piece->getColour())) {
+        if (tempBoard->reevaluateCheckCache(move.piece->getColour())) {
+            if (tempBoard->reevaluateCheckmateCache(move.piece->getColour(), true)) {
                 move.algebraicNotation += "#";
             } else {
                 move.algebraicNotation += "+";

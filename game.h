@@ -20,11 +20,11 @@ class Game {
     std::unique_ptr<GUI> gui;
     int playerTurn = 0;
     vector<unique_ptr<Player>> players;
-    vector<int> scores;
+    vector<double> scores;
     Mode mode;
     
     public:
-    Game();
+    Game(bool useGUI = true);
     ~Game();
     void run();
 

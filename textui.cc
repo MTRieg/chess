@@ -71,7 +71,7 @@ void TextUI::update(MoveInfo latest) {
 
 void TextUI::output() {
 
-    //system("clear"); // clear the console
+    cout << endl;
     int step = 0;
 
     // print from white
@@ -91,7 +91,7 @@ void TextUI::output() {
     for (int file = 0; file < board->getSize(); ++file) {
         cout << char('a' + file) << ' '; // letters
     }
-    cout << endl;
+    cout << '\n' << endl;
 
 }
 

@@ -12,7 +12,7 @@ class Board {
     bool setupMode = true; //will be set to false by either init() or leaveSetupMode()
 
     vector<BoardObserver*> observers;
-    bool checkCache = false, checkmateCache = false;
+    bool checkCache = false, checkmateCache = false, stalemateCache = false;
     InvisibleBoardInfo ibi;
 
     void notifyObservers(MoveInfo latest);
@@ -34,10 +34,13 @@ class Board {
 
     bool calculateCheck(Colour colour);
     bool calculateCheckmate(Colour colour, bool useCheckCache = true);
-    void setCheckCache(bool value, Colour colour);
-    void setCheckmateCache(bool value, Colour colour);
-    void reevaluateCheckAndCheckmate(Colour colour);
+    bool calculateStalemate(Colour colour, bool useCheckCache = true);
+    bool reevaluateCheckCache(Colour colour);
+    bool reevaluateCheckmateCache(Colour colour, bool useCheckCache = true);
+    bool reevaluateStalemateCache(Colour colour, bool useCheckCache = true, bool useCheckmateCache = true);
+    void reevaluateCheckStalemateCheckmate(Colour colour);
     void updateCastlingRights();
+    bool validNextMove(Colour colour) const;
 
     Board (const Board&);
 
@@ -66,6 +69,7 @@ class Board {
     const Piece *pieceAtPosition(const Position &pos) const;
     const bool check();
     const bool checkmate();
+    const bool stalemate();
     const InvisibleBoardInfo BoardInfo() const;
     void updateAlgebraicNotation(const MoveInfo& move, const Board * const boardAfterMove = nullptr) const;
     MoveInfo moveInfo(Position oldPos, Position newPos, Piece::PieceType promotionType = Piece::PieceType::Queen) const;
