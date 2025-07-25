@@ -338,7 +338,13 @@ void Game::play() {
 
 
         // try move
-        MoveInfo move = board->moveInfo(oldPos, newPos, promoType);
+        MoveInfo move;
+        try{
+            move = board->moveInfo(oldPos, newPos, promoType);
+        }catch (const std::invalid_argument& e) {
+            cout << "Invalid move: " << e.what() << endl;
+            return;
+        }
         if(move.colour() == players[playerTurn]->getColour()){
                 try{
                 board->movePiece(move);
