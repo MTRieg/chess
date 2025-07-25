@@ -46,4 +46,3 @@ class GUI : public AbstractUI {
     void output() override;
 
 };
- 
