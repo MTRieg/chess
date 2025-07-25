@@ -28,6 +28,11 @@ struct MoveInfo {
     
     MoveInfo();
     ~MoveInfo();
+    MoveInfo(const MoveInfo& other);
+    MoveInfo& operator=(const MoveInfo& other);
+    MoveInfo(MoveInfo&& other) noexcept;
+    MoveInfo& operator=(MoveInfo&& other) noexcept;
+
 
     const Colour colour();
     string algebraic() const;

@@ -18,6 +18,7 @@ Piece* Pawn::clone(const Board *const board) const {
 }
 
 bool Pawn::verifyMove(Position p) const {
+
     int direction = (c == Colour::White) ? 1 : -1;
     if (p.File == pos.File) {
         // Moving forward

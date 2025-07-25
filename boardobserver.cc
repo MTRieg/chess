@@ -15,6 +15,49 @@ MoveInfo::~MoveInfo() {
     delete capturedPiece; 
 }
 
+MoveInfo::MoveInfo(const MoveInfo& other)
+    : oldPos{other.oldPos}, piece{other.piece ? other.piece->clone() : nullptr},
+      capturedPiece{other.capturedPiece ? other.capturedPiece->clone() : nullptr},
+      isEnPassant{other.isEnPassant}, isPromotion{other.isPromotion}, ibi{other.ibi} {}
+
+MoveInfo& MoveInfo::operator=(const MoveInfo& other) {
+    if (this != &other) {
+        oldPos = other.oldPos;
+        delete piece;
+        piece = other.piece ? other.piece->clone() : nullptr;
+        delete capturedPiece;
+        capturedPiece = other.capturedPiece ? other.capturedPiece->clone() : nullptr;
+        isEnPassant = other.isEnPassant;
+        isPromotion = other.isPromotion;
+        ibi = other.ibi;
+    }
+    return *this;
+}
+
+MoveInfo::MoveInfo(MoveInfo&& other) noexcept
+    : oldPos{other.oldPos}, piece{other.piece}, capturedPiece{other.capturedPiece},
+      isEnPassant{other.isEnPassant}, isPromotion{other.isPromotion}, ibi{other.ibi} {
+    other.piece = nullptr;
+    other.capturedPiece = nullptr;
+}
+
+MoveInfo& MoveInfo::operator=(MoveInfo&& other) noexcept {
+    if (this != &other) {
+        oldPos = other.oldPos;
+        delete piece;
+        piece = other.piece;
+        other.piece = nullptr;
+        delete capturedPiece;
+        capturedPiece = other.capturedPiece;
+        other.capturedPiece = nullptr;
+        isEnPassant = other.isEnPassant;
+        isPromotion = other.isPromotion;
+        ibi = other.ibi;
+    }
+    return *this;
+}
+
+
 std::string MoveInfo::algebraic() const{
     return algebraicNotation;
 }

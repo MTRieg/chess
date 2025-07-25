@@ -332,9 +332,6 @@ void Game::play() {
             }
         }
 
-        if(oldPos.File == 4 && oldPos.Rank == 2 && newPos.File == 4 && newPos.Rank == 3){
-            oldPos.File = 4;
-        }
 
 
         // try move
@@ -342,16 +339,19 @@ void Game::play() {
         try{
             move = board->moveInfo(oldPos, newPos, promoType);
         }catch (const std::invalid_argument& e) {
-            cout << "Invalid move: " << e.what() << endl;
+            cout << "Error while creating moveInfo: " << e.what() << endl;
             return;
         }
+        
+
+
         if(move.colour() == players[playerTurn]->getColour()){
                 try{
                 board->movePiece(move);
                 nextTurn();
             }
             catch (const std::invalid_argument& e) {
-                cout << "Invalid move: " << e.what() << endl;
+                cout << "Error while trying to move piece: " << e.what() << endl;
                 return;
             }
             

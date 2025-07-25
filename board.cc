@@ -317,16 +317,12 @@ int Board::getSize() const {
 
 //resets tempBoard after use, so it can be reused for multiple calls
 bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
-    const Piece* piece = move.piece;
+    const Piece* piece = move.piece->clone();
     if (!piece) return false;
 
     if(!piece->getPosition().inBounds(size) || !move.oldPos.inBounds(size)) {
         return false; // Invalid position
     }
-
-    if(!comparePieces(pieceAtPosition(move.oldPos), move.piece)){
-                    return false; //the original piece is not where they say it is now
-            }
 
     // Check if the target square is occupied by a piece of the same colour
     const Piece* targetPiece = pieceAtPosition(move.piece->getPosition());
@@ -335,9 +331,30 @@ bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
     }
 
     // Check if the move is valid for the piece type
-    if (!pieceAtPosition(move.oldPos)->verifyMove(move.piece->getPosition())) {
-        return false;
+    if (move.isPromotion) {
+        if (move.piece->getType() != Piece::PieceType::Queen &&
+            move.piece->getType() != Piece::PieceType::Rook &&
+            move.piece->getType() != Piece::PieceType::Bishop &&
+            move.piece->getType() != Piece::PieceType::Knight) {
+            return false; // Invalid promotion type
+        }
+        Pawn tempPawn = Pawn(piece->getColour(), move.oldPos, this);
+        if(!comparePieces(pieceAtPosition(move.oldPos), &tempPawn)){
+            return false; // The original piece is not where they say it is now
+        } 
+        if (!tempPawn.verifyMove(move.piece->getPosition())) {
+            return false;
+        }
+    }else{
+        if(!comparePieces(pieceAtPosition(move.oldPos), move.piece)){
+            return false; //the original piece is not where they say it is now
+        }
+        if (!pieceAtPosition(move.oldPos)->verifyMove(move.piece->getPosition())) {
+            return false;
+        }
     }
+
+    
 
     if(move.capturedPiece && !comparePieces(pieceAtPosition(move.capturedPiece->getPosition()), move.capturedPiece)){
                     return false; //the captured piece is not where they say it is

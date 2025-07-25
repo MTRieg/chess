@@ -1,0 +1,12 @@
+game
+computer[2] computer[3]
+move h2 h4
+move g7 g5
+move h4 g5
+move h7 h6 
+move g5 h6
+move f8 g7
+move h6 g7
+move g8 f6
+move g7 g8 Q
+move
