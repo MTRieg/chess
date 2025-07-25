@@ -72,7 +72,10 @@ void Board::addPiece(Piece* piece) {
         throw std::out_of_range("Piece position is out of bounds.");
     }
     board[pos.File][pos.Rank] = piece;
-    notifyObservers(MoveInfo{pos, piece, nullptr, false, false});
+    if(setupMode) {
+        notifyObservers(MoveInfo{pos, piece, nullptr, false, false});
+    }
+    
 }
 
 void Board::removePiece(Position pos) {
@@ -85,7 +88,9 @@ void Board::removePiece(Position pos) {
     //piece is not deleted because piece is sent as the captured piece in moveInfo
     auto removedPiece = board[pos.File][pos.Rank];
     board[pos.File][pos.Rank] = nullptr;
-    notifyObservers(MoveInfo{pos, nullptr, removedPiece, false, false});
+    if(setupMode) {
+        notifyObservers(MoveInfo{pos, nullptr, removedPiece, false, false});
+    }
 }
 
 

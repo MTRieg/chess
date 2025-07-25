@@ -52,7 +52,7 @@ Game::~Game() {
 }
 
 void Game::run()  {
-
+    bool customSetup = false;
     string cmd;
 
     while (true) {
@@ -96,12 +96,15 @@ void Game::run()  {
                 ++turnColour;
             }
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // flush leftover newline
-            board->init();
+            if(!customSetup){
+                board->init();
+            }
             mode = Mode::Game;            
 
         } else if (cmd == "setup") {
             mode = Mode::Setup;
             setup();
+            customSetup = true;
 
         } else if (cmd == "quit") {
             break;
@@ -117,25 +120,30 @@ void Game::run()  {
 
 void Game::setup(){
     Colour turnColour = Colour::White;
-
-    string cmd;
-    getline(cin, cmd);
-    if(cin.eof()){
-        return;
-    }
-    istringstream iss{cmd};
-
-    // parse command
-    if (iss.fail()) {
-        cout << "Invalid command (read fail)" << endl;
-    }
-    //needs work
-    cout << "Enter setup command (add <piece> <position>, remove <position>, done): " << endl;
+    
+    
     while (true) {
-        if (cmd == "done") {
+        cout << "Enter setup command (+ <piece> <position>, - <position>, = <starting_colour>, done): " << endl;
+
+        string cmd;
+        getline(cin, cmd);
+        if(cin.eof()){
+            return;
+        }
+        istringstream iss{cmd};
+
+        string command;
+        iss >> command;
+
+        // parse command
+        if (iss.fail()) {
+            cout << "Invalid command (read fail)" << endl;
+        }
+
+        if (command == "done") {
             board->leaveSetupMode(turnColour);
             break;
-        }else if (cmd == "+"){
+        }else if (command == "+"){
             string pieceType, positionStr;
             iss >> pieceType >> positionStr;
             if (pieceType.empty() || positionStr.empty()) {
@@ -156,11 +164,11 @@ void Game::setup(){
             }
 
             
-            Colour pieceColour = Colour::Black;
+            Colour pieceColour = Colour::White;
 
             if ('a' <= pieceType[0] && pieceType[0] <= 'z'){
                 pieceType[0] = toupper(pieceType[0]);
-                pieceColour = Colour::White;
+                pieceColour = Colour::Black;
             }
 
             Piece::PieceType type;
@@ -174,7 +182,9 @@ void Game::setup(){
             Piece *piece = createPiece(pieceColour, position, type, board);
 
             board->addPiece(piece);
-        }else if (cmd == "-"){
+
+            cout << "Added " << pieceType << " at " << positionStr << endl;
+        }else if (command == "-"){
             string positionStr;
             iss >> positionStr;
             if (positionStr.empty()) {
@@ -200,7 +210,8 @@ void Game::setup(){
             } else {
                 cout << "No piece at position: " << positionStr << endl;
             }
-        }else if (cmd == "="){
+            cout << "Removed piece at " << positionStr << endl;
+        }else if (command == "="){
             string colourStr;
             iss >> colourStr;
             if (colourStr == "white" || colourStr == "White") {
@@ -211,6 +222,7 @@ void Game::setup(){
                 cout << "Invalid colour: " << colourStr << endl;
                 continue;
             }
+            cout << "Set starting colour to " << (turnColour == Colour::White ? "White" : "Black") << endl;
         }
 
     }
