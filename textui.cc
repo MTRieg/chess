@@ -25,31 +25,11 @@ void TextUI::update(MoveInfo latest) {
             }
 
             // piece type
-            char pieceChar;
-            switch (piece->getType()) {
-                case Piece::PieceType::Pawn:
-                    pieceChar = 'p';
-                    break;
-                case Piece::PieceType::Knight:
-                    pieceChar = 'n';
-                    break;
-                case Piece::PieceType::Bishop:
-                    pieceChar = 'b';
-                    break;
-                case Piece::PieceType::Rook:
-                    pieceChar = 'r';
-                    break;
-                case Piece::PieceType::Queen:
-                    pieceChar = 'q';
-                    break;
-                case Piece::PieceType::King:
-                    pieceChar = 'k';
-                    break;
-            }
+            char pieceChar = firstChar(piece->getType());
             
             // adjust for player
             if (piece->getColour() == Colour::Black) {
-                pieceChar = toupper(pieceChar);
+                pieceChar = tolower(pieceChar);
             }
 
             boardDisplay[i][j] = pieceChar;

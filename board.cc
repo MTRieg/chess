@@ -75,6 +75,22 @@ void Board::addPiece(Piece* piece) {
     notifyObservers(MoveInfo{pos, piece, nullptr, false, false});
 }
 
+void Board::removePiece(Position pos) {
+    if (pos.File < 0 || pos.File >= size || pos.Rank < 0 || pos.Rank >= size) {
+        throw std::out_of_range("Piece position is out of bounds.");
+    }
+    if (board[pos.File][pos.Rank] == nullptr) {
+        throw std::runtime_error("No piece at the specified position to remove.");
+    }
+    //piece is not deleted because piece is sent as the captured piece in moveInfo
+    auto removedPiece = board[pos.File][pos.Rank];
+    board[pos.File][pos.Rank] = nullptr;
+    notifyObservers(MoveInfo{pos, nullptr, removedPiece, false, false});
+}
+
+
+
+
 void Board::leaveSetupMode(Colour colour) {
     //with more development time, you could add more checks to make sure the position is valid
     //for now, I will just calculate check or checkmate and making sure castling rights are correct

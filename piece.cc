@@ -20,16 +20,28 @@ Colour &operator++(Colour &c) {
 
 
 char firstChar(Piece::PieceType type) {
-            switch (type) {
-                case Piece::PieceType::Pawn: return 'P';
-                case Piece::PieceType::Knight: return 'N';
-                case Piece::PieceType::Bishop: return 'B';
-                case Piece::PieceType::Rook: return 'R';
-                case Piece::PieceType::Queen: return 'Q';
-                case Piece::PieceType::King: return 'K';
-            }
-            return ' ';
-        }
+    switch (type) {
+        case Piece::PieceType::Pawn: return 'P';
+        case Piece::PieceType::Knight: return 'N';
+        case Piece::PieceType::Bishop: return 'B';
+        case Piece::PieceType::Rook: return 'R';
+        case Piece::PieceType::Queen: return 'Q';
+        case Piece::PieceType::King: return 'K';
+    }
+    return ' ';
+}
+
+Piece::PieceType charToPieceType(char c) {
+    switch (c) {
+        case 'P': return Piece::PieceType::Pawn;
+        case 'N': return Piece::PieceType::Knight;
+        case 'B': return Piece::PieceType::Bishop;
+        case 'R': return Piece::PieceType::Rook;
+        case 'Q': return Piece::PieceType::Queen;
+        case 'K': return Piece::PieceType::King;
+        default: throw std::invalid_argument("Invalid piece type character");
+    }
+}
 
 vector<int> rgb(Colour c){
     switch (c) {
@@ -104,4 +116,20 @@ ostream &operator<<(ostream &out, const Colour &c) {
     }
     return out;
 }
+
+
+
+Piece *createPiece(Colour colour, Position pos, Piece::PieceType type, const Board *const board){
+
+    switch (type) {
+        case Piece::PieceType::Pawn: return new Pawn(colour, pos, board);
+        case Piece::PieceType::Knight: return new Knight(colour, pos, board);
+        case Piece::PieceType::Bishop: return new Bishop(colour, pos, board);
+        case Piece::PieceType::Rook: return new Rook(colour, pos, board);
+        case Piece::PieceType::Queen: return new Queen(colour, pos, board);
+        case Piece::PieceType::King: return new King(colour, pos, board);
+        default: throw std::invalid_argument("Invalid piece type");
+    }
+}
+
 

@@ -60,6 +60,7 @@ class Board {
     bool isValidMove(const MoveInfo& move, Board* tempBoard = nullptr) const;
 
     void addPiece(Piece* piece);
+    void removePiece(Position pos);
     void leaveSetupMode(Colour colour);
 
     void movePiece(const MoveInfo& move);

@@ -136,11 +136,81 @@ void Game::setup(){
             board->leaveSetupMode(turnColour);
             break;
         }else if (cmd == "+"){
+            string pieceType, positionStr;
+            iss >> pieceType >> positionStr;
+            if (pieceType.empty() || positionStr.empty()) {
+                cout << "Invalid command format. Use 'add <piece> <position>'." << endl;
+                continue;
+            }
+            Position position = {0,0};
+            try{
+                position = Position(positionStr);
+            }catch (const std::invalid_argument& e) {
+                cout << "Invalid position format: " << positionStr << endl;
+                continue;
+            }
 
+            if (!position.inBounds(board->getSize())) {
+                cout << "Position out of bounds: " << positionStr << endl;
+                continue;
+            }
+
+            
+            Colour pieceColour = Colour::Black;
+
+            if ('a' <= pieceType[0] && pieceType[0] <= 'z'){
+                pieceType[0] = toupper(pieceType[0]);
+                pieceColour = Colour::White;
+            }
+
+            Piece::PieceType type;
+            try{
+                type = charToPieceType(pieceType[0]);
+            }catch (const std::invalid_argument& e) {
+                cout << "Invalid piece type: " << pieceType << endl;
+                continue;
+            }
+
+            Piece *piece = createPiece(pieceColour, position, type, board);
+
+            board->addPiece(piece);
         }else if (cmd == "-"){
+            string positionStr;
+            iss >> positionStr;
+            if (positionStr.empty()) {
+                cout << "Invalid command format. Use 'remove <position>'." << endl;
+                continue;
+            }
+            Position position = {0,0};
+            try{
+                position = Position(positionStr);
+            }catch (const std::invalid_argument& e) {
+                cout << "Invalid position format: " << positionStr << endl;
+                continue;
+            }
 
+            if (!position.inBounds(board->getSize())) {
+                cout << "Position out of bounds: " << positionStr << endl;
+                continue;
+            }
+
+            const Piece *piece = board->pieceAtPosition(position);
+            if (piece) {
+                board->removePiece(position);
+            } else {
+                cout << "No piece at position: " << positionStr << endl;
+            }
         }else if (cmd == "="){
-
+            string colourStr;
+            iss >> colourStr;
+            if (colourStr == "white" || colourStr == "White") {
+                turnColour = Colour::White;
+            } else if (colourStr == "black" || colourStr == "Black") {
+                turnColour = Colour::Black;
+            } else {
+                cout << "Invalid colour: " << colourStr << endl;
+                continue;
+            }
         }
 
     }

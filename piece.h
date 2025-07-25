@@ -79,3 +79,8 @@ ostream &operator<<(ostream &out, const Colour &c);
 
 char firstChar(Piece::PieceType type);
 
+Piece::PieceType charToPieceType(char c);
+
+//if you create a new piece type, this code will throw when given that type unless you add a case for it
+Piece *createPiece(Colour colour, Position pos, Piece::PieceType type, const Board *const board);
+
