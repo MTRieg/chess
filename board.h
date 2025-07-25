@@ -7,7 +7,7 @@ using namespace std;
 
 class Board {
 
-    int size = 8;
+    int size = 8; // default size
     Piece*** board;
     bool setupMode = true; //will be set to false by either init() or leaveSetupMode()
 
@@ -29,7 +29,7 @@ class Board {
     //still no notifications for observers or checks for validity, but does handle castling, en passant, and promotion
     void applyMove(const MoveInfo& move); 
 
-    //undoes a move, restoring the previous state of the board
+    //undos a move, restoring the previous state of the board
     //this will only affect the board, not the observers or ibi
     void undoMove(const Position &oldPos, const Position &newPos, const Piece *const capturedPiece = nullptr);
     //properly undoes a move, restoring the previous state of the board (still no board notifications)
@@ -47,10 +47,6 @@ class Board {
     bool validNextMove(Colour colour) const;
 
     Board (const Board&);
-
-
-
-    
 
 
     public:
