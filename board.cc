@@ -52,7 +52,7 @@ Board::Board(const Board& other) {
 
 
 void Board::init() {
-    for(int i=0; i<8; i++){
+    for(int i=0; i<size; i++){
         board[i][1] = new Pawn(Colour::White, Position{i, 1}, this);
         board[i][6] = new Pawn(Colour::Black, Position{i, 6}, this);
     }
@@ -148,6 +148,9 @@ void Board::updateCastlingRights(){
 }
 
 void Board::initHomeRow(Colour c, int row) {
+    if (size < 8 || row < 0 || row >= size) {
+        throw std::out_of_range("Invalid board size or row for home row initialization.");
+    }
     board[0][row] = new Rook(c, Position{0, row}, this);
     board[1][row] = new Knight(c, Position{1, row}, this);
     board[2][row] = new Bishop(c, Position{2, row}, this);
@@ -336,7 +339,7 @@ bool Board::isValidMove(const MoveInfo& move, Board* tempBoard) const{
         return false;
     }
 
-    if(move.capturedPiece && comparePieces(pieceAtPosition(move.capturedPiece->getPosition()), move.capturedPiece)){
+    if(move.capturedPiece && !comparePieces(pieceAtPosition(move.capturedPiece->getPosition()), move.capturedPiece)){
                     return false; //the captured piece is not where they say it is
             }
 
@@ -634,7 +637,8 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
         move.algebraicNotation += Algebraic(move.piece->getPosition()) + " = " + firstChar(move.piece->getType());
     }else if(move.piece->getType() == Piece::PieceType::Pawn) {
         if(move.capturedPiece) {
-            move.algebraicNotation = Algebraic(move.piece->getPosition())[0] + "x"; //add the file of the piece
+            move.algebraicNotation = Algebraic(move.oldPos)[0];
+            move.algebraicNotation += "x"; //add the file of the piece
         }
         move.algebraicNotation += Algebraic(move.piece->getPosition());
     }else{
