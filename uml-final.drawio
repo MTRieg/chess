@@ -5,7 +5,7 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="b0TugOnntlRWFown4FGA-1" value="enum Colour" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="2325" y="1500" width="140" height="80" as="geometry" />
+          <mxGeometry x="2280" y="1360" width="140" height="80" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-2" value="{Black, White, None}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-1">
           <mxGeometry y="30" width="140" height="50" as="geometry" />
@@ -36,6 +36,12 @@
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-6" value="- ibi : InvisibleBoardInfo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-3">
           <mxGeometry y="240" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-294" value="" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="b0TugOnntlRWFown4FGA-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="270" as="sourcePoint" />
+            <mxPoint x="280" y="270" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-7" value="- notifyObserversMove( latest : MoveInfo ) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-3">
           <mxGeometry y="270" width="280" height="30" as="geometry" />
@@ -132,7 +138,7 @@
             <mxPoint x="2150" y="1380" as="sourcePoint" />
             <mxPoint x="2290" y="1340" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="2200" y="1500" />
+              <mxPoint x="2200" y="1310" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -140,53 +146,59 @@
           <mxGeometry x="1440" y="940" width="50" height="510" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-25" value="&lt;i&gt;Piece&lt;/i&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1850" y="1410" width="270" height="300" as="geometry">
+          <mxGeometry x="1840" y="1200" width="280" height="240" as="geometry">
             <mxRectangle x="210" y="120" width="120" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-26" value="#Position Pos" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
-          <mxGeometry y="30" width="270" height="30" as="geometry" />
+        <mxCell id="b0TugOnntlRWFown4FGA-26" value="# pos : Position" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
+          <mxGeometry y="30" width="280" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-27" value="#Colour c" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
-          <mxGeometry y="60" width="270" height="30" as="geometry" />
+        <mxCell id="b0TugOnntlRWFown4FGA-27" value="# c : Colour" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
+          <mxGeometry y="60" width="280" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-28" value="#Const Board *B" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
-          <mxGeometry y="90" width="270" height="30" as="geometry" />
+        <mxCell id="b0TugOnntlRWFown4FGA-28" value="# b : *Board" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
+          <mxGeometry y="90" width="280" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-29" value="+virtual Position* ValidMoves()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
-          <mxGeometry y="120" width="270" height="30" as="geometry" />
+        <mxCell id="b0TugOnntlRWFown4FGA-296" value="" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="b0TugOnntlRWFown4FGA-25">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="119.71000000000004" as="sourcePoint" />
+            <mxPoint x="280" y="119.71000000000004" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-30" value="+virtual Bool verifyMove (Position)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
-          <mxGeometry y="150" width="270" height="30" as="geometry" />
+        <mxCell id="b0TugOnntlRWFown4FGA-29" value="+ validMoves() : vector&amp;lt;Position&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontStyle=2" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
+          <mxGeometry y="120" width="280" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-31" value="+virtual PieceType Type()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
-          <mxGeometry y="180" width="270" height="30" as="geometry" />
+        <mxCell id="b0TugOnntlRWFown4FGA-30" value="+ verifyMove( p : Position ) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontStyle=2" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
+          <mxGeometry y="150" width="280" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-32" value="+Position Position()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
-          <mxGeometry y="210" width="270" height="30" as="geometry" />
+        <mxCell id="b0TugOnntlRWFown4FGA-31" value="+ move( p : Position ) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
+          <mxGeometry y="180" width="280" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-33" value="+Colour PieceColour()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
-          <mxGeometry y="240" width="270" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-34" value="+Bool Move(Position, PieceType P = Pawn)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
-          <mxGeometry y="270" width="270" height="30" as="geometry" />
+        <mxCell id="b0TugOnntlRWFown4FGA-34" value="&lt;i&gt;+ clone( board : Board* ) : Piece*&lt;/i&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-25">
+          <mxGeometry y="210" width="280" height="30" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-35" value="Rook" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1160" y="1800" width="240" height="150" as="geometry">
+          <mxGeometry x="1160" y="1800" width="240" height="210" as="geometry">
             <mxRectangle x="120" y="490" width="120" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-36" value="+Position* ValidMoves()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-35">
+        <mxCell id="b0TugOnntlRWFown4FGA-275" value="+ getType() : PieceType" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-35">
           <mxGeometry y="30" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-37" value="+Bool verifyMove (Position)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-35">
+        <mxCell id="b0TugOnntlRWFown4FGA-280" value="- validMoveGivenDirection( p : Position, dr : int, df : int ) : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-35">
           <mxGeometry y="60" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-38" value="+PieceType Type() {Return Rook}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-35">
+        <mxCell id="b0TugOnntlRWFown4FGA-279" value="- appendMovesForDirection( dr : int, df : int, moves: vector&amp;lt;Position&amp;gt;&amp;amp; ) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-35">
           <mxGeometry y="90" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-39" value="+Rook(Position, Colour)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-35">
+        <mxCell id="b0TugOnntlRWFown4FGA-278" value="+ validMoves() : vector&amp;lt;Position&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-35">
           <mxGeometry y="120" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-277" value="+ verifyMove( p : Position ) : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-35">
+          <mxGeometry y="150" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-276" value="+ clone( board : Board* ) : Piece*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-35">
+          <mxGeometry y="180" width="240" height="30" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-40" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=block;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endFill=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-35" target="b0TugOnntlRWFown4FGA-34">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -202,16 +214,16 @@
             <mxRectangle x="400" y="490" width="120" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-42" value="+Position* ValidMoves()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-41">
+        <mxCell id="b0TugOnntlRWFown4FGA-241" value="+ validMoves() : vector&amp;lt;Position&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-41">
           <mxGeometry y="30" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-43" value="+Bool verifyMove (Position)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-41">
+        <mxCell id="b0TugOnntlRWFown4FGA-244" value="+ getType() : PieceType" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-41">
           <mxGeometry y="60" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-44" value="+PieceType Type() {Return Knight}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-41">
+        <mxCell id="b0TugOnntlRWFown4FGA-243" value="+ clone( board : Board* ) : Piece*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-41">
           <mxGeometry y="90" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-45" value="+Knight(Position, Colour)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-41">
+        <mxCell id="b0TugOnntlRWFown4FGA-242" value="+ verifyMove( p : Position ) : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-41">
           <mxGeometry y="120" width="240" height="30" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-46" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=block;html=1;curved=0;rounded=0;endSize=8;startSize=8;endFill=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-41" target="b0TugOnntlRWFown4FGA-34">
@@ -246,12 +258,12 @@
         <mxCell id="b0TugOnntlRWFown4FGA-163" value="- validMoveGivenDirection( p : Position, dr : int, df : int ) : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-47">
           <mxGeometry y="180" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-52" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=block;html=1;rounded=0;endSize=8;startSize=8;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-47" target="b0TugOnntlRWFown4FGA-34">
+        <mxCell id="b0TugOnntlRWFown4FGA-52" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=block;html=1;rounded=0;endSize=8;startSize=8;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-47" target="b0TugOnntlRWFown4FGA-25">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="1850" y="1800" as="sourcePoint" />
             <mxPoint x="1990" y="1680" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="1985" y="1760" />
+              <mxPoint x="1980" y="1760" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -260,50 +272,56 @@
             <mxRectangle x="210" y="120" width="120" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-54" value="+Position* ValidMoves()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-53">
+        <mxCell id="b0TugOnntlRWFown4FGA-240" value="+ validMoves() : vector&amp;lt;Position&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-53">
           <mxGeometry y="30" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-55" value="+Bool verifyMove (Position)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-53">
+        <mxCell id="b0TugOnntlRWFown4FGA-239" value="+ verifyMove( p : Position ) : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-53">
           <mxGeometry y="60" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-56" value="+PieceType Type() {Return King}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-53">
+        <mxCell id="b0TugOnntlRWFown4FGA-238" value="+ clone( board : Board* ) : Piece*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-53">
           <mxGeometry y="90" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-57" value="+King(Position, Colour)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-53">
+        <mxCell id="b0TugOnntlRWFown4FGA-237" value="+ getType() : PieceType" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-53">
           <mxGeometry y="120" width="240" height="30" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-58" value="Queen" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="2280" y="1800" width="240" height="150" as="geometry">
+          <mxGeometry x="2280" y="1800" width="240" height="210" as="geometry">
             <mxRectangle x="210" y="120" width="120" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-59" value="+Position* ValidMoves()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-58">
+        <mxCell id="b0TugOnntlRWFown4FGA-281" value="+ getType() : PieceType" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-58">
           <mxGeometry y="30" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-60" value="+Bool verifyMove (Position)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-58">
+        <mxCell id="b0TugOnntlRWFown4FGA-286" value="- validMoveGivenDirection( p : Position, dr : int, df : int ) : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-58">
           <mxGeometry y="60" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-61" value="+PieceType Type() {Return Queen}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-58">
+        <mxCell id="b0TugOnntlRWFown4FGA-285" value="- appendMovesForDirection( dr : int, df : int, moves: vector&amp;lt;Position&amp;gt;&amp;amp; ) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-58">
           <mxGeometry y="90" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-62" value="+Queen(Position, Colour)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-58">
+        <mxCell id="b0TugOnntlRWFown4FGA-284" value="+ validMoves() : vector&amp;lt;Position&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-58">
           <mxGeometry y="120" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-283" value="+ verifyMove( p : Position ) : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-58">
+          <mxGeometry y="150" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-282" value="+ clone( board : Board* ) : Piece*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-58">
+          <mxGeometry y="180" width="240" height="30" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-63" value="Pawn" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="2560" y="1800" width="240" height="150" as="geometry">
             <mxRectangle x="210" y="120" width="120" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-64" value="+Position* ValidMoves()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-63">
+        <mxCell id="b0TugOnntlRWFown4FGA-248" value="+ getType() : PieceType" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-63">
           <mxGeometry y="30" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-65" value="+Bool verifyMove (Position)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-63">
+        <mxCell id="b0TugOnntlRWFown4FGA-247" value="+ clone( board : Board* ) : Piece*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-63">
           <mxGeometry y="60" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-66" value="+PieceType Type() {Return Pawn}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-63">
+        <mxCell id="b0TugOnntlRWFown4FGA-246" value="+ verifyMove( p : Position ) : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-63">
           <mxGeometry y="90" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-67" value="+Pawn(Position, Colour)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-63">
+        <mxCell id="b0TugOnntlRWFown4FGA-245" value="+ validMoves() : vector&amp;lt;Position&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-63">
           <mxGeometry y="120" width="240" height="30" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-68" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=block;html=1;curved=0;rounded=0;endSize=8;startSize=8;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-63" target="b0TugOnntlRWFown4FGA-34">
@@ -315,7 +333,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-69" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=block;html=1;curved=0;rounded=0;endSize=8;startSize=8;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-58" target="b0TugOnntlRWFown4FGA-34">
+        <mxCell id="b0TugOnntlRWFown4FGA-69" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=block;html=1;curved=0;rounded=0;endSize=8;startSize=8;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-58" target="b0TugOnntlRWFown4FGA-25">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="1460" y="2040" as="sourcePoint" />
             <mxPoint x="1460" y="1900" as="targetPoint" />
@@ -324,12 +342,12 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-70" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=block;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endFill=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-53" target="b0TugOnntlRWFown4FGA-34">
+        <mxCell id="b0TugOnntlRWFown4FGA-70" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=block;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endFill=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-53" target="b0TugOnntlRWFown4FGA-25">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="1180" y="2040" as="sourcePoint" />
-            <mxPoint x="2000" y="1680" as="targetPoint" />
+            <mxPoint x="1980" y="1440" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="1985" y="1760" />
+              <mxPoint x="1980" y="1760" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -347,6 +365,12 @@
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-153" value="&lt;div&gt;# gameData : GameData*&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-74">
           <mxGeometry y="52" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-292" value="" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="b0TugOnntlRWFown4FGA-74">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="78" as="sourcePoint" />
+            <mxPoint x="280" y="78" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-76" value="&lt;i&gt;+ moveUpdate( latest : MoveInfo ) : void&lt;/i&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-74">
           <mxGeometry y="78" width="280" height="26" as="geometry" />
@@ -372,7 +396,7 @@
         <mxCell id="b0TugOnntlRWFown4FGA-192" value="&lt;i&gt;+ moveUpdate( latest : MoveInfo ) : void&lt;/i&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-77">
           <mxGeometry y="78" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-79" value="" style="edgeStyle=segmentEdgeStyle;endArrow=diamondThin;html=1;curved=0;rounded=0;endSize=8;startSize=8;endFill=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-3" target="b0TugOnntlRWFown4FGA-75">
+        <mxCell id="b0TugOnntlRWFown4FGA-79" value="" style="edgeStyle=segmentEdgeStyle;endArrow=diamondThin;html=1;curved=0;rounded=0;endSize=8;startSize=8;endFill=0;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-3" target="b0TugOnntlRWFown4FGA-75">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="870" y="750" as="sourcePoint" />
             <mxPoint x="870" y="410" as="targetPoint" />
@@ -390,14 +414,14 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-81" value="Struct Position" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="2550" y="1300" width="270" height="90" as="geometry">
+          <mxGeometry x="2280" y="1200" width="270" height="90" as="geometry">
             <mxRectangle x="210" y="120" width="120" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-82" value="+ Int Rank, File" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-81">
+        <mxCell id="b0TugOnntlRWFown4FGA-82" value="+ rank, file : int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-81">
           <mxGeometry y="30" width="270" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-83" value="+ String Algebraic()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-81">
+        <mxCell id="b0TugOnntlRWFown4FGA-83" value="+ inBounds( size : int ) : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-81">
           <mxGeometry y="60" width="270" height="30" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-84" value="" style="edgeStyle=segmentEdgeStyle;endArrow=diamondThin;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endFill=1;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-81" target="b0TugOnntlRWFown4FGA-26">
@@ -405,33 +429,39 @@
             <mxPoint x="2240" y="1310" as="sourcePoint" />
             <mxPoint x="2170" y="1450" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="2550" y="1455" />
+              <mxPoint x="2280" y="1245" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-85" value="GameData" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1160" y="200" width="300" height="220" as="geometry" />
+          <mxGeometry x="1160" y="200" width="280" height="220" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-221" value="- DEFAULT_HISTORY_SIZE : int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-85">
-          <mxGeometry y="26" width="300" height="26" as="geometry" />
+          <mxGeometry y="26" width="280" height="26" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-86" value="- history : vector&amp;lt;MoveInfo&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-85">
-          <mxGeometry y="52" width="300" height="26" as="geometry" />
+          <mxGeometry y="52" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-295" value="" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="b0TugOnntlRWFown4FGA-85">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="78" as="sourcePoint" />
+            <mxPoint x="280" y="78" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-222" value="&lt;span&gt;+ moveUpdate( latest : MoveInfo ) : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="b0TugOnntlRWFown4FGA-85">
-          <mxGeometry y="78" width="300" height="26" as="geometry" />
+          <mxGeometry y="78" width="280" height="26" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-224" value="&lt;span&gt;+ setupUpdate( latest : MoveInfo ) : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="b0TugOnntlRWFown4FGA-85">
-          <mxGeometry y="104" width="300" height="26" as="geometry" />
+          <mxGeometry y="104" width="280" height="26" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-223" value="&lt;span&gt;+ undoUpdate( latest : MoveInfo ) : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="b0TugOnntlRWFown4FGA-85">
-          <mxGeometry y="130" width="300" height="26" as="geometry" />
+          <mxGeometry y="130" width="280" height="26" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-88" value="+ latestMoves( n : int ) : vector&amp;lt;MoveInfo&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-85">
-          <mxGeometry y="156" width="300" height="32" as="geometry" />
+          <mxGeometry y="156" width="280" height="32" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-225" value="+ gameLength() : int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-85">
-          <mxGeometry y="188" width="300" height="32" as="geometry" />
+          <mxGeometry y="188" width="280" height="32" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-90" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=block;html=1;curved=0;rounded=0;endSize=8;startSize=8;endFill=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-85" target="b0TugOnntlRWFown4FGA-77">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -460,25 +490,13 @@
         <mxCell id="b0TugOnntlRWFown4FGA-95" value="+ ibi : InvisibleBoardInfo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-91">
           <mxGeometry y="156" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-96" value="" style="edgeStyle=segmentEdgeStyle;endArrow=diamondThin;html=1;curved=0;rounded=0;endSize=8;startSize=8;endFill=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-25" target="b0TugOnntlRWFown4FGA-4">
+        <mxCell id="b0TugOnntlRWFown4FGA-96" value="" style="edgeStyle=segmentEdgeStyle;endArrow=diamondThin;html=1;curved=0;rounded=0;endSize=8;startSize=8;endFill=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=-0.002;exitY=0.036;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-25" target="b0TugOnntlRWFown4FGA-4">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1990" y="1380" as="sourcePoint" />
+            <mxPoint x="1830" y="1210" as="sourcePoint" />
             <mxPoint x="1490" y="860" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="1985" y="1330" />
-              <mxPoint x="1480" y="1330" />
+              <mxPoint x="1480" y="1211" />
               <mxPoint x="1480" y="515" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-97" value="" style="edgeStyle=segmentEdgeStyle;endArrow=diamondThin;html=1;curved=0;rounded=0;endSize=8;startSize=8;endFill=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.049;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-25" target="b0TugOnntlRWFown4FGA-92">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1490" y="1430" as="sourcePoint" />
-            <mxPoint x="1620" y="360" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="1850" y="1427" />
-              <mxPoint x="1640" y="1427" />
-              <mxPoint x="1640" y="239" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -502,25 +520,43 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-102" value="TextUI" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="560" width="280" height="182" as="geometry" />
+          <mxGeometry x="40" y="560" width="280" height="286" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-103" value="- Char[8][8] Board_Text" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
+        <mxCell id="b0TugOnntlRWFown4FGA-103" value="- boardDisplay : vector&amp;lt;vector&amp;lt;char&amp;gt;&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
           <mxGeometry y="26" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-104" value="- Char[n][8] History_Text&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
+        <mxCell id="b0TugOnntlRWFown4FGA-104" value="- historyDisplay : vector&amp;lt;string&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
           <mxGeometry y="52" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-105" value="- Game_Data *History" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
+        <mxCell id="b0TugOnntlRWFown4FGA-105" value="- historyWidth : int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
           <mxGeometry y="78" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-106" value="+ Update(MoveInfo)&amp;nbsp; &amp;nbsp; &amp;nbsp;//updates the texts and outputs" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
+        <mxCell id="b0TugOnntlRWFown4FGA-106" value="- historyDepth : int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
           <mxGeometry y="104" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-107" value="+ Text_UI(Board*, Game_Data*)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
+        <mxCell id="b0TugOnntlRWFown4FGA-291" value="" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="b0TugOnntlRWFown4FGA-102">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="130" as="sourcePoint" />
+            <mxPoint x="280" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-107" value="- updateBoardDisplay( latest : MoveInfo ) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
           <mxGeometry y="130" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-108" value="+ Output()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
+        <mxCell id="b0TugOnntlRWFown4FGA-108" value="- updateHistoryDisplay() : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
           <mxGeometry y="156" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-287" value="&lt;span&gt;+&amp;nbsp;moveUpdate( latest : MoveInfo ) : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
+          <mxGeometry y="182" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-289" value="&lt;span&gt;+ setupUpdate( latest : MoveInfo ) : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
+          <mxGeometry y="208" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-288" value="&lt;span&gt;+ undoUpdate( latest : MoveInfo ) : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
+          <mxGeometry y="234" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-290" value="&lt;span&gt;-&amp;nbsp;output() : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="b0TugOnntlRWFown4FGA-102">
+          <mxGeometry y="260" width="280" height="26" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-109" value="" style="edgeStyle=segmentEdgeStyle;endArrow=block;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endFill=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-102" target="b0TugOnntlRWFown4FGA-74">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -544,51 +580,67 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-111" value="GUI" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="600" y="560" width="280" height="208" as="geometry" />
+          <mxGeometry x="600" y="560" width="280" height="428" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-112" value="- Pixmap GUI_Image" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+        <mxCell id="b0TugOnntlRWFown4FGA-226" value="- DEFAULT_WIDTH : int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
           <mxGeometry y="26" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-113" value="- Display *display" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+        <mxCell id="b0TugOnntlRWFown4FGA-227" value="- DEFAULT_HEIGHT : int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
           <mxGeometry y="52" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-114" value="- Game_Data *History" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+        <mxCell id="b0TugOnntlRWFown4FGA-112" value="- d : Display*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
           <mxGeometry y="78" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-115" value="+ Update(MoveInfo)&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;//updates GUI_Image" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+        <mxCell id="b0TugOnntlRWFown4FGA-113" value="- w : Window" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
           <mxGeometry y="104" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-116" value="+ GUI(Display *Board*, Game_Data*)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+        <mxCell id="b0TugOnntlRWFown4FGA-114" value="- s, width, height : int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
           <mxGeometry y="130" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-117" value="- Char[n][8] History_Text&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+        <mxCell id="b0TugOnntlRWFown4FGA-115" value="- colours[5] : unsigned long" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
           <mxGeometry y="156" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-118" value="- Output()&amp;nbsp; &amp;nbsp;//forwards GUI to display" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
-          <mxGeometry y="182" width="280" height="26" as="geometry" />
+        <mxCell id="b0TugOnntlRWFown4FGA-293" value="" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="b0TugOnntlRWFown4FGA-111">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="181.40999999999997" as="sourcePoint" />
+            <mxPoint x="280" y="181.40999999999997" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-119" value="" style="edgeStyle=segmentEdgeStyle;endArrow=diamondThin;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0;exitY=0;exitDx=0;exitDy=0;endFill=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-85" target="b0TugOnntlRWFown4FGA-114">
+        <mxCell id="b0TugOnntlRWFown4FGA-116" value="- drawPiece( type : PieceType, p : Position, c : Colour ) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+          <mxGeometry y="182" width="280" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-117" value="- drawBackground() : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+          <mxGeometry y="214" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-118" value="- drawBackground( p : Position ) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+          <mxGeometry y="240" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-228" value="+ reloadByMoveInfo( move : MoveInfo&amp;amp; ) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+          <mxGeometry y="266" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-229" value="+ fillRectangle( x : int, y : int, width : int, height : int, colour : unsigned long ) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+          <mxGeometry y="292" width="280" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-230" value="&lt;span&gt;+ moveUpdate( latest : MoveInfo ) : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+          <mxGeometry y="324" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-233" value="&lt;span&gt;+ output() : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+          <mxGeometry y="350" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-232" value="&lt;span&gt;+ setupUpdate( latest : MoveInfo ) : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+          <mxGeometry y="376" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-231" value="&lt;span&gt;+ undoUpdate( latest : MoveInfo ) : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" vertex="1" parent="b0TugOnntlRWFown4FGA-111">
+          <mxGeometry y="402" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-119" value="" style="edgeStyle=segmentEdgeStyle;endArrow=diamondThin;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0;exitY=0;exitDx=0;exitDy=0;endFill=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-85" target="b0TugOnntlRWFown4FGA-153">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="1040" y="480" as="sourcePoint" />
             <mxPoint x="860" y="850" as="targetPoint" />
             <Array as="points">
               <mxPoint x="1160" y="210" />
               <mxPoint x="1000" y="210" />
-              <mxPoint x="1000" y="651" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-120" value="" style="edgeStyle=segmentEdgeStyle;endArrow=diamondThin;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endFill=1;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-85" target="b0TugOnntlRWFown4FGA-105">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1220" y="370" as="sourcePoint" />
-            <mxPoint x="400" y="820" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="1160" y="210" />
-              <mxPoint x="1000" y="210" />
-              <mxPoint x="1000" y="480" />
-              <mxPoint x="520" y="480" />
-              <mxPoint x="520" y="650" />
-              <mxPoint x="320" y="650" />
+              <mxPoint x="1000" y="265" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -610,65 +662,17 @@
             <Array as="points">
               <mxPoint x="1680" y="210" />
               <mxPoint x="1600" y="210" />
-              <mxPoint x="1600" y="239" />
+              <mxPoint x="1600" y="265" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-123" value="Minmax_Tree" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="3670" y="746" width="300" height="186" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-124" value="+Std::Queue End_Nodes" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-123">
-          <mxGeometry y="26" width="300" height="32" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-125" value="+Minmax_Tree_Node *Top" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-123">
-          <mxGeometry y="58" width="300" height="32" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-126" value="+Depth_First_Bot *Centipawn_Refrence" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-123">
-          <mxGeometry y="90" width="300" height="32" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-127" value="+Minmax_Tree(Depth_First_Bot *)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-123">
-          <mxGeometry y="122" width="300" height="32" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-128" value="+MoveInfo Evaluate_Tree(int seconds)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-123">
-          <mxGeometry y="154" width="300" height="32" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-129" value="Minmax_Tree_Node" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="4080" y="756" width="300" height="186" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-130" value="+move Last_Move" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-129">
-          <mxGeometry y="26" width="300" height="32" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-131" value="+int Valuation" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-129">
-          <mxGeometry y="58" width="300" height="32" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-132" value="+Minmax_Tree_Node *parent" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-129">
-          <mxGeometry y="90" width="300" height="32" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-133" value="+Vector&amp;lt;Minmax_Tree_Node&amp;gt; *Children" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-129">
-          <mxGeometry y="122" width="300" height="32" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-134" value="+int favourite_child_index" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-129">
-          <mxGeometry y="154" width="300" height="32" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-135" value="Bot_Lvl4" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="3650" y="610" width="300" height="58" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-136" value="Minmax_Tree Evaluator" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-135">
-          <mxGeometry y="26" width="300" height="32" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-137" value="" style="whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="3580" y="488" width="810" height="630" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-138" value="Things we might add later" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="3900" y="522" width="270" height="48" as="geometry" />
-        </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-139" value="" style="group" connectable="0" vertex="1" parent="1">
-          <mxGeometry x="2020" y="640" width="990" height="258" as="geometry" />
+        <mxCell id="b0TugOnntlRWFown4FGA-139" value="" style="group;fontStyle=2" connectable="0" vertex="1" parent="1">
+          <mxGeometry x="2060" y="720" width="990" height="258" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-140" value="&lt;i&gt;Bot&lt;/i&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-139">
           <mxGeometry x="340" width="280" height="82" as="geometry" />
         </mxCell>
-        <mxCell id="b0TugOnntlRWFown4FGA-141" value="+ autoMovable : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-140">
+        <mxCell id="b0TugOnntlRWFown4FGA-141" value="+ autoMovable() : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-140">
           <mxGeometry y="26" width="280" height="24" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-142" value="&lt;i&gt;+ makeMove() : MoveInfo&lt;/i&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-140">
@@ -728,8 +732,17 @@
             </Array>
           </mxGeometry>
         </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-234" value="Human" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-139">
+          <mxGeometry x="20" width="280" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-235" value="+ autoMovable() : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-234">
+          <mxGeometry y="26" width="280" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-236" value="&lt;span&gt;+ makeMove() : MoveInfo&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=2" vertex="1" parent="b0TugOnntlRWFown4FGA-234">
+          <mxGeometry y="50" width="280" height="32" as="geometry" />
+        </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-198" value="Bot4" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="3000" y="840" width="280" height="58" as="geometry" />
+          <mxGeometry x="3040" y="920" width="280" height="58" as="geometry" />
         </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-199" value="+ makeMove() : MoveInfo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-198">
           <mxGeometry y="26" width="280" height="32" as="geometry" />
@@ -761,6 +774,12 @@
         <mxCell id="b0TugOnntlRWFown4FGA-211" value="- mode : Mode" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-202">
           <mxGeometry y="208" width="280" height="26" as="geometry" />
         </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-297" value="" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="b0TugOnntlRWFown4FGA-202">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="234" as="sourcePoint" />
+            <mxPoint x="280" y="234" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="b0TugOnntlRWFown4FGA-214" value="+ run() : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-202">
           <mxGeometry y="234" width="280" height="26" as="geometry" />
         </mxCell>
@@ -788,6 +807,42 @@
               <mxPoint x="1600" y="505" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-274" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;endSize=8;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-267" target="b0TugOnntlRWFown4FGA-207">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2240" y="450" />
+              <mxPoint x="2100" y="450" />
+              <mxPoint x="2100" y="609" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-267" value="&lt;i&gt;Player&lt;/i&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2240" y="440" width="280" height="138" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-268" value="- board : Board*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="b0TugOnntlRWFown4FGA-267">
+          <mxGeometry y="26" width="280" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-269" value="- colour : Colour" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=2" vertex="1" parent="b0TugOnntlRWFown4FGA-267">
+          <mxGeometry y="50" width="280" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-298" value="" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="b0TugOnntlRWFown4FGA-267">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="80" as="sourcePoint" />
+            <mxPoint x="280" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-271" value="&lt;span&gt;+ makeMove() : MoveInfo&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=2" vertex="1" parent="b0TugOnntlRWFown4FGA-267">
+          <mxGeometry y="82" width="280" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-270" value="+ autoMovable() : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=2" vertex="1" parent="b0TugOnntlRWFown4FGA-267">
+          <mxGeometry y="114" width="280" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-272" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endArrow=block;endFill=0;endSize=8;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-234" target="b0TugOnntlRWFown4FGA-267">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b0TugOnntlRWFown4FGA-273" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endArrow=block;endFill=0;endSize=8;" edge="1" parent="1" source="b0TugOnntlRWFown4FGA-140" target="b0TugOnntlRWFown4FGA-267">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
