@@ -4,7 +4,11 @@
 
 // add latest move update from board
 void GameData::moveUpdate(MoveInfo latest) {
-    if(latest.piece == nullptr || latest.algebraic().empty()) {return;} //cannot be added to gameData
+    if(latest.piece == nullptr || latest.algebraic().empty()) {
+        cerr << latest.piece << " " << latest.algebraic()  << "."<< endl;
+        cerr << "Invalid move update received, piece is nullptr or algebraic notation is empty." << endl;
+        return;
+    } //cannot be added to gameData
         history.push_back(latest);
     
 }
@@ -38,5 +42,9 @@ vector<MoveInfo> GameData::latestMoves(int n) {
 // total steps in game so far
 int GameData::gameLength() const {
     return history.size();
+}
+
+void GameData::clearHistory() {
+    history.clear(); // Clear the history vector
 }
 

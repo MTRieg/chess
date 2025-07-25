@@ -54,6 +54,8 @@ class Board {
     Board(int size = 8);
     ~Board();
 
+    void Clear();
+
     void init();
     int getSize() const;
     const vector<MoveInfo> getValidMoves(Colour colour) const;

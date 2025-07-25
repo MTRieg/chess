@@ -32,6 +32,20 @@ Board::~Board() {
     delete[] board; // Delete the board array
 }
 
+void Board::Clear(){
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            delete board[i][j]; // Delete each piece
+            board[i][j] = nullptr; // Reset the square to nullptr
+        }
+    }
+    ibi = InvisibleBoardInfo(); // Reset invisible board info
+    checkCache = false;
+    checkmateCache = false;
+    stalemateCache = false;
+    notifyObserversSetup(MoveInfo()); // Notify observers that the board has been cleared
+}
+
 
 Board::Board(const Board& other) {
     
@@ -651,7 +665,7 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
         if(move.capturedPiece) {
             move.algebraicNotation = Algebraic(move.oldPos)[0] + "x"; //add the file of the piece
         }
-        move.algebraicNotation += Algebraic(move.piece->getPosition()) + " = " + firstChar(move.piece->getType());
+        move.algebraicNotation += Algebraic(move.piece->getPosition()) + "=" + firstChar(move.piece->getType());
     }else if(move.piece->getType() == Piece::PieceType::Pawn) {
         if(move.capturedPiece) {
             move.algebraicNotation = Algebraic(move.oldPos)[0];
@@ -735,6 +749,8 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
             }
         }
     }
+
+    return;
     
     
 }

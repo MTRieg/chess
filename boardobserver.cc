@@ -18,7 +18,8 @@ MoveInfo::~MoveInfo() {
 MoveInfo::MoveInfo(const MoveInfo& other)
     : oldPos{other.oldPos}, piece{other.piece ? other.piece->clone() : nullptr},
       capturedPiece{other.capturedPiece ? other.capturedPiece->clone() : nullptr},
-      isEnPassant{other.isEnPassant}, isPromotion{other.isPromotion}, ibi{other.ibi} {}
+      isEnPassant{other.isEnPassant}, isPromotion{other.isPromotion}, ibi{other.ibi},
+      algebraicNotation{other.algebraicNotation} {}
 
 MoveInfo& MoveInfo::operator=(const MoveInfo& other) {
     if (this != &other) {
@@ -30,15 +31,18 @@ MoveInfo& MoveInfo::operator=(const MoveInfo& other) {
         isEnPassant = other.isEnPassant;
         isPromotion = other.isPromotion;
         ibi = other.ibi;
+        algebraicNotation = other.algebraicNotation;
     }
     return *this;
 }
 
 MoveInfo::MoveInfo(MoveInfo&& other) noexcept
     : oldPos{other.oldPos}, piece{other.piece}, capturedPiece{other.capturedPiece},
-      isEnPassant{other.isEnPassant}, isPromotion{other.isPromotion}, ibi{other.ibi} {
+      isEnPassant{other.isEnPassant}, isPromotion{other.isPromotion}, ibi{other.ibi}, 
+      algebraicNotation{other.algebraicNotation} {
     other.piece = nullptr;
     other.capturedPiece = nullptr;
+
 }
 
 MoveInfo& MoveInfo::operator=(MoveInfo&& other) noexcept {
@@ -53,6 +57,7 @@ MoveInfo& MoveInfo::operator=(MoveInfo&& other) noexcept {
         isEnPassant = other.isEnPassant;
         isPromotion = other.isPromotion;
         ibi = other.ibi;
+        algebraicNotation = other.algebraicNotation;
     }
     return *this;
 }

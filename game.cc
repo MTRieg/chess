@@ -256,6 +256,8 @@ void Game::play() {
     if (cmd == "resign") {
         cout << players[playerTurn]->getColour() << " resigned." << endl;
         mode = Mode::Home;
+        gameData->clearHistory(); // Clear the game history
+        board->Clear();
         nextTurn();
         ++scores[playerTurn];
         return;
@@ -364,6 +366,8 @@ void Game::play() {
             cout << players[playerTurn]->getColour() << " was checkmated." << endl;
             mode = Mode::Home;
             nextTurn();
+            gameData->clearHistory();
+            board->Clear();
             ++scores[playerTurn];
             return;
         }
@@ -374,6 +378,8 @@ void Game::play() {
             for(auto& score : scores){
                 score += 0.5; // reset scores
             }
+            gameData->clearHistory();
+            board->Clear();
             return;
         }
         

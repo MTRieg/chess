@@ -10,6 +10,7 @@ class GameData : public BoardObserver{
 
     public:
     GameData() = default;
+    void clearHistory();
     void moveUpdate(MoveInfo latest) override;
     void undoUpdate(MoveInfo latest) override;
     void setupUpdate(MoveInfo latest) override;
@@ -17,4 +18,6 @@ class GameData : public BoardObserver{
     int gameLength() const;
 
 };
+
+
 
