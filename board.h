@@ -15,7 +15,10 @@ class Board {
     bool checkCache = false, checkmateCache = false, stalemateCache = false;
     InvisibleBoardInfo ibi;
 
-    void notifyObservers(MoveInfo latest);
+    void notifyObserversMove(MoveInfo latest);
+    void notifyObserversUndo(MoveInfo latest);
+    void notifyObserversSetup(MoveInfo latest);
+
     void initHomeRow(Colour c, int row);
 
     //the four of these could be made boolean, but the public functions are 
@@ -31,6 +34,7 @@ class Board {
     void undoMove(const Position &oldPos, const Position &newPos, const Piece *const capturedPiece = nullptr);
     //properly undoes a move, restoring the previous state of the board (still no board notifications)
     void undoMove(const MoveInfo& move);
+    
 
     bool calculateCheck(Colour colour);
     bool calculateCheckmate(Colour colour, bool useCheckCache = true);
@@ -64,6 +68,9 @@ class Board {
     void leaveSetupMode(Colour colour);
 
     void movePiece(const MoveInfo& move);
+    void undoAndNotify(const MoveInfo& move);
+    
+
     void addObserver(BoardObserver* observer);
     void removeObserver(BoardObserver* observer);
     const Piece *pieceAtSquare(int file, int rank) const;

@@ -10,7 +10,9 @@ class GameData : public BoardObserver{
 
     public:
     GameData() = default;
-    void update(MoveInfo latest) override;
+    void moveUpdate(MoveInfo latest) override;
+    void undoUpdate(MoveInfo latest) override;
+    void setupUpdate(MoveInfo latest) override;
     vector<MoveInfo> latestMoves(int n = DEFAULT_HISTORY_SIZE);
     int gameLength() const;
 

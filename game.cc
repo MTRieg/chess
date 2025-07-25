@@ -287,7 +287,7 @@ void Game::play() {
             }
             cout << "computer move" << endl;
         }
-
+        return;
     }
 
     // human move
@@ -373,6 +373,17 @@ void Game::play() {
         
         return;
 
+    }else if (cmd == "undo") {
+        if (gameData->gameLength() > 0) {
+            MoveInfo lastMove = gameData->latestMoves(1)[0];
+            board->undoAndNotify(lastMove);
+            cout << "Undid last move." << endl;
+            previousTurn();
+        } else {
+            cout << "No moves to undo." << endl;
+            return;
+        }
+
     } else {
         cout << "Invalid command (else)" << endl;
     }
@@ -384,6 +395,10 @@ void Game::play() {
 void Game::nextTurn() {
     playerTurn = (playerTurn + 1) % players.size();
 }
+
+void Game::previousTurn() {
+        playerTurn = (playerTurn - 1 + players.size()) % players.size();
+    }
 
 void Game::printScores() const {
     cout << "Final Score:" << endl;

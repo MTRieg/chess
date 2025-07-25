@@ -59,7 +59,7 @@ void Board::init() {
     initHomeRow(Colour::White, 0);
     initHomeRow(Colour::Black, 7);
     setupMode = false; // Set to false after initialization
-    notifyObservers(MoveInfo());
+    notifyObserversSetup(MoveInfo()); // Notify observers that the board has been initialized
     // do not need to use leaveSetupMode() here because the code creates a valid non-check board
 }
 
@@ -73,7 +73,7 @@ void Board::addPiece(Piece* piece) {
     }
     board[pos.File][pos.Rank] = piece;
     if(setupMode) {
-        notifyObservers(MoveInfo{pos, piece, nullptr, false, false});
+        notifyObserversSetup(MoveInfo{pos, piece, nullptr, false, false});
     }
     
 }
@@ -89,7 +89,7 @@ void Board::removePiece(Position pos) {
     auto removedPiece = board[pos.File][pos.Rank];
     board[pos.File][pos.Rank] = nullptr;
     if(setupMode) {
-        notifyObservers(MoveInfo{pos, nullptr, removedPiece, false, false});
+        notifyObserversSetup(MoveInfo{pos, nullptr, removedPiece, false, false});
     }
 }
 
@@ -185,11 +185,24 @@ const InvisibleBoardInfo Board::BoardInfo() const{
     return ibi;
 }
 
-void Board::notifyObservers(MoveInfo latest) {
+void Board::notifyObserversMove(MoveInfo latest) {
     for (BoardObserver* observer : observers) {
-        observer->update(latest);
+        observer->moveUpdate(latest);
     }
 }
+
+void Board::notifyObserversUndo(MoveInfo latest) {
+    for (BoardObserver* observer : observers) {
+        observer->undoUpdate(latest);
+    }
+}
+
+void Board::notifyObserversSetup(MoveInfo latest) {
+    for (BoardObserver* observer : observers) {
+        observer->setupUpdate(latest);
+    }
+}
+
 
 void Board::addObserver(BoardObserver* observer) {
     observers.push_back(observer);
@@ -248,7 +261,7 @@ void Board::movePiece(const MoveInfo& move) {
 
     updateBoardInfo(ibi, move);
 
-    notifyObservers(move);
+    notifyObserversMove(move);
 
 
     Colour oppColour = (move.piece->getColour() == Colour::White) ? Colour::Black : Colour::White;
@@ -500,6 +513,15 @@ void Board::undoMove(const MoveInfo& move) {
 
 }
 
+void Board::undoAndNotify(const MoveInfo& move) {
+    undoMove(move);
+    notifyObserversUndo(move); // Notify observers about the undo action
+    Colour oppColour = (move.piece->getColour() == Colour::White) ? Colour::Black : Colour::White;
+    // Update check and checkmate status after undo
+    reevaluateCheckStalemateCheckmate(oppColour);
+}
+
+
 //colour is colour that might be in check
 bool Board::calculateCheck(Colour colour){
     Position kingPosition = {0,0};
@@ -698,6 +720,9 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
 
 MoveInfo Board::moveInfo(Position oldPos, Position newPos, Piece::PieceType promotionType) const{
 
+    if (!pieceAtPosition(oldPos)){
+        throw std::invalid_argument("No piece at the old position or piece does not match.");
+    }
 
     auto piece = clonePiece(pieceAtPosition(oldPos));
     piece->move(newPos);

@@ -40,6 +40,8 @@ class BoardObserver {
     public:
     BoardObserver() = default;
     virtual ~BoardObserver() = default;
-    virtual void update(MoveInfo latest) = 0;
+    virtual void moveUpdate(MoveInfo latest) = 0;
+    virtual void undoUpdate(MoveInfo latest) = 0;
+    virtual void setupUpdate(MoveInfo latest) = 0;
 
 };

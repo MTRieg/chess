@@ -15,15 +15,25 @@ MoveInfo Bot3::makeMove() {
         throw std::runtime_error("No valid moves available for Bot3.");
     }
 
-    // Randomly select one of the valid moves
+    std::vector<MoveInfo> nonCapturingMoves;
+    for(auto move : validMoves) {
+        if(move.capturedPiece == nullptr) {
+            nonCapturingMoves.push_back(move);
+        }
+    }
+
+
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, validMoves.size() - 1);
-
-    MoveInfo selectedMove = validMoves[dis(gen)];
-    
-    // Create and return a MoveInfo object representing the move
-    return selectedMove;
+    if(nonCapturingMoves.empty()) {
+        // If no non-capturing moves, select a random valid move
+        std::uniform_int_distribution<> dis(0, validMoves.size() - 1);
+        return validMoves[dis(gen)];
+    }else{
+        // If there are non-capturing moves, select one randomly
+        std::uniform_int_distribution<> dis(0, nonCapturingMoves.size() - 1);
+        return nonCapturingMoves[dis(gen)];
+    }
 }
 
 

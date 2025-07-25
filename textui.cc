@@ -1,5 +1,6 @@
 #include "textui.h"
 #include "piece.h"
+#include <math.h>
 
 TextUI::TextUI(Board* board, GameData* gameData)
     : AbstractUI(board, gameData) {
@@ -13,7 +14,7 @@ TextUI::TextUI(Board* board, GameData* gameData)
     board->addObserver(this);
 }
 
-void TextUI::update(MoveInfo latest) {
+void TextUI::updateBoardDisplay(MoveInfo latest) {
     
     // update board display based on board
     for (int i = 0; i < board->getSize(); ++i) {
@@ -35,19 +36,57 @@ void TextUI::update(MoveInfo latest) {
             boardDisplay[i][j] = pieceChar;
         }
     }
+}
 
-    // update history display
+void TextUI::updateHistoryDisplay() {
+    // clear the history display
     historyDisplay.clear();
-    int turn = gameData->gameLength() % 2; // get the current turn number
+    
+    // get the latest moves from gameData
     vector<MoveInfo> moves = gameData->latestMoves();
 
-    for(int i = turn; i < moves.size(); ++i) {
+    // update history display with the latest moves
+    int tabsInLastLine = gameData->gameLength() % historyWidth;
+    if (tabsInLastLine == 0) {tabsInLastLine = historyWidth;}
+    int firstMoveRecorded = max(0, (int)moves.size() - (historyWidth * (historyDepth - 1)) - tabsInLastLine);
+
+    for (int i=firstMoveRecorded; i < moves.size(); ++i) {
         historyDisplay.push_back(moves[i].algebraic());
     }
+}
+
+//in future updates (especially when we add rook movement info to moveinfo), we can optimize this
+//to only redraw the parts of the board that have changed
+//but for now, this is sufficient (despite not being optimal)
+
+void TextUI::moveUpdate(MoveInfo latest) {
+    
+    updateBoardDisplay(latest);
+    updateHistoryDisplay();
 
     // output!
     output();
 }
+
+void TextUI::undoUpdate(MoveInfo latest) {
+    
+    updateBoardDisplay(latest);
+    updateHistoryDisplay();
+
+    // output!
+    output();
+}
+
+void TextUI::setupUpdate(MoveInfo latest) {
+    
+    updateBoardDisplay(latest);
+    //setup updates do not affect history, so we do not update historyDisplay
+
+    // output!
+    output();
+}
+
+
 
 void TextUI::output() {
 

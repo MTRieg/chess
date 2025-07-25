@@ -32,6 +32,7 @@ class Game {
     void play();
     void setup();
     void nextTurn();
+    void previousTurn();
     void printScores() const;
 
 };
