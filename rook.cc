@@ -18,7 +18,7 @@ Piece::PieceType Rook::getType() const {
 }
 
 bool Rook::verifyMove(Position p) const {
-    if ((pos.Rank == p.Rank) != (pos.File == p.File)) {
+    if ((pos.Rank == p.Rank) && (pos.File == p.File)) {
         return false; // If the column and row are both different, it's not a valid rook move
                         // If the column and row are both the same, you're trying to move the piece 
                         // to the square it's already on, which is also not a valid move
