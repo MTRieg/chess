@@ -682,7 +682,8 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
         for(int i=0; i<size && !equivalentMoveSameFile; i++){
             if(i != move.oldPos.Rank //if it's not move.piece
                 && pieceAtSquare(move.oldPos.File, i)
-                && pieceAtSquare(move.oldPos.File, i)->getColour() == move.piece->getColour()){
+                && pieceAtSquare(move.oldPos.File, i)->getColour() == move.piece->getColour()
+                && pieceAtSquare(move.oldPos.File, i)->getType() == move.piece->getType()){
                 //loop over all squares the piece at that square can move to
                 for( Position positionPieceCanMove : pieceAtSquare(move.oldPos.File, i)->validMoves()){
                     if(positionPieceCanMove.Rank == move.piece->getPosition().Rank
@@ -699,7 +700,8 @@ void Board::updateAlgebraicNotation(const MoveInfo& move, const Board * const bo
         for(int i=0; i<size && !equivalentMoveSameRank; i++){
             if(i != move.oldPos.File //if it's not move.piece
                 && pieceAtSquare(i, move.oldPos.Rank)
-                && pieceAtSquare(i, move.oldPos.Rank)->getColour() == move.piece->getColour()){
+                && pieceAtSquare(i, move.oldPos.Rank)->getColour() == move.piece->getColour()
+                && pieceAtSquare(i, move.oldPos.Rank)->getType() == move.piece->getType()){
                 //loop over all squares the piece at that square can move to
                 for( Position positionPieceCanMove : pieceAtSquare(i, move.oldPos.Rank)->validMoves()){
                     if(positionPieceCanMove.Rank == move.piece->getPosition().Rank
